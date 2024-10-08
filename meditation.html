@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meditation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        font-size: small;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    body {
+        background-color: black;
+        overflow: hidden;
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px auto;
+        padding: 5px;
+        position: relative;
+        z-index: 1;
+        max-width: 100%; /* Adjust the width to fit the page */
+    }
+
+    header h1 {
+        font-size: 300%;
+        color: white;
+        font-family: cursive;
+        text-align: center;
+        flex: 1; /* Allow heading to take the central space */
+    }
+
+    header span {
+        font-size: 120%;
+        color: #b74b4b;
+        font-family: cursive;
+    }
+
+    .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .image {
+        margin: 10px 30px 10px 20px;
+    }
+
+    .image img {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .content p {
+        font-size: 160%;
+        margin: 10px 20px 10px 20px;
+        line-height: 1.2;
+        letter-spacing: 1.1;
+    }
+
+    .content h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 250%;
+    }
+
+    .content span {
+        font-size: 100%;
+    }
+
+    /* Style for the Spline 3D model */
+    spline-viewer {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 60px; /* Adjusted to place it above the h3 */
+        left: 65%;
+        transform: translateX(-50%); /* Center horizontally */
+        z-index: 0;
+    }
+  </style>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1><span>Meditate</span> now!</h1>
+        <!-- Adjusted position for the 3D model to be centered above h3 -->
+        <spline-viewer url="https://prod.spline.design/8wuc6LWkrrD-oPD7/scene.splinecode"></spline-viewer>
+    </header>
+
+    <section class="main">
+        <div class="image">
+            <img src="https://wallpaperaccess.com/full/654400.jpg" height="500px" width="500px" alt="Meditation image">
+        </div>
+        <div class="content">
+            <h3>Meditation is the essence of <span>life</span></h3>
+            <p>Meditation has many health benefits like calming your body and improving your immune system. And there's no right way to meditate, either. In fact, there are many different techniques from sound baths to manifestation meditation. There's a form of meditation for just about everyone. Learn how to use meditation to relieve stress and tension, relax the body, find focus, and center your mind.</p>
+        </div>
+    </section>
+</body>
+</html>
