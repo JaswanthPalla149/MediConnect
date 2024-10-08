@@ -1,0 +1,112 @@
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+<spline-viewer url="https://prod.spline.design/a5HjxhPidaVq4a8V/scene.splinecode"></spline-viewer>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self-Improvement</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        font-size: small;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    body {
+        background-color: black;
+        overflow: hidden; /* Prevent scrollbars from appearing */
+        pointer-events: none; /* Prevent body from capturing pointer events */
+    }
+
+    spline-viewer {
+        position: absolute; /* Set to fixed to cover the entire background */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Place behind other content */
+        pointer-events: auto; /* Allow spline viewer to capture pointer events */
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        margin: 30px;
+        padding: 5px;
+        position: relative; /* Required to ensure header is above the background */
+        z-index: 1; /* Higher than the background */
+        pointer-events: auto; /* Allow header to capture pointer events */
+    }
+
+    header h1 {
+        font-size: 300%;
+        color: white;
+        font-family: cursive;
+    }
+
+    header span {
+        font-size: 120%;
+        color: #b74b4b;
+        font-family: cursive;
+    }
+
+    .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative; /* Required to ensure main content is above the background */
+        z-index: 1; /* Higher than the background */
+        pointer-events: auto; /* Allow main content to capture pointer events */
+    }
+
+    .image {
+        margin: 10px 30px 10px 20px;
+    }
+
+    .image img {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .content p {
+        font-size: 160%;
+        margin: 10px 20px 10px 20px;
+        line-height: 1.2;
+        letter-spacing: 1.1;
+        font-family: monospace;
+    }
+
+    .content h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 250%;
+    }
+
+    .content span {
+        font-size: 100%;
+    }
+  </style>
+</head>
+
+<body>
+    <header>
+        <h1><span>Improve</span> yourself!</h1>
+    </header>
+
+    <section class="main">
+        <div class="image">
+            <img src="self-improvement.jpg" height="500px" width="500px" alt="Meditation image">
+        </div>
+        <div class="content">
+            <h3>IT IS NOT THE MOUNTAIN WE CONQUER<span> BUT OURSELVES</span></h3>
+            <p>We are all works-in-progress. And it takes effort and dedication to grow and evolve in a positive direction. Fortunately, there is never a bad time to set new goals for yourself, and it's never too late to pick up a habit that can improve your well-being for the rest of your life. Whether you are dealing with stress, working through relationship struggles, or simply trying to change your life in small ways, there are many strategies available to help you be the best version of yourself.</p>
+        </div>
+    </section>
+</body>
+</html>
