@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: black; /* Background color for the page */
+            color: white; /* Text color */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .spline-container {
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>3D Model Viewer</h1>
+    <div class="spline-container">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.29/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/orb5rDn4KrJ3lMXa/scene.splinecode"></spline-viewer>
+    </div>
+</body>
+</html>
