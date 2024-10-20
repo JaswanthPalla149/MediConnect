@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Post'); // Ensure this path is correct
+const Post = require('../models/Post'); 
 
 // POST: Create a new post
 router.post('/', async (req, res) => {
@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 
     try {
         const savedPost = await newPost.save();
-        res.status(201).json(savedPost); // Respond with the created post
+        res.status(201).json(savedPost); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

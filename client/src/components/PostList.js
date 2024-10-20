@@ -9,7 +9,7 @@ const PostList = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await axios.get('http://localhost:3000/api/posts');
+                const res = await axios.get('http://localhost:5000/api/posts');
                 setPosts(res.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -21,7 +21,7 @@ const PostList = () => {
     
     const handleLikePost = async (postId) => {
         try {
-            const res = await axios.post(`http://localhost:3000/api/posts/${postId}/like`);
+            const res = await axios.post(`http://localhost:5000/api/posts/${postId}/like`);
             setPosts((prevPosts) => 
                 prevPosts.map((post) => (post._id === res.data._id ? res.data : post))
             );
@@ -33,7 +33,7 @@ const PostList = () => {
     
     const handleCommentPost = async (postId, username, content) => {
         try {
-            const res = await axios.post(`http://localhost:3000/api/posts/${postId}/comment`, { username, content });
+            const res = await axios.post(`http://localhost:5000/api/posts/${postId}/comment`, { username, content });
             setPosts((prevPosts) =>
                 prevPosts.map((post) => (post._id === res.data._id ? res.data : post))
             );
