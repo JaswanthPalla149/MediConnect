@@ -4,6 +4,7 @@ import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import Home from './components/Home';
 import Chatbot from './components/Chatbot';
+import Sections from './components/Sections'; 
 import { Navbar, Nav, Container, Alert } from 'react-bootstrap';
 import './App.css';
 
@@ -43,11 +44,12 @@ const App = () => {
                 {loading && <Alert variant="info">Loading posts...</Alert>} 
                 {error && <Alert variant="danger">{error}</Alert>} 
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/forum" element={<PostList posts={posts} setPosts={setPosts} />} />
-                    <Route path="/create-post" element={<PostForm onPostCreated={handlePostCreated} />} />
-                    <Route path="/chatbot" element={<Chatbot />} />
-                </Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/forum" element={<PostList posts={posts} setPosts={setPosts} />} />
+    <Route path="/create-post" element={<PostForm onPostCreated={handlePostCreated} />} />
+    <Route path="/chatbot" element={<Chatbot />} />
+    <Route path="/sections" element={<Sections />} /> {/* Add Sections Route */}
+</Routes>
             </Container>
         </Router>
     );
@@ -63,21 +65,36 @@ const DynamicNavbar = () => {
                 <>
                     <Nav.Link as={Link} to="/forum">Community Forum</Nav.Link>
                     <Nav.Link as={Link} to="/chatbot">Chatbot</Nav.Link>
+                    <Nav.Link as={Link} to="/sections">Explore Sections</Nav.Link>  
                 </>
             );
         } else if (location.pathname === "/forum") {
             return (
                 <>
                     <Nav.Link as={Link} to="/create-post">Create Post</Nav.Link>
+                    <Nav.Link as={Link} to="/">Back to Home</Nav.Link> 
+                </>
+            );
+        } else if (location.pathname === "/sections") {
+            return (
+                <>
+                    <Nav.Link as={Link} to="/">Back to Home</Nav.Link> 
+                </>
+            );
+        } else if (location.pathname === "/chatbot") {
+            return (
+                <>
+                    <Nav.Link as={Link} to="/">Back to Home</Nav.Link> 
                 </>
             );
         }
         return null; 
     };
+    
 
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand as={Link} to="/">Community Hub</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">Manaswini</Navbar.Brand>
             <Nav className="ml-auto">
                 {renderLinks()} {/* Dynamically render navigation links */}
             </Nav>
