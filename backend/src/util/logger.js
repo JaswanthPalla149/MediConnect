@@ -1,4 +1,4 @@
-const morgan = require('morgan');
+/*const morgan = require('morgan');
 const rfs = require('rotating-file-stream');
 const path = require('path');
 const fs = require('fs');
@@ -18,4 +18,4 @@ const accessLogStream = rfs('access.log', {
 module.exports = {
     dev: morgan('dev'),
     combined: morgan('combined', { stream: accessLogStream })
-}
+}*/

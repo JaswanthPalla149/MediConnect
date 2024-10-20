@@ -17,7 +17,7 @@ const PostForm = ({ onPostCreated }) => {
         setSuccessMessage(''); 
 
         try {
-            const response = await fetch('http://localhost:3000/api/posts', {
+            const response = await fetch('http://localhost:5000/api/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
