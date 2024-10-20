@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        font-size: small;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+    }
+
+    body {
+        background-color: black;
+        overflow: hidden; /* Prevent scrollbars from appearing */
+        position: relative;
+    }
+
+    /* Make the Spline 3D viewer cover the entire page */
+    spline-viewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1; /* Set behind all other content */
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        margin: 30px;
+        padding: 5px;
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 300%;
+        color: white;
+        font-family: cursive;
+    }
+
+    header span {
+        font-size: 120%;
+        color: #b74b4b;
+        font-family: cursive;
+    }
+
+    .main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .image {
+        margin: 10px 30px 10px 20px;
+    }
+
+    .image img {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .content p {
+        font-size: 160%;
+        margin: 10px 20px 10px 20px;
+        line-height: 1.2;
+        letter-spacing: 1.1;
+        color: white; /* Ensure text is readable against the background */
+    }
+
+    .content h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 250%;
+    }
+
+    .content span {
+        font-size: 100%;
+        color: #ffcccb; /* Light color for better readability */
+    }
+
+  </style>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+</head>
+
+<body>
+    <spline-viewer url="https://prod.spline.design/27CEsnk-0oUHuEDK/scene.splinecode"></spline-viewer>
+
+    <header>
+        <h1><span>Be</span> Yourself!</h1>
+    </header>
+
+    <section class="main">
+        <div class="image">
+            <img src="https://www.euroschoolindia.com/wp-content/uploads/2023/08/adhd-meaning-symptoms-treatment.jpg" height="500px" width="500px" alt="ADHD image">
+        </div>
+        <div class="content">
+            <h3>Why fit in when you<span> were born to stand out?</span></h3>
+            <p>Attention-deficit/hyperactivity disorder (ADHD) is a common neurotype that is usually first diagnosed during childhood though diagnoses in adults have surged in the past few years. More than six million children in the U.S. between the ages of 3 and 17 have been diagnosed with ADHD.</p>
+            <p>It is characterized by patterns of inattention, hyperactivity, and impulsivity that make it difficult for people to function in a way that's deemed "standard" or neurotypical.</p>
+            <p>ADHD is lifelong. While traits do change with time, they can still interfere with an adult's functioning. Relationships, health, work, and finances are just a few areas that may be impacted. There are management options, including medications and therapies, as well as helpful strategies that can help you live well with ADHD.</p>
+        </div>
+    </section>
+</body>
+</html>
