@@ -28,14 +28,7 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Button Styles */
 button {
   transition: transform 0.2s;
 }
@@ -44,7 +37,55 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Card Styles */
 .card {
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* DynamicNavbar Styles */
+
+/* General Navbar Styling */
+.navbar {
+  background-color: #f8f9fa; /* Light background color */
+  padding: 1rem 2rem; /* Padding for top and bottom, left and right */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Navbar Brand Styling */
+.navbar-brand {
+  font-size: 1.5rem; /* Increase font size for brand */
+  font-weight: bold; /* Make brand name bold */
+  color: #007bff; /* Bootstrap primary color */
+  text-decoration: none; /* Remove underline */
+}
+
+/* Navbar Link Styling */
+.nav-link {
+  color: #343a40; /* Dark color for text */
+  font-size: 1.1rem; /* Slightly larger font size */
+  margin: 0 15px; /* Space between links */
+  transition: color 0.3s, transform 0.2s; /* Smooth color transition */
+}
+
+/* Hover Effect for Links */
+.nav-link:hover {
+  color: #007bff; /* Change color on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem; /* Reduce padding on small screens */
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem; /* Decrease brand font size on mobile */
+  }
+
+  .nav-link {
+    font-size: 1rem; /* Decrease link font size on mobile */
+    margin: 0 10px; /* Reduce margin on mobile */
+  }
 }
