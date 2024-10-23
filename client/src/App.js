@@ -48,7 +48,7 @@ const App = () => {
     <Route path="/forum" element={<PostList posts={posts} setPosts={setPosts} />} />
     <Route path="/create-post" element={<PostForm onPostCreated={handlePostCreated} />} />
     <Route path="/chatbot" element={<Chatbot />} />
-    <Route path="/sections" element={<Sections />} /> {/* Add Sections Route */}
+    <Route path="/sections" element={<Sections />} /> 
 </Routes>
             </Container>
         </Router>
