@@ -16,7 +16,7 @@ app.use(express.json());
 
 // MongoDB connection
 console.log("MongoDB URI:", process.env.DB_URL); // or process.env.MONGO_URI if you changed it
-mongoose.connect("mongodb+srv://pallajaswanthroyal:Eren7674905380@cluster0.clgh2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+mongoose.connect("mongodb+srv://pallajaswanthroyal:xxx@cluster0.clgh2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
