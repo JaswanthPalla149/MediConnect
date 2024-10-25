@@ -1,11 +1,10 @@
-// server.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 //console.log("Environment Variables:", process.env);
-const postsRouter = require('./routes/posts'); // Ensure this path is correct
+const postsRouter = require('./routes/posts'); 
+const quizzesRouter = require('./routes/quizzes');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -15,8 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-console.log("MongoDB URI:", process.env.DB_URL); // or process.env.MONGO_URI if you changed it
-mongoose.connect("mongodb+srv://pallajaswanthroyal:xxx@cluster0.clgh2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+mongoose.connect(process.env.DB_URL
     , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -24,8 +22,9 @@ mongoose.connect("mongodb+srv://pallajaswanthroyal:xxx@cluster0.clgh2.mongodb.ne
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.error("MongoDB connection error:", err));
 
-// Define the API endpoint for posts
+// Define the API endpoint for posts and quizzes
 app.use('/api/posts', postsRouter);
+app.use('/api/quizzes', quizzesRouter);
 
 // Basic route for testing
 app.get('/', (req, res) => {
