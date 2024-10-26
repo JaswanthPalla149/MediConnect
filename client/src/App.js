@@ -86,7 +86,7 @@ const DynamicNavbar = () => {
 
     const renderLinks = () => {
         // if (role === 'admin') {
-           return renderAdminLinks();
+          return renderAdminLinks();
         // } else {
            //return renderUserLinks();
         //}

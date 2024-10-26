@@ -30,11 +30,34 @@ const QuizList = () => {
     return (
         <div>
             <h1>Available Quizzes</h1>
-            {quizzes.map((quiz) => (
-                <Link to={`/quiz/${quiz.quizId}`} key={quiz.quizId}>
-                    <Quiz quiz={quiz} />
-                </Link>
-            ))}
+            {quizzes.length === 0 ? (
+                <p>No quizzes available at the moment.</p>
+            ) : (
+                quizzes.map((quiz) => (
+                    <div key={quiz.quizId} style={{ marginBottom: '20px' }}>
+                        <Link to={`/quiz/${quiz.quizId}`}>
+                            <Quiz quiz={quiz} />
+                        </Link>
+                        <h4>{quiz.title}</h4>
+                        <p>{quiz.description}</p>
+                        <h5>Sample Questions:</h5>
+                        <ul>
+                            {quiz.questions.slice(0, 2).map((question, index) => (
+                                <li key={index}>
+                                    {question.questionText}
+                                    <ul>
+                                        {question.options.map((option, oIndex) => (
+                                            <li key={oIndex}>
+                                                {option.text} (Points: {option.points})
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            )}
         </div>
     );
 };
