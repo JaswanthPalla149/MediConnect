@@ -1,3 +1,4 @@
+/* Body Styling */
 body {
     background-color: #f0f0f0;
     font-family: 'Poppins', sans-serif;
@@ -9,6 +10,7 @@ body {
     margin: auto;
 }
 
+/* Heading Styling */
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
@@ -20,6 +22,7 @@ p {
     margin: 15px 0;
 }
 
+/* Card Styling for GIF Grid */
 .card {
     background: white;
     border: 1px solid #ddd;
@@ -29,17 +32,19 @@ p {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.card img {
+    max-width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    display: block;
+}
+
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.card img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
+/* Back Button Styling */
 .back-button {
     background-color: #3498db;
     color: white;
@@ -56,38 +61,45 @@ p {
     transform: scale(1.05);
 }
 
-.main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Enlarged Section Content Card Styling */
+.card-body {
+    padding: 2rem;
 }
 
-.image {
-    margin-right: 20px;
+.card-body img {
+    width: 100%; /* Expanded to full width */
+    max-height: 600px; /* Increased max height for larger display */
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-.content {
-    max-width: 500px;
+/* Content Card Expansion */
+.card.mt-5 {
+    width: 100%; /* Further expanded width */
+    margin: 0 auto;
 }
 
+/* Section Content Styling */
 h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 15px;
     color: #2980b9;
 }
 
+/* Bold Styling for Highlighted Text */
 span {
     font-weight: bold;
+    color: #e74c3c;
 }
 
+/* Responsive Styling */
 @media (max-width: 768px) {
-    .main {
-        flex-direction: column;
-        align-items: flex-start;
+    .card-body img {
+        width: 100%;
     }
-
-    .image {
-        margin-right: 0;
-        margin-bottom: 20px;
+    
+    .card.mt-5 {
+        width: 100%;
     }
 }
