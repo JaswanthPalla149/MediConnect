@@ -3,7 +3,7 @@ import { Form, Button, Alert, Col, Row } from 'react-bootstrap';
 
 const QuizUpload = () => {
     const [title, setTitle] = useState('');
-    const [domain, setDomain] = useState(''); // State for domain
+    const [domain, setDomain] = useState('');
     const [questions, setQuestions] = useState([]);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
@@ -35,78 +35,69 @@ const QuizUpload = () => {
     };
 
     // Handle form submission
-   
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Log current state values before submission
-        console.log('Submitting quiz with the following details:');
-        console.log('Title:', title);
-        console.log('Domain:', domain);
-        console.log('Questions:', questions);
-    
-        // Ensure questions are formatted correctly
-        if (!Array.isArray(questions) || questions.length === 0) {
-            console.error('Questions array is empty or not an array.');
-            return setError('Questions must be an array with at least one question.');
+        
+        // Validation checks
+        if (!title || !domain || questions.length === 0) {
+            return setError('All fields are required');
         }
-    
-        // Check each question's structure
-        questions.forEach((q, index) => {
+
+        for (let i = 0; i < questions.length; i++) {
+            const q = questions[i];
             if (!q.questionText || !Array.isArray(q.options) || q.options.length === 0) {
-                console.error(`Question ${index + 1} is missing required fields.`);
-                setError(`Question ${index + 1} must have text and at least one option.`);
-                return;
+                return setError(`Question ${i + 1} must have text and at least one option.`);
             }
-    
-            q.options.forEach((option, oIndex) => {
+
+            for (let oIndex = 0; oIndex < q.options.length; oIndex++) {
+                const option = q.options[oIndex];
                 if (typeof option.text !== 'string' || typeof option.points !== 'number') {
-                    console.error(`Option ${oIndex + 1} of Question ${index + 1} is invalid.`);
-                    setError(`Option ${oIndex + 1} of Question ${index + 1} must have valid text and points.`);
-                    return;
+                    return setError(`Option ${oIndex + 1} of Question ${i + 1} must have valid text and points.`);
                 }
-            });
-        });
-    
+            }
+        }
+
         try {
-            // Send the POST request to create a new quiz
             const response = await fetch('http://localhost:5000/api/quizzes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, domain, questions }),
             });
-    
-            // Debugging: Log the response status and body
-            console.log('Response status:', response.status);
-    
+
             const responseData = await response.json();
             if (!response.ok) {
-                console.error('Error details:', responseData);
-                throw new Error('Failed to create quiz: ' + (responseData.message || 'Unknown error'));
+                throw new Error(responseData.message || 'Failed to create quiz');
             }
-    
-            // If successful, update state and reset form fields
+
             setSuccess(true);
             setTitle('');
             setDomain('');
             setQuestions([]);
-    
-            // Debugging: Log success message
-            console.log('Quiz created successfully!');
-    
+            setError(null); // Clear any previous errors
+
         } catch (error) {
-            // Log the error message and update error state
-            console.error('Caught error during submission:', error);
             setError(error.message);
         }
     };
-    
-    
+
+    // Reset error messages and form fields
+    const handleReset = () => {
+        setError(null);
+        setTitle('');
+        setDomain('');
+        setQuestions([]);
+        setSuccess(false);
+    };
 
     return (
         <div>
             <h2>Create New Quiz</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {error && (
+                <Alert variant="danger">
+                    {error}
+                    <Button variant="link" onClick={handleReset}>Reset</Button>
+                </Alert>
+            )}
             {success && <Alert variant="success">Quiz created successfully!</Alert>}
 
             <Form onSubmit={handleSubmit}>
