@@ -67,14 +67,13 @@ const QuizList = () => {
                 <p>No quizzes available at the moment.</p>
             ) : (
                 quizzes.map((quiz) => (
-                    <div key={quiz.quizId || quiz.id} style={{ marginBottom: '20px' }}>
+                    <div key={quiz.quizId} style={{ marginBottom: '20px' }}>
                         <Link to={`/quiz/${quiz.quizId}`}>
                             <Quiz quiz={quiz} />
                         </Link>
                         <h4>{quiz.title}</h4>
                         <p>{quiz.description}</p>
                         <h5>Sample Questions:</h5>
-<<<<<<< HEAD
 
                         {quiz.questions.slice(0, 2).map((question, index) => (
                             <div key={index} className="question-container">
@@ -107,22 +106,6 @@ const QuizList = () => {
                         ))}
                         <button className="quiz-button" onClick={handleSubmit}>Submit</button>
                         {points > 0 && <p>Total Points Gained: {points}</p>}
-=======
-                        <ul>
-                            {quiz.questions && quiz.questions.slice(0, 2).map((question, index) => (
-                                <li key={index}>
-                                    {question.questionText}
-                                    <ul>
-                                        {question.options && question.options.map((option, oIndex) => (
-                                            <li key={oIndex}>
-                                                {option.text} (Points: {option.points || 0})
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            ))}
-                        </ul>
->>>>>>> 6dd35dedf7d2894dad744d2cfaa2b275867a8e2a
                     </div>
                 ))
             )}
