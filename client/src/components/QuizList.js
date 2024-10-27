@@ -34,7 +34,7 @@ const QuizList = () => {
                 <p>No quizzes available at the moment.</p>
             ) : (
                 quizzes.map((quiz) => (
-                    <div key={quiz.quizId} style={{ marginBottom: '20px' }}>
+                    <div key={quiz.quizId || quiz.id} style={{ marginBottom: '20px' }}>
                         <Link to={`/quiz/${quiz.quizId}`}>
                             <Quiz quiz={quiz} />
                         </Link>
@@ -42,13 +42,13 @@ const QuizList = () => {
                         <p>{quiz.description}</p>
                         <h5>Sample Questions:</h5>
                         <ul>
-                            {quiz.questions.slice(0, 2).map((question, index) => (
+                            {quiz.questions && quiz.questions.slice(0, 2).map((question, index) => (
                                 <li key={index}>
                                     {question.questionText}
                                     <ul>
-                                        {question.options.map((option, oIndex) => (
+                                        {question.options && question.options.map((option, oIndex) => (
                                             <li key={oIndex}>
-                                                {option.text} (Points: {option.points})
+                                                {option.text} (Points: {option.points || 0})
                                             </li>
                                         ))}
                                     </ul>
