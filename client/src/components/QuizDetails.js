@@ -38,7 +38,9 @@ const QuizDetails = () => {
                         <strong>{q.questionText}</strong>
                         <ul>
                             {q.options.map((option, i) => (
-                                <li key={i}>{option}</li>
+                                <li key={i}>
+                                    {option.text} (Points: {option.points})
+                                </li>
                             ))}
                         </ul>
                     </li>

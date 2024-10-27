@@ -168,5 +168,71 @@ const App = () => {
 };
 };
 
+<<<<<<< HEAD
+=======
+const DynamicNavbar = () => {
+    const location = useLocation(); 
+    //const role = getUserRole();
+
+    const renderLinks = () => {
+        // if (role === 'admin') {
+          //return renderAdminLinks();
+        // } else {
+           return renderUserLinks();
+        //}
+    };
+
+    const renderAdminLinks = () => {
+        if (location.pathname === '/') {
+            return (
+                <>
+                   <Nav.Link as={Link} to="/">Home</Nav.Link>
+      <Nav.Link as={Link} to="/forum">Community Forum</Nav.Link>
+      <Nav.Link as={Link} to="/create-post">Create Post</Nav.Link>
+      <Nav.Link as={Link} to="/sections">Manage Sections</Nav.Link>
+      <Nav.Link as={Link} to="/upload-quiz">Upload Quiz</Nav.Link>  
+                </>
+            );
+        } else if (location.pathname === '/forum') {
+            return (
+                <>
+                    <Nav.Link as={Link} to="/create-post">Create Post</Nav.Link>
+                    <Nav.Link as={Link} to="/">Back to Home</Nav.Link>
+                </>
+            );
+        }
+        return <Nav.Link as={Link} to="/">Back to Home</Nav.Link>;
+    };
+    const renderUserLinks = () => {
+        if (location.pathname === '/') {
+            return (
+                <>
+                    <Nav.Link as={Link} to="/forum">Community Forum</Nav.Link>
+                    <Nav.Link as={Link} to="/chatbot">Chatbot</Nav.Link>
+                    <Nav.Link as={Link} to="/sections">Explore Sections</Nav.Link>
+                    <Nav.Link as={Link} to="/quizzes">View Quizzes</Nav.Link>
+                </>
+            );
+        } else if (location.pathname === '/forum') {
+            return <Nav.Link as={Link} to="/">Back to Home</Nav.Link>;
+        }
+        return <Nav.Link as={Link} to="/">Back to Home</Nav.Link>;
+    };
+
+    
+
+    return (
+        <Navbar bg="light" expand="lg">
+            <Container>
+                <Navbar.Brand as={Link} to="/">Manaswini</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">{renderLinks()}</Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
+};
+>>>>>>> 66f359201859d42d928a9b28e63b1ab0c66abfef
 
 export default App;

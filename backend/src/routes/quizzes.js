@@ -16,13 +16,13 @@ router.get('/', async (req, res) => {
 // POST: Create a new quiz (Admin access only)
 router.post('/', async (req, res) => {
     try {
-        const { title, description, questions } = req.body;
+        const { title, domain, questions } = req.body;
 
-        if (!title || !description || !questions) {
+        if (!title || !domain || !questions) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        const newQuiz = new Quiz({ title, description, questions });
+        const newQuiz = new Quiz({ title, domain, questions });
         await newQuiz.save();
         res.status(201).json({ message: 'Quiz created successfully', quiz: newQuiz });
     } catch (error) {
