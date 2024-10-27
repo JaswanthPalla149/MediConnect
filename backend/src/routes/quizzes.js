@@ -22,10 +22,13 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
+        
+
         const newQuiz = new Quiz({ title, domain, questions });
         await newQuiz.save();
         res.status(201).json({ message: 'Quiz created successfully', quiz: newQuiz });
     } catch (error) {
+        console.error('Error details:', error); // Log the error for debugging
         res.status(500).json({ message: 'Error creating quiz', error });
     }
 });
