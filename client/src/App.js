@@ -75,10 +75,12 @@ const App = () => {
                     <Route path="/Home/forum" element={<PostList />} />
                     <Route path="/AdminHome/create-post" element={<PostForm />} />
                     <Route path="/Home/create-post" element={<PostForm />} />
+                    
                 </Routes>
             </Container>
         </Router>
     );
+
 };
 
 export default App;

@@ -1,13 +1,12 @@
 import React from "react";
-import "@splinetool/viewer"; // Importing Spline viewer support
+import "@splinetool/viewer";
 import { Link } from "react-router-dom";
-import './Home.css'; // Importing CSS styles
+import './Home.css';
 
 const Home = () => {
   return (
     <div className="home-container">
       
-      {/* Home Section */}
       <section className="home">
         <div className="home-img">
           <img
@@ -71,18 +70,19 @@ const Home = () => {
           <p>Stay tuned for upcoming events and discussions!</p>
         </div>
       </div>
+      
       {/* Quizzes Section */}
       <div className="quizzes-section">
         <h1>QUIZZES</h1>
         <div className="quiz-img">
-          {/* Add your quiz image here */}
           <img src="https://binghomepageweeklyquiz.com/wp-content/uploads/2022/04/mental-health-quiz.jpg" alt="Quizzes" />
         </div>
         <p className="quiz-description">
-        A quiz can't tell you everything you need to know about yourself, but it can help provide insight into some of your personality traits, behaviors, and how you view and respond to the world around you. If you're curious about a particular aspect of your personality or something that's going on in your life and relationships, try out one of our quizzes below to find out more about what your thoughts and feelings may say about you.
+          A quiz can't tell you everything you need to know about yourself, but it can help provide insight into some of your personality traits, behaviors, and how you view and respond to the world around you.
         </p>
       </div>
-     {/* Explore Sections */}
+
+      {/* Explore Sections */}
       <div className="explore-sections" id="explore">
         <h1 className="text-center mt-5">Explore Sections</h1>
         <p className="text-center">

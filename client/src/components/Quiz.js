@@ -5,8 +5,8 @@ const Quiz = ({ quiz }) => {
         <div className="quiz-card">
             <h2>{quiz.title}</h2>
             <p>Domain: {quiz.domain}</p>
-            <p>Questions: {quiz.questions.length}</p>
-            <small>Created At: {new Date(quiz.createdAt).toLocaleString()}</small>
+            <p>Questions: {quiz.questions ? quiz.questions.length : 0}</p>
+            <small>Created At: {quiz.createdAt ? new Date(quiz.createdAt).toLocaleString() : 'N/A'}</small>
         </div>
     );
 };
