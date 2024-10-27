@@ -43,24 +43,29 @@
       left: 0;
     }
 
-    .login-button {
+    .auth-buttons {
       position: absolute;
       top: 50%;
       left: 20px;
       transform: translateY(-50%);
-      padding: 20px 40px; 
+      display: flex;
+      gap: 20px;
+      z-index: 1;
+    }
+
+    .auth-button {
+      padding: 20px 40px;
       background-color: #000;
       color: #fff;
       border: none;
       border-radius: 10px;
-      font-size: 20px; 
+      font-size: 20px;
       cursor: pointer;
-      z-index: 1;
-      transition: transform 0.2s ease-in-out; 
+      transition: transform 0.2s ease-in-out;
     }
 
-    .login-button:hover {
-      transform: translateY(-50%) scale(1.1); 
+    .auth-button:hover {
+      transform: scale(1.1);
     }
 
     .wrapper {
@@ -69,12 +74,12 @@
       padding: 30px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.5);
-      background-color: rgba(255, 255, 255, 0.1); 
+      background-color: rgba(255, 255, 255, 0.1);
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      display: none; 
+      display: none;
       z-index: 2;
     }
 
@@ -182,10 +187,11 @@
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
 
   <script>
-    function showLoginPanel() {
+    function showLoginPanel(type) {
       document.getElementById('glass-sound').play();
       document.querySelector('.wrapper').style.display = 'block'; 
-      document.querySelector('.login-button').style.display = 'none'; 
+      document.querySelector('.auth-buttons').style.display = 'none'; 
+      document.querySelector('h2').textContent = type + " Login";
     }
   </script>
 </head>
@@ -200,7 +206,10 @@
     Your browser does not support the audio element.
   </audio>
 
-  <button class="login-button" onclick="showLoginPanel()">Log In</button>
+  <div class="auth-buttons">
+    <button class="auth-button" onclick="showLoginPanel('User')">User</button>
+    <button class="auth-button" onclick="showLoginPanel('Admin')">Admin</button>
+  </div>
 
   <div class="wrapper">
     <form action="#">

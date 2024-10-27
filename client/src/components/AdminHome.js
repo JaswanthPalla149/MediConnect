@@ -4,6 +4,7 @@ import './Home.css'; // Reuse same styles if needed
 
 const AdminHome = () => {
   return (
+
     <div className="home-container">
       <section className="home">
         <h3 className="typing text">Admin Dashboard</h3>

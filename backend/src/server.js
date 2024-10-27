@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-//console.log("Environment Variables:", process.env);
+console.log("Environment Variables:", process.env);
 const postsRouter = require('./routes/posts'); 
 const quizzesRouter = require('./routes/quizzes');
 
@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
+console.log("MONGO_DB_URL:",process.env.DB_URL )
 mongoose.connect(process.env.DB_URL
     , {
     useNewUrlParser: true,
