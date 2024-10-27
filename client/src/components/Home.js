@@ -1,13 +1,12 @@
 import React from "react";
-import "@splinetool/viewer"; // Importing Spline viewer support
+import "@splinetool/viewer";
 import { Link } from "react-router-dom";
-import './Home.css'; // Importing CSS styles
+import './Home.css';
 
 const Home = () => {
   return (
     <div className="home-container">
       
-      {/* Home Section */}
       <section className="home">
         <div className="home-img">
           <img
@@ -71,6 +70,7 @@ const Home = () => {
           <p>Stay tuned for upcoming events and discussions!</p>
         </div>
       </div>
+      
       {/* Quizzes Section */}
       <div className="quizzes-section">
         <h1>QUIZZES</h1>
