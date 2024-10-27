@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-console.log("Environment Variables:", process.env);
+//console.log("Environment Variables:", process.env);
 const postsRouter = require('./routes/posts'); 
 const quizzesRouter = require('./routes/quizzes');
 
