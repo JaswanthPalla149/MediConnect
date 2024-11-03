@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 //console.log("Environment Variables:", process.env);
 const postsRouter = require('./routes/posts'); 
 const quizzesRouter = require('./routes/quizzes');
+const usersRouter = require('./routes/users');
+const adminsRouter = require('./routes/admins');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -26,6 +28,8 @@ mongoose.connect(process.env.DB_URL
 // Define the API endpoint for posts and quizzes
 app.use('/api/posts', postsRouter);
 app.use('/api/quizzes', quizzesRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/admins', adminsRouter);
 
 // Basic route for testing
 app.get('/', (req, res) => {

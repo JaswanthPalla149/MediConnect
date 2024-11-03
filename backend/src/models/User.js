@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     location: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
 
     // Interaction Data (used for dashboard calculation on the frontend)
     interactions: {
