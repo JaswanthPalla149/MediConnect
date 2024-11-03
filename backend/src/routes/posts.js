@@ -1,7 +1,50 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose'); 
 const Post = require('../models/Post'); 
 
+// GET: Fetch Post by id
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check if the ID is valid
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid post ID format' });
+        }
+
+        // Find the post by ID
+        const post = await Post.findById(id);
+
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        res.status(200).json(post);
+    } catch (error) {
+        console.error('Error fetching post by ID:', error);
+        res.status(500).json({ message: 'Error fetching post', error });
+    }
+});
+
+// DELETE: Delete a post by ID
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Find the post by ID and delete it
+        const deletedPost = await Post.findByIdAndDelete(id);
+
+        if (!deletedPost) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        res.status(200).json({ message: 'Post deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        res.status(500).json({ message: 'Error deleting post', error });
+    }
+});
 // POST: Create a new post
 router.post('/', async (req, res) => {
     const { title, content } = req.body;

@@ -1,6 +1,6 @@
 const express = require('express');
-const Quiz = require('../models/Quiz'); // Import Quiz model
-
+const Quiz = require('../models/Quiz'); 
+const mongoose = require('mongoose');
 const router = express.Router();
 
 // GET: Fetch all quizzes
@@ -13,7 +13,30 @@ router.get('/', async (req, res) => {
     }
 });
 
-// POST: Create a new quiz (Admin access only)
+// GET: Fetch Quiz by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check if the ID format is valid
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid quiz ID format' });
+        }
+
+        // Find the quiz by ID
+        const quiz = await Quiz.findById(id);
+
+        if (!quiz) {
+            return res.status(404).json({ message: 'Quiz not found' });
+        }
+
+        res.status(200).json(quiz);
+    } catch (error) {
+        console.error('Error fetching quiz by ID:', error);
+        res.status(500).json({ message: 'Error fetching quiz', error });
+    }
+});
+// POST: Create a new quiz 
 router.post('/', async (req, res) => {
     try {
         const { title, domain, questions } = req.body;
