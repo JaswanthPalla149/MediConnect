@@ -12,9 +12,12 @@
     "@splinetool/viewer": "^1.9.32",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "react-bootstrap": "^2.10.5",
     "react-router-dom": "^6.26.2",
     "server.js": "^1.0.0",
+    "uuid": "^11.0.2",
     "web-vitals": "^4.2.3"
   },
   "devDependencies": {

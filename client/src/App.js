@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, Container, Navbar, Nav } from 'react-bootstrap';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // For v6
+import React, { useState } from 'react';
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import RoleSelection from './components/RoleSelection';
 import AdminHome from './components/AdminHome';
 import Home from './components/Home';
@@ -48,9 +48,8 @@ const DynamicNavbar = ({ role }) => {
     );
 };
 
-
 const App = () => {
-    const [role, setRole] = useState(null); // Tracks role ('admin' or 'user')
+    const [role, setRole] = useState(null);
 
     const handleRoleSelection = (selectedRole) => {
         setRole(selectedRole);
@@ -59,7 +58,6 @@ const App = () => {
     return (
         <Router>
             <Container>
-                {/* Show navbar if a role is selected */}
                 {role && <DynamicNavbar role={role} />}
 
                 <Routes>
@@ -71,16 +69,13 @@ const App = () => {
                     <Route path="/AdminHome/upload-quiz" element={<QuizUpload />} />
                     <Route path="/AdminHome/quiz/:id" element={<QuizDetails />} />
                     <Route path="/Home/chatbot" element={<Chatbot />} />
-                    <Route path="/AdminHome/sections" element={<Sections />} />
                     <Route path="/Home/forum" element={<PostList />} />
                     <Route path="/AdminHome/create-post" element={<PostForm />} />
                     <Route path="/Home/create-post" element={<PostForm />} />
-                    
                 </Routes>
             </Container>
         </Router>
     );
-
 };
 
 export default App;

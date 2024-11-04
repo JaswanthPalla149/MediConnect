@@ -23,13 +23,13 @@ const Home = () => {
           </p>
 
           <div className="button-container">
-            <Link to="/chatbot">
+            <Link to="/Home/chatbot">
               <button className="custom-button chatbot-btn">Chatbot</button>
             </Link>
-            <Link to="/forum">
+            <Link to="/Home/forum">
               <button className="custom-button forum-btn">Community Forum</button>
             </Link>
-            <Link to="/sections">
+            <Link to="/Home/sections">
               <button className="custom-button mental-btn">Mental Health Resources</button>
             </Link>
           </div>

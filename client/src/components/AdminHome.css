@@ -1,0 +1,118 @@
+/* Base Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+    scroll-behavior: smooth;
+}
+
+/* Home Container */
+.home-container {
+    padding-top: 80px;
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    background-color: rgb(243, 242, 242);
+    color: black;
+    gap: 30px;
+}
+
+/* Admin Image Container */
+.admin-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.admin-image {
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border: 2px solid #4CAF50;
+}
+
+/* Content Section */
+.admin-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Typing Text and Welcome Message */
+.typing-text {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.admin-welcome-text {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #0e0d0d;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Radio Button Styling */
+.admin-radio {
+    display: none;
+}
+
+.admin-label {
+    background-color: #FF5722;
+    color: white;
+    padding: 10px 16px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+/* Hover and Active State */
+.admin-radio:checked + .admin-label,
+.admin-label:hover {
+    background-color: transparent;
+    color: #FF5722;
+    border-color: #FF5722;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home {
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .typing-text {
+        font-size: 1.5rem;
+    }
+
+    .admin-image {
+        width: 90px;
+        height: 90px;
+    }
+
+    .admin-label {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
