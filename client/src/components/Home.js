@@ -22,6 +22,7 @@ const Home = () => {
             Our mission is to foster mental well-being and community support.
             Explore the chatbot, community forum, and other sections to stay connected and informed.
             <span style = {{fontSize: '2rem'}}>" </span>
+
           </p>
 
           <div className="button-container">
