@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Container, Navbar, Nav } from 'react-bootstrap';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Alert, Container, Navbar, Nav } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // For v6
 import RoleSelection from './components/RoleSelection';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
@@ -51,8 +51,7 @@ const DynamicNavbar = ({ role }) => {
 };
 
 const App = () => {
-    const [role, setRole] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [role, setRole] = useState(null); // Tracks role ('admin' or 'user')
 
     const handleRoleSelection = (role) => {
         setRole(role);
@@ -66,33 +65,23 @@ const App = () => {
     return (
         <Router>
             <Container>
-                {isAuthenticated && role && <DynamicNavbar role={role} />}
+                {/* Show navbar if a role is selected */}
+                {role && <DynamicNavbar role={role} />}
 
                 <Routes>
-                    <Route 
-                        path="/" 
-                        element={isAuthenticated ? <Navigate to={role === 'admin' ? '/AdminHome' : '/Home'} /> : <RoleSelection onSelectRole={handleRoleSelection} onLoginSuccess={handleLogin} />} 
-                    />
-                    <Route 
-                        path="/login" 
-                        element={isAuthenticated ? <Navigate to={role === 'admin' ? '/AdminHome' : '/Home'} /> : <LoginForm onLogin={handleLogin} />} 
-                    />
-                    <Route 
-                        path="/register" 
-                        element={isAuthenticated ? <Navigate to={role === 'admin' ? '/AdminHome' : '/Home'} /> : <RegistrationForm />} 
-                    />
-
-                    {/* Authenticated Routes */}
-                    <Route path="/AdminHome" element={isAuthenticated && role === 'admin' ? <AdminHome /> : <Navigate to="/" />} />
-                    <Route path="/Home" element={isAuthenticated && role === 'user' ? <Home /> : <Navigate to="/" />} />
-                    <Route path="/Home/sections" element={isAuthenticated ? <Sections /> : <Navigate to="/" />} />
-                    <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList /> : <Navigate to="/" />} />
-                    <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === 'admin' ? <QuizUpload /> : <Navigate to="/" />} />
-                    <Route path="/AdminHome/quiz/:id" element={isAuthenticated && role === 'admin' ? <QuizDetails /> : <Navigate to="/" />} />
-                    <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
-                    <Route path="/Home/forum" element={isAuthenticated ? <PostList /> : <Navigate to="/" />} />
-                    <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm /> : <Navigate to="/" />} />
-                    <Route path="/Home/create-post" element={isAuthenticated ? <PostForm /> : <Navigate to="/" />} />
+                    <Route path="/" element={<RoleSelection onSelectRole={handleRoleSelection} />} />
+                    <Route path="/AdminHome" element={<AdminHome />} />
+                    <Route path="/Home" element={<Home />} />
+                    <Route path="/Home/sections" element={<Sections />} />
+                    <Route path="/Home/quizzes" element={<QuizList />} />
+                    <Route path="/AdminHome/upload-quiz" element={<QuizUpload />} />
+                    <Route path="/AdminHome/quiz/:id" element={<QuizDetails />} />
+                    <Route path="/Home/chatbot" element={<Chatbot />} />
+                    <Route path="/AdminHome/sections" element={<Sections />} />
+                    <Route path="/Home/forum" element={<PostList />} />
+                    <Route path="/AdminHome/create-post" element={<PostForm />} />
+                    <Route path="/Home/create-post" element={<PostForm />} />
+                    
                 </Routes>
             </Container>
         </Router>

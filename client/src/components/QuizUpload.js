@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Col, Row } from 'react-bootstrap';
+import './QuizUpload.css'; // Ensure this file exists for styling
 
 const QuizUpload = () => {
     const [title, setTitle] = useState('');
@@ -90,7 +91,7 @@ const QuizUpload = () => {
     };
 
     return (
-        <div>
+        <div className="quiz-upload-container">
             <h2>Create New Quiz</h2>
             {error && (
                 <Alert variant="danger">
@@ -108,6 +109,7 @@ const QuizUpload = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
+                        className="form-control"
                     />
                 </Form.Group>
 
@@ -118,6 +120,7 @@ const QuizUpload = () => {
                         value={domain}
                         onChange={(e) => setDomain(e.target.value)}
                         required
+                        className="form-control"
                     />
                 </Form.Group>
 
@@ -131,6 +134,7 @@ const QuizUpload = () => {
                                 value={question.questionText}
                                 onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
                                 required
+                                className="form-control"
                             />
                         </Form.Group>
 
@@ -144,6 +148,7 @@ const QuizUpload = () => {
                                         value={option.text}
                                         onChange={(e) => handleOptionChange(qIndex, oIndex, 'text', e.target.value)}
                                         required
+                                        className="form-control"
                                     />
                                 </Col>
                                 <Col>
@@ -153,6 +158,7 @@ const QuizUpload = () => {
                                         value={option.points}
                                         onChange={(e) => handleOptionChange(qIndex, oIndex, 'points', e.target.value)}
                                         required
+                                        className="form-control"
                                     />
                                 </Col>
                             </Row>
@@ -168,11 +174,11 @@ const QuizUpload = () => {
                     </div>
                 ))}
 
-                <Button variant="primary" onClick={addQuestion} className="mt-3">
+                <Button variant="primary" onClick={addQuestion} className="mt-3 me-3">
                     Add Question
                 </Button>
 
-                <Button type="submit" className="mt-3" variant="success">
+                <Button type="submit" className="mt-3 btn-success">
                     Create Quiz
                 </Button>
             </Form>

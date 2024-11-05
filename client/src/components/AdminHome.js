@@ -1,26 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import './Home.css'; // Reuse same styles if needed
+import { useNavigate } from "react-router-dom";
+import './AdminHome.css';
 
 const AdminHome = () => {
-  console.log("In Admin Home");
   return (
-
     <div className="home-container">
       <section className="home">
-        <h3 className="typing text">Admin Dashboard</h3>
-        <p>Welcome, Admin! Manage the platform effectively from here.</p>
-
-        <div className="button-container">
-          <Link to="/manage-posts">
-            <button className="custom-button admin-btn">Manage Posts</button>
-          </Link>
-          <Link to="/upload-quiz">
-            <button className="custom-button admin-btn">Upload Quiz</button>
-          </Link>
-          <Link to="/manage-workshops">
-            <button className="custom-button admin-btn">Manage Workshops</button>
-          </Link>
+        <div className="admin-image-container">
+          <img 
+            src="https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg" 
+            alt="Admin Icon" 
+            className="admin-image" 
+          />
+        </div>
+        <div className="admin-content">
+          <h3 className="typing-text">Admin Dashboard</h3>
+          <p className="admin-welcome-text">Welcome, Admin! Manage the platform effectively from here.</p>
+          <div className="button-container">
+            <input 
+              type="radio" 
+              name="adminOption" 
+              id="managePosts" 
+              className="admin-radio" 
+              onChange={() => handleNavigation("/AdminHome/manage-posts")}
+            />
+            <label htmlFor="managePosts" className="admin-label">Manage Posts</label>
+            
+            <input 
+              type="radio" 
+              name="adminOption" 
+              id="uploadQuiz" 
+              className="admin-radio" 
+              onChange={() => handleNavigation("/AdminHome/upload-quiz")}
+            />
+            <label htmlFor="uploadQuiz" className="admin-label">Upload Quiz</label>
+            
+            <input 
+              type="radio" 
+              name="adminOption" 
+              id="manageWorkshops" 
+              className="admin-radio" 
+              onChange={() => handleNavigation("/AdminHome/manage-workshops")}
+            />
+            <label htmlFor="manageWorkshops" className="admin-label">Manage Workshops</label>
+          </div>
         </div>
       </section>
     </div>
