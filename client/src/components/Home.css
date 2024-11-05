@@ -38,6 +38,10 @@ body {
     padding-top: 80px; /* Adjust for header overlap */
 }
 
+.home{
+    margin-bottom: 6rem;
+}
+
 .button-container{
     display: flex;
     justify-content: space-around;
@@ -99,6 +103,7 @@ body {
     max-width: 350px;
     border: 5px solid #4CAF50;
     transition: transform 0.3s ;
+    
 }
 
 .home-img img:hover {
@@ -118,8 +123,13 @@ body {
 }
 
 .home-content p {
-    font-size: 18px;
+    font-size: 1.5rem;
     line-height: 1.6;
+    font-weight: bold;
+}
+
+.page2{
+    margin-bottom: 8rem;
 }
 
 /* Social Icons */

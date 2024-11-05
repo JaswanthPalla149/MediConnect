@@ -18,8 +18,10 @@ const Home = () => {
         <div className="home-content">
           <h3 className="typing-text">Welcome to Our Platform</h3>
           <p className="homepara">
+            <span style = {{fontSize: '2rem'}}>" </span>
             Our mission is to foster mental well-being and community support.
             Explore the chatbot, community forum, and other sections to stay connected and informed.
+            <span style = {{fontSize: '2rem'}}>" </span>
           </p>
 
           <div className="button-container">
@@ -41,10 +43,10 @@ const Home = () => {
         <div className="spline-container">
           <spline-viewer
             url="https://prod.spline.design/iElCLyBL4DC9lZSW/scene.splinecode"
-            style={{ width: '100%', height: '500px' }}
+            style={{ width: '100%', height: '550px' }}
           />
         </div>
-        <div className="text-container">
+        <div className="text-container" >
           <h1> Mental Health Chatbot</h1>
           <p>
             If you're feeling overwhelmed, don't hesitate to reach out to our chatbot for support.
