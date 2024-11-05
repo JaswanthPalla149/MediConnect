@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Button, Card } from 'react-bootstrap';
+import { Container, Button, Card, Alert } from 'react-bootstrap';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 import './RoleSelection.css';
@@ -8,6 +8,8 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
     const [showForms, setShowForms] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const [selectedRole, setSelectedRole] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleRoleSelection = (role) => {
         onSelectRole(role);
@@ -22,7 +24,9 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
 
     const onLogin = async (username, password) => {
         console.log(`Logging in with username: ${username} and password: ${password}`);
-        
+        setLoading(true);
+        setErrorMessage(null); // Reset error message
+
         try {
             const loginUrl = selectedRole === 'admin' 
                 ? 'http://localhost:5000/api/admins/login' 
@@ -48,11 +52,13 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                 onLoginSuccess(selectedRole); // Notify App.js of successful login
             } else {
                 console.error('Login failed:', result.message);
-                alert(result.message); // Show error message to user
+                setErrorMessage(result.message); // Show error message to user
             }
         } catch (error) {
             console.error('Error during login:', error);
-            alert('Error during login. Please try again.'); // Show generic error message
+            setErrorMessage('Error during login. Please try again.'); // Show generic error message
+        } finally {
+            setLoading(false); // Reset loading state
         }
     };
 
@@ -101,16 +107,21 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                     )}
 
                     <Card className="p-4" style={{ maxWidth: '400px', margin: '0 auto' }}>
-                        {isLogin || selectedRole === 'admin' ? (
-                            <div>
-                                <h5>Sign In</h5>
-                                <LoginForm onLogin={onLogin} />
-                            </div>
+                        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+                        {loading ? (
+                            <p>Loading...</p> // You can replace this with a spinner if needed
                         ) : (
-                            <div>
-                                <h5>Sign Up</h5>
-                                <RegistrationForm /> {/* Ensure RegistrationForm has onSubmit logic */}
-                            </div>
+                            isLogin || selectedRole === 'admin' ? (
+                                <div>
+                                    <h5>Sign In</h5>
+                                    <LoginForm onLogin={onLogin} />
+                                </div>
+                            ) : (
+                                <div>
+                                    <h5>Sign Up</h5>
+                                    <RegistrationForm /> {/* Ensure RegistrationForm has onSubmit logic */}
+                                </div>
+                            )
                         )}
                     </Card>
                 </div>
