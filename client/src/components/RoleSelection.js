@@ -1,17 +1,58 @@
-import React from 'react';
-import { Container, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Container, Button, Card } from 'react-bootstrap';
+import RegistrationForm from './RegistrationForm';
+import LoginForm from './LoginForm';
+import './RoleSelection.css';
 
-const RoleSelection = ({ onSelectRole }) => {
-    const navigate = useNavigate();
+const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
+    const [showForms, setShowForms] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
+    const [selectedRole, setSelectedRole] = useState(null);
 
     const handleRoleSelection = (role) => {
         onSelectRole(role);
-        // Navigate to appropriate page based on role
-        if (role === 'admin') {
-            navigate('/AdminHome');  // Admin Home page
-        } else if (role === 'user') {
-            navigate('/Home');  // User Home page
+        setSelectedRole(role);
+        setShowForms(true);
+        setIsLogin(true);
+    };
+
+    const toggleForm = (formType) => {
+        setIsLogin(formType === 'login');
+    };
+
+    const onLogin = async (username, password) => {
+        console.log(`Logging in with username: ${username} and password: ${password}`);
+        
+        try {
+            const loginUrl = selectedRole === 'admin' 
+                ? 'http://localhost:5000/api/admins/login' 
+                : 'http://localhost:5000/api/users/login'; 
+    
+            const response = await fetch(loginUrl, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: selectedRole === 'user' ? username : undefined,
+                    adminId: selectedRole === 'admin' ? username : undefined,
+                    password
+                }),
+            });
+    
+            const result = await response.json();
+            if (response.ok) {
+                console.log('Login successful:', result);
+                localStorage.setItem('token', result.token);
+                onLoginSuccess(selectedRole); // Notify App.js of successful login
+            } else {
+                console.error('Login failed:', result.message);
+                alert(result.message); // Show error message to user
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            alert('Error during login. Please try again.'); // Show generic error message
         }
     };
 
@@ -32,6 +73,48 @@ const RoleSelection = ({ onSelectRole }) => {
             >
                 User
             </Button>
+
+            {showForms && (
+                <div className="mt-4">
+                    {selectedRole === 'user' ? (
+                        <>
+                            <h4>Please Sign In or Sign Up</h4>
+                            <div className="d-flex justify-content-around mb-4">
+                                <Button 
+                                    variant="outline-primary" 
+                                    className="m-2" 
+                                    onClick={() => toggleForm('signup')}
+                                >
+                                    Sign Up
+                                </Button>
+                                <Button 
+                                    variant="outline-secondary" 
+                                    className="m-2" 
+                                    onClick={() => toggleForm('login')}
+                                >
+                                    Sign In
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <h4>Admin Sign In</h4>
+                    )}
+
+                    <Card className="p-4" style={{ maxWidth: '400px', margin: '0 auto' }}>
+                        {isLogin || selectedRole === 'admin' ? (
+                            <div>
+                                <h5>Sign In</h5>
+                                <LoginForm onLogin={onLogin} />
+                            </div>
+                        ) : (
+                            <div>
+                                <h5>Sign Up</h5>
+                                <RegistrationForm /> {/* Ensure RegistrationForm has onSubmit logic */}
+                            </div>
+                        )}
+                    </Card>
+                </div>
+            )}
         </Container>
     );
 };

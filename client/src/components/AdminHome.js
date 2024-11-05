@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import './Home.css'; // Reuse same styles if needed
 
 const AdminHome = () => {
+  console.log("In Admin Home");
   return (
 
     <div className="home-container">

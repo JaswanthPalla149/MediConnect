@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+.wrapper {
+    width: 400px;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.auth-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.auth-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.login-form {
+    width: 100%;
+}
+
+.login-form .form-label {
+    font-weight: 600;
+}
+
+.login-form .form-control {
+    border-right: none;
+}
+
+.login-form .input-group-text {
+    background-color: #f8f9fa;
+    border-right: none;
+}
+
+.login-form .btn-outline-secondary {
+    border-left: none;
+}
+
+.login-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: all 0.3s;
+}
+
+.login-form .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.login-form a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.login-form a:hover {
+    color: #007bff !important;
+}
+
+.register {
+    margin-top: 20px;
+    color: #fff;
+}
