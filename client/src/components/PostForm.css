@@ -1,0 +1,101 @@
+/* PostForm.css */
+
+/* Base styling for the form container */
+.post-form-container {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.post-form-container h2 {
+    color: #333;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Alert styling */
+.alert {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+/* Styling form inputs */
+.form-input {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+}
+
+/* Styling for the Submit button */
+.submit-button {
+    background-color: #FFA500;  /* Orange background */
+    border-color: #FFA500;  /* Matching border color */
+    font-size: 1.2rem;
+    padding: 12px 25px;  /* Added extra padding for better size */
+    border-radius: 25px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px; /* Push the button a little lower */
+    font-weight: bold;
+}
+
+/* Hover effect for submit button */
+.submit-button:hover {
+    background-color: white;
+    color: #FFA500;  /* Orange text when hovered */
+    border-color: #FFA500;
+    transform: scale(1.05);
+}
+
+/* Disabled button styling */
+.submit-button:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Adding the vibrate animation for the form container */
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(5px); }
+}
+
+/* Trigger the vibration animation on error */
+.post-form-container.error {
+    animation: vibrate 0.5s ease-in-out infinite;
+}
+
+/* Adding a background color transition for the container */
+.post-form-container:hover {
+    background-color: #e9ecef;
+}
+
+/* A smooth transition for form inputs */
+.form-input {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Additional touch-ups */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    padding: 30px;
+}

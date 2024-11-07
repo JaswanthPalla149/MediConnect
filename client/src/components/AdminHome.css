@@ -1,118 +1,191 @@
-/* Base Styles */
-body {
+/* Base Styles for adminHome */
+.adminHome body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #1a1a1a;
+    background-color: #f2f2f2;
     color: white;
     scroll-behavior: smooth;
 }
 
-/* Home Container */
-.home-container {
-    padding-top: 80px;
-}
-
-.home {
+/* Home Container with Vibrating Light Orange and Light Green Background */
+.adminHome .home-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    text-align: center;
-    background-color: rgb(243, 242, 242);
-    color: black;
-    gap: 30px;
+    background: linear-gradient(135deg, #FFECB3, #A5D6A7);
+    background-size: 200% 200%;
+    animation: gradientVibrate 5s ease-in-out infinite;
+    padding: 20px;
 }
 
-/* Admin Image Container */
-.admin-image-container {
+/* Vibrating Background Animation */
+@keyframes gradientVibrate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Home Section */
+.adminHome .home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    gap: 20px;
+    animation: fadeIn 1.2s ease-in-out forwards;
+    animation-iteration-count: 1;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Admin Image Container with Glow */
+.adminHome .admin-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #4CAF50;
+    background-color: #FF7043; /* Changed to orange */
     border-radius: 50%;
-    padding: 10px;
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(255, 87, 34, 0.6);
 }
 
-.admin-image {
+/* Admin Image with Larger Size */
+.adminHome .admin-image {
     border-radius: 50%;
-    width: 400px;
-    height: 400px;
+    width: 180px; /* Increased width */
+    height: 180px; /* Increased height */
     object-fit: cover;
-    border: 2px solid #4CAF50;
+    border: 3px solid #FF7043; /* Orange border */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.adminHome .admin-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.5);
 }
 
 /* Content Section */
-.admin-content {
+.adminHome .admin-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
-/* Typing Text and Welcome Message */
-.typing-text {
-    font-size: 2rem;
+/* Typing Text and Welcome Message with Shadow */
+.adminHome .typing-text {
+    font-size: 3rem; /* Increased font size */
     font-weight: 800;
-    color: #4CAF50;
+    color: #FF5722;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Added stronger shadow */
+    animation: typing 3s steps(40, end) forwards;
+    animation-iteration-count: 1;
 }
 
-.admin-welcome-text {
-    font-size: 1rem;
+/* Typing Animation for Text */
+@keyframes typing {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Admin Welcome Text */
+.adminHome .admin-welcome-text {
+    font-size: 1.4rem; /* Increased font size */
+    font-weight: 500;
+    color: #333;
     margin-bottom: 25px;
-    color: #0e0d0d;
+    line-height: 1.6; /* Added line height for better readability */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Added shadow */
 }
 
-/* Button Container */
-.button-container {
+/* Button Container Position Adjustment */
+.adminHome .button-container {
     display: flex;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: -15px; /* Move buttons up */
 }
 
 /* Radio Button Styling */
-.admin-radio {
+.adminHome .admin-radio {
     display: none;
 }
 
-.admin-label {
+.adminHome .admin-label {
     background-color: #FF5722;
     color: white;
-    padding: 10px 16px;
+    padding: 12px 20px;
     border: 2px solid transparent;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 0.9rem;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(255, 87, 34, 0.4);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Hover and Active State */
-.admin-radio:checked + .admin-label,
-.admin-label:hover {
+.adminHome .admin-label::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.4s;
+}
+
+.adminHome .admin-label:hover::before {
+    left: 100%;
+}
+
+.adminHome .admin-label:hover {
     background-color: transparent;
     color: #FF5722;
     border-color: #FF5722;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .home {
+    .adminHome .home {
         padding: 20px;
-        flex-direction: column;
     }
 
-    .typing-text {
-        font-size: 1.5rem;
+    .adminHome .typing-text {
+        font-size: 2rem; /* Adjusted for mobile */
     }
 
-    .admin-image {
-        width: 90px;
-        height: 90px;
+    .adminHome .admin-image {
+        width: 120px; /* Adjusted width for smaller screens */
+        height: 120px; /* Adjusted height for smaller screens */
     }
 
-    .admin-label {
+    .adminHome .admin-welcome-text {
+        font-size: 1.2rem; /* Adjusted for mobile */
+    }
+
+    .adminHome .admin-label {
         font-size: 0.8rem;
         padding: 8px 12px;
+    }
+
+    .adminHome .button-container {
+        margin-top: -10px; /* Adjust margin for mobile */
     }
 }

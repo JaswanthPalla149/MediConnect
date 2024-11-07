@@ -94,14 +94,14 @@ const QuizUpload = () => {
         <div className="quiz-upload-container">
             <h2>Create New Quiz</h2>
             {error && (
-                <Alert variant="danger">
+                <Alert variant="danger" className="quiz-upload-alert">
                     {error}
                     <Button variant="link" onClick={handleReset}>Reset</Button>
                 </Alert>
             )}
-            {success && <Alert variant="success">Quiz created successfully!</Alert>}
+            {success && <Alert variant="success" className="quiz-upload-alert">Quiz created successfully!</Alert>}
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="quiz-upload-form">
                 <Form.Group>
                     <Form.Label>Title</Form.Label>
                     <Form.Control
@@ -126,7 +126,7 @@ const QuizUpload = () => {
 
                 <h3>Questions</h3>
                 {questions.map((question, qIndex) => (
-                    <div key={qIndex} className="mb-4">
+                    <div key={qIndex} className="question-container">
                         <Form.Group>
                             <Form.Label>Question {qIndex + 1}</Form.Label>
                             <Form.Control
