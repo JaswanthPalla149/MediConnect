@@ -7,6 +7,7 @@ const postsRouter = require('./routes/posts');
 const quizzesRouter = require('./routes/quizzes');
 const usersRouter = require('./routes/users');
 const adminsRouter = require('./routes/admins');
+const { execFile } = require('child_process');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -34,6 +35,28 @@ app.use('/api/posts', postsRouter);
 app.use('/api/quizzes', quizzesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
+
+app.post('/api/sentiment', (req, res) => {
+    const text = req.body.text;
+   // console.log(text);
+    // Run the Python script as a child process
+    const path = require('path');
+const serverPyPath = path.join(__dirname, 'routes', 'server.py');
+execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
+        if (error) {
+            console.error('Error executing Python script:', error);
+            return res.status(500).json({ error: 'Failed to analyze sentiment' });
+        }
+
+        if (stderr) {
+            console.error('Python script error output:', stderr);
+        }
+
+        // Parse and send the Python script output
+        const sentimentScores = JSON.parse(stdout);
+        res.json(sentimentScores);
+    });
+});
 
 // Basic route for testing
 app.get('/', (req, res) => {

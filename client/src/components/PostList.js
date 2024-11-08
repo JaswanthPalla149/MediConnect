@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-const PostList = () => {
+const PostList = ({username}) => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState({}); 
-
+    const [likedPosts, setLikedPosts] = useState([]);
+    //const [username, setUsername] = useState(null);
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -18,17 +20,56 @@ const PostList = () => {
         fetchPosts();
     }, []);
 
-    
     const handleLikePost = async (postId) => {
         try {
-            const res = await axios.post(`http://localhost:5000/api/posts/${postId}/like`);
-            setPosts((prevPosts) => 
-                prevPosts.map((post) => (post._id === res.data._id ? res.data : post))
+            // Send a request to toggle the like and update user interactions
+            const res = await axios.post('http://localhost:5000/api/users/interactions/like', { 
+                userId: username, // Pass the current user's ID here
+                postId
+            });
+    
+            // Update likedPosts directly from the response, ensuring synchronization with backend
+            setLikedPosts(res.data.likedPosts.map((like) => like.postId));
+    
+            // Update the specific post in the posts state with the new like count
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post._id === postId ? { ...post, likes: res.data.postLikes } : post
+                )
             );
+    
         } catch (error) {
-            console.error('Error liking post:', error);
+            console.error('Error liking/disliking post:', error);
         }
     };
+    
+   /* const handleLikePost = async (postId) => {
+        try {
+            // Check if the post is already liked
+            const isLiked = likedPosts.includes(postId);
+
+            // Toggle like or dislike
+            const res = await axios.post(`http://localhost:5000/api/posts/${postId}/${isLiked ? 'dislike' : 'like'}`);
+
+            // Update the liked posts list
+            if (isLiked) {
+                // Remove from liked posts if already liked
+                setLikedPosts(likedPosts.filter(id => id !== postId));
+            } else {
+                // Add to liked posts if not liked yet
+                setLikedPosts([...likedPosts, postId]);
+            }
+
+            // Update the posts with the new like/dislike count
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post._id === res.data._id ? res.data : post
+                )
+            );
+        } catch (error) {
+            console.error('Error liking/disliking post:', error);
+        }
+    };*/
 
     
     const handleCommentPost = async (postId, username, content) => {
@@ -54,7 +95,16 @@ const PostList = () => {
                                 <Card.Title>{post.title}</Card.Title>
                                 <Card.Text>{post.content}</Card.Text>
                                 <Card.Text>Likes: {post.likes}</Card.Text>
-                                <Button variant="link" onClick={() => handleLikePost(post._id)}>Like</Button>
+
+                                {/* Like Button with Toggle */}
+                                <Button
+                                    variant="link"
+                                    onClick={() => handleLikePost(post._id)}
+                                    className="like-button"
+                                    style={{ color: likedPosts.includes(post._id) ? 'red' : 'gray' }}
+                                >
+                                    {likedPosts.includes(post._id) ? <FaHeart /> : <FaRegHeart />}
+                                </Button>
 
                                 {/* Comment Form */}
                                 <Form onSubmit={(e) => {
@@ -64,18 +114,18 @@ const PostList = () => {
                                     handleCommentPost(post._id, username, content);
                                 }}>
                                     <Form.Group controlId={`comment-${post._id}`}>
-                                        <Form.Control 
-                                            type="text" 
-                                            placeholder="Your Name" 
-                                            required 
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Your Name"
+                                            required
                                             onChange={(e) => setComments({ ...comments, [post._id]: { ...comments[post._id], username: e.target.value, content: comments[post._id]?.content || '' } })}
                                             value={comments[post._id]?.username || ''}
                                         />
-                                        <Form.Control 
+                                        <Form.Control
                                             as="textarea"
                                             rows={3}
-                                            placeholder="Your Comment" 
-                                            required 
+                                            placeholder="Your Comment"
+                                            required
                                             onChange={(e) => setComments({ ...comments, [post._id]: { ...comments[post._id]?.username || '', content: e.target.value } })}
                                             value={comments[post._id]?.content || ''}
                                         />

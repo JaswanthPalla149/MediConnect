@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import './PostForm.css'; // Import external CSS
+import './PostForm.css'; 
 
-const PostForm = ({ onPostCreated }) => {
+const PostForm = ({ username/*, onPostCreated */}) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
-
+    useEffect(() => {
+        console.log('In create Posts');
+        // Retrieve the stored username (from localStorage, sessionStorage, or context)
+        const username = localStorage.getItem('username'); // Or sessionStorage.getItem('username')
+        
+        
+        if (username) {
+            console.log(`Posting as: ${username}`);
+        }
+        else{
+            console.log('no username given');
+        }
+    }, []);
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newPost = { title, content };
+        const newPost = { title, content, username};
 
         setLoading(true);
         setError(null);
@@ -28,7 +40,7 @@ const PostForm = ({ onPostCreated }) => {
 
             if (response.ok) {
                 const createdPost = await response.json();
-                onPostCreated(createdPost);
+               // onPostCreated(createdPost);
                 setTitle('');
                 setContent('');
                 setSuccessMessage('Post created successfully!');

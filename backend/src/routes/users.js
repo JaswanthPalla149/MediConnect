@@ -104,6 +104,28 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.post('/api/users/interactions/like', async (req, res) => {
+    const { userId, postId } = req.body;
+    try {
+        const user = await User.findById(userId);
+        const isLiked = user.interactions.likedPosts.some(like => like.postId.toString() === postId);
+
+        if (isLiked) {
+            // Remove postId if already liked
+            user.interactions.likedPosts = user.interactions.likedPosts.filter(
+                (like) => like.postId.toString() !== postId
+            );
+        } else {
+            // Add postId if not liked yet
+            user.interactions.likedPosts.push({ postId });
+        }
+
+        await user.save();
+        res.status(200).json({ likedPosts: user.interactions.likedPosts });
+    } catch (error) {
+        res.status(500).json({ error: 'Error updating like status' });
+    }
+});
 // DELETE: Delete a user by ID
 router.delete('/:id', async (req, res) => {
     try {
