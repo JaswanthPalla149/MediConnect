@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="home-container">
       
-      <section className="home">
+      <div className="home">
         <div className="home-img">
           <img
             src="https://static.vecteezy.com/system/resources/previews/000/390/394/original/mental-health-awareness-icon-vector.jpg"
@@ -37,7 +37,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Chatbot Section */}
       <div className="page2" id="chatbot">
@@ -76,13 +76,16 @@ const Home = () => {
       
       {/* Quizzes Section */}
       <div className="quizzes-section">
-        <h1>QUIZZES</h1>
+        
         <div className="quiz-img">
+          <h1>QUIZZES</h1>
           <img src="https://binghomepageweeklyquiz.com/wp-content/uploads/2022/04/mental-health-quiz.jpg" alt="Quizzes" />
         </div>
+        <div className = "quiz-textbox">
         <p className="quiz-description">
           A quiz can't tell you everything you need to know about yourself, but it can help provide insight into some of your personality traits, behaviors, and how you view and respond to the world around you.
         </p>
+        </div>
       </div>
 
       {/* Explore Sections */}

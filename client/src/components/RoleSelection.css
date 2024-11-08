@@ -7,6 +7,19 @@
     font-family: "Open Sans", sans-serif;
 }
 
+.role-selection-container text-center mt-5{
+    height: 200vh;
+    
+}
+
+
+
+h2{
+    font-weight: bolder;
+    font-family: sans-serif;
+    color: orange;
+}
+
 .role-selection-wrapper {
     width: 350px;
     padding: 20px 30px;
