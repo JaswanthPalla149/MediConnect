@@ -47,12 +47,13 @@ router.delete('/:id', async (req, res) => {
 });
 // POST: Create a new post
 router.post('/', async (req, res) => {
-    const { title, content, } = req.body;
+    const { title, content, username } = req.body;
+    console.log(`request body :${req.body}`)
     if (!username) {
         return res.status(400).json({ message: 'Username is required' });
     }
 
-    const newPost = new Post({ title, content, username });
+    const newPost = new Post({ title, content, author : username });
     try {
         const savedPost = await newPost.save();
         res.status(201).json(savedPost); 
