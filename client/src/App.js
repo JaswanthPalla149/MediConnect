@@ -93,7 +93,7 @@ const App = () => {
     return (
         <Router>
             <div>
-                {isAuthenticated && role && <DynamicNavbar role={role} />}
+                {isAuthenticated && role && <DynamicNavbar role={role} username={username} resetAuth={resetAuth} />}
 
                 <Routes>
                     <Route 
