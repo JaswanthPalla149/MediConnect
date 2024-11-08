@@ -65,7 +65,7 @@ const App = () => {
 
     return (
         <Router>
-            <Container>
+            <div>
                 {isAuthenticated && role && <DynamicNavbar role={role} />}
 
                 <Routes>
@@ -94,7 +94,7 @@ const App = () => {
                     <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm /> : <Navigate to="/" />} />
                     <Route path="/Home/create-post" element={isAuthenticated ? <PostForm /> : <Navigate to="/" />} />
                 </Routes>
-            </Container>
+            </div>
         </Router>
     );
 };

@@ -63,7 +63,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
     };
 
     return (
-        <Container className="role-selection-container text-center mt-5">
+        <div className="role-selection-container text-center mt-5">
             <h2>Select Your Role</h2>
             <Button 
                 variant="primary" 
@@ -126,7 +126,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                     </Card>
                 </div>
             )}
-        </Container>
+        </div>
     );
 };
 
