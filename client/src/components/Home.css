@@ -58,14 +58,19 @@ body {
     background-color: rgb(243, 242, 242);
     color: black;
     border: 10px solid transparent; /* Make the border transparent initially */
+    border-radius: 20px;
     border-image: linear-gradient(to bottom, blue, rgb(252, 25, 221)) 1;
     
 }
 /* QUIZZES Section */
 .quizzes-section {
+    display: flex;
+    justify-content: space-around;
+    gap: 3rem;
     text-align: center;
     background-color: #f5f5f5;
     color: black;
+    border-radius: 20px;
     padding: 40px 20px;
     margin-top: 20px;
 }
@@ -84,12 +89,21 @@ body {
     border: 3px solid #4CAF50;
 }
 
+.quiz-textbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .quiz-description {
+    top: 10rem;
     font-size: 20px;
     line-height: 2;
     max-width: 600px;
     margin: 0 auto;
-    color: #0e0d0d;
+    color: black;
+    font-weight: bold;
+    font-size: 1.35rem;
 }
 
 
