@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
                 content: { type: String, required: true },
                 timestamp: { type: Date, default: Date.now }
             }
+        ],
+        likedPosts: [
+            {
+                postId: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', required: true } // Post ID of liked post
+            }
         ]
     },
 
@@ -43,7 +48,6 @@ const userSchema = new mongoose.Schema({
             timestamp: { type: Date, default: Date.now }
         }
     ],
-
 
     happinessLevel: { type: Number, default: 0.0 },
     mindfulnessLevel: { type: Number, default: 0.0 },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import RoleSelection from './components/RoleSelection';
@@ -14,7 +14,8 @@ import QuizUpload from './components/QuizUpload';
 import QuizDetails from './components/QuizDetails';
 import Chatbot from './components/Chatbot';
 
-const DynamicNavbar = ({ role }) => {
+const DynamicNavbar = ({ role, username, resetAuth }) => {
+    
     const renderAdminLinks = () => (
         <>
             <Nav.Link as={Link} to="/AdminHome">Home</Nav.Link>
@@ -38,12 +39,21 @@ const DynamicNavbar = ({ role }) => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand as={Link} to="/" style={{ fontWeight: 'bold' }}>Manaswini</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/" onClick={() => {
+                        resetAuth(); 
+                        console.log("Manaswini clicked, resetAuth called"); 
+                    }}  style={{ fontWeight: 'bold' }}>Manaswini</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                <Nav className="me-auto">
                         {role === 'admin' ? renderAdminLinks() : renderUserLinks()}
                     </Nav>
+                    <Nav className="ml-auto">
+                        {/* Display username if logged in */}
+                        {username && (
+                            <Nav.Link disabled>Hello, {username}</Nav.Link>
+                        )}
+                        </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
@@ -53,16 +63,33 @@ const DynamicNavbar = ({ role }) => {
 const App = () => {
     const [role, setRole] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [username, setUsername] = useState(null);
 
     const handleRoleSelection = (role) => {
         setRole(role);
     };
 
-    const handleLogin = (role) => {
-        setRole(role); // Set the role upon successful login
-        setIsAuthenticated(true); // Marks the user as logged in
+    const handleLogin = (username, role) => {
+        setRole(role); 
+        console.log(`role : ${role}`);
+        setIsAuthenticated(true);
+        ///localStorage.setItem('username', username);
+        setUsername(username);
+        console.log(`username : ${username}`);
     };
 
+    const resetAuth = () => {
+        console.log("Resetting role and authentication");
+        setRole(null);
+        setIsAuthenticated(false);
+    };
+
+    useEffect(() => {
+        // If username is already set, you could navigate to the respective page.
+        if (isAuthenticated && role) {
+            // Navigate only when role and authentication are confirmed
+        }
+    }, [isAuthenticated, role]);
     return (
         <Router>
             <div>
@@ -90,9 +117,9 @@ const App = () => {
                     <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === 'admin' ? <QuizUpload /> : <Navigate to="/" />} />
                     <Route path="/AdminHome/quiz/:id" element={isAuthenticated && role === 'admin' ? <QuizDetails /> : <Navigate to="/" />} />
                     <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
-                    <Route path="/Home/forum" element={isAuthenticated ? <PostList /> : <Navigate to="/" />} />
-                    <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm /> : <Navigate to="/" />} />
-                    <Route path="/Home/create-post" element={isAuthenticated ? <PostForm /> : <Navigate to="/" />} />
+                    <Route path="/Home/forum" element={isAuthenticated ? <PostList username={username} /> : <Navigate to="/" />} />
+                    <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm username={username}  /> : <Navigate to="/" />} />
+                    <Route path="/Home/create-post" element={isAuthenticated ? <PostForm username={username} /> : <Navigate to="/" />} />
                 </Routes>
             </div>
         </Router>
