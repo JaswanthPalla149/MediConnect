@@ -46,12 +46,14 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
             });
     
             const result = await response.json();
+            
             if (response.ok) {
                 console.log('Login successful:', result);
                 localStorage.setItem('username', username);
                 console.log(`username after succesfull login: ${username}`);
                 localStorage.setItem('token', result.token);
-                onLoginSuccess(username, selectedRole); // Notify App.js of successful login
+                localStorage.setItem('id',result._id);
+                onLoginSuccess(username,result._id, selectedRole); // Notify App.js of successful login
             } else {
                 console.error('Login failed:', result.message);
                 setErrorMessage(result.message); // Show error message to user

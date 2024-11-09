@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        res.json({ token, role: 'admin', message: 'Login successful', domain: admin.domain });
+        res.json({ token, role: 'admin', message: 'Login successful', domain: admin.domain, _id: admin._id });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
