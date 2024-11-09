@@ -7,7 +7,10 @@ import AdminHome from './components/AdminHome';
 import Home from './components/Home';
 import DomainSelection from './components/DomainSelection'; // Import DomainSelection
 import Sections from './components/Sections';
+import AdminPostList from "./components/AdminPostList";
 import PostList from './components/PostList'; // Import PostList
+import PostForm from './components/PostForm';
+import QuizDetails from './components/QuizDetails';
 import QuizList from './components/QuizList';
 import QuizUpload from './components/QuizUpload';
 import Chatbot from './components/Chatbot';
@@ -20,25 +23,12 @@ import "slick-carousel/slick/slick-theme.css";
 const DynamicNavbar = ({ role, username, resetAuth }) => {
   const renderAdminLinks = () => (
     <>
-      <Nav.Link as={Link} to="/AdminHome">
-        Home
-      </Nav.Link>
-      <Nav.Link as={Link} to="/AdminHome/create-post">
-        Create Post
-      </Nav.Link>
-      <Nav.Link as={Link} to="/AdminHome/manage-posts">
-        Manage Posts
-      </Nav.Link>{" "}
-      {/* Add Manage Posts Link */}
-      <Nav.Link as={Link} to="/AdminHome/sections">
-        Manage Sections
-      </Nav.Link>
-      <Nav.Link as={Link} to="/AdminHome/upload-quiz">
-        Upload Quiz
-      </Nav.Link>
-      <Nav.Link as={Link} to="/Home/forum">
-        Community Forum
-      </Nav.Link>
+            <Nav.Link as={Link} to="/AdminHome">Home</Nav.Link>
+      <Nav.Link as={Link} to="/AdminHome/create-post">Create Post</Nav.Link>
+      <Nav.Link as={Link} to="/AdminHome/manage-posts">Manage Posts</Nav.Link>
+      <Nav.Link as={Link} to="/AdminHome/sections">Manage Sections</Nav.Link>
+      <Nav.Link as={Link} to="/AdminHome/upload-quiz">Upload Quiz</Nav.Link>
+      {/* <Nav.Link as={Link} to="/Home/forum">Community Forum</Nav.Link> */}
     </>
   );
 
@@ -131,120 +121,24 @@ const App = () => {
           />
         )}
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              isAuthenticated ? (
-                <Navigate to={role === "admin" ? "/AdminHome" : "/Home"} />
-              ) : (
-                <RoleSelection
-                  onSelectRole={handleRoleSelection}
-                  onLoginSuccess={handleLogin}
-                />
-              )
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              isAuthenticated ? (
-                <Navigate to={role === "admin" ? "/AdminHome" : "/Home"} />
-              ) : (
-                <LoginForm onLogin={handleLogin} />
-              )
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              isAuthenticated ? (
-                <Navigate to={role === "admin" ? "/AdminHome" : "/Home"} />
-              ) : (
-                <RegistrationForm />
-              )
-            }
-          />
+<Routes>
+  <Route path="/" element={isAuthenticated ? <Navigate to={role === "admin" ? "/AdminHome" : "/Home"} /> : <RoleSelection onSelectRole={handleRoleSelection} onLoginSuccess={handleLogin} />} />
+  <Route path="/login" element={isAuthenticated ? <Navigate to={role === "admin" ? "/AdminHome" : "/Home"} /> : <LoginForm onLogin={handleLogin} />} />
+  <Route path="/register" element={isAuthenticated ? <Navigate to={role === "admin" ? "/AdminHome" : "/Home"} /> : <RegistrationForm />} />
+  <Route path="/AdminHome" element={isAuthenticated && role === "admin" ? <AdminHome username={username} id={id} domain={domain} /> : <Navigate to="/" />} />
+  <Route path="/AdminHome/create-post" element={isAuthenticated && role === "admin" ? <PostForm username={username} id={id} /> : <Navigate to="/" />} />
+  <Route path="/AdminHome/manage-posts" element={isAuthenticated && role === "admin" ? <AdminPostList username={username} id={id} /> : <Navigate to="/" />} />
+  <Route path="/AdminHome/sections" element={isAuthenticated && role === "admin" ? <Sections /> : <Navigate to="/" />} />
+  <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === "admin" ? <QuizUpload /> : <Navigate to="/" />} />
+  <Route path="/Home" element={isAuthenticated && role === "user" ? <Home /> : <Navigate to="/" />} />
+  <Route path="/Home/forum/select-domain" element={isAuthenticated ? <DomainSelection /> : <Navigate to="/" />} />
+  <Route path="/Home/forum/:domain" element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />} />
+  <Route path="/Home/sections" element={isAuthenticated ? <Sections /> : <Navigate to="/" />} />
+  <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList /> : <Navigate to="/" />} />
+  <Route path="/Home/YogaPage" element={isAuthenticated ? <YogaPage /> : <Navigate to="/" />} />
+  <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
+</Routes>
 
-          {/* Authenticated Routes */}
-          <Route
-            path="/AdminHome"
-            element={
-              isAuthenticated && role === "admin" ? (
-                <AdminHome username={username} id={id} domain={domain} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/Home"
-            element={
-              isAuthenticated && role === "user" ? (
-                <Home />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/Home/sections"
-            element={isAuthenticated ? <Sections /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/Home/quizzes"
-            element={isAuthenticated ? <QuizList /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/AdminHome/upload-quiz"
-            element={
-              isAuthenticated && role === "admin" ? (
-                <QuizUpload />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/AdminHome/quiz/:id"
-            element={
-              isAuthenticated && role === "admin" ? (
-                <QuizDetails />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/Home/chatbot"
-            element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />}
-          />
-          <Route path="/Home/forum/select-domain" element={isAuthenticated ? <DomainSelection /> : <Navigate to="/" />} />
-          <Route path="/Home/forum/:domain" element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />} />
-          <Route
-            path="/AdminHome/create-post"
-            element={
-              isAuthenticated && role === "admin" ? (
-                <PostForm username={username} id={id} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route
-            path="/AdminHome/manage-posts"
-            element={
-              isAuthenticated && role === "admin" ? (
-                <AdminPostList username={username} id={id} />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
-          <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList /> : <Navigate to="/" />} />
-          <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === 'admin' ? <QuizUpload /> : <Navigate to="/" />} />
-        </Routes>
       </div>
     </Router>
   );
