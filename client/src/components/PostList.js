@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import './PostList.css'; 
 
-const PostList = ({username}) => {
+const PostList = ({username, id}) => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState({}); 
     const [likedPosts, setLikedPosts] = useState([]);
@@ -74,11 +75,24 @@ const PostList = ({username}) => {
     
     const handleCommentPost = async (postId, username, content) => {
         try {
+            const sentimentResponse = await axios.post('http://localhost:5000/api/sentiment', { text: content });
+            console.log('calculating your sentiment score');
+            const sentimentScore = sentimentResponse.data.compound;
+            console.log(`Sentiment Score: ${sentimentScore}`);
             const res = await axios.post(`http://localhost:5000/api/posts/${postId}/comment`, { username, content });
             setPosts((prevPosts) =>
                 prevPosts.map((post) => (post._id === res.data._id ? res.data : post))
             );
-            setComments((prevComments) => ({ ...prevComments, [postId]: { username: '', content: '' } })); 
+            
+            const response = await axios.post(
+                `http://localhost:5000/api/users/${username}/comments`, 
+                {
+                    content: content,
+                    postId: postId, 
+                    sentimentScore: sentimentScore
+                }
+            );
+            setComments((prevComments) => ({ ...prevComments, [postId]: { username: '', content: '' } }));
         } catch (error) {
             console.error('Error adding comment:', error);
         }
@@ -136,9 +150,13 @@ const PostList = ({username}) => {
                                 {/* Display Comments */}
                                 <h5>Comments:</h5>
                                 {post.comments.map((comment, index) => (
-                                    <div key={index}>
-                                        <strong>{comment.username}</strong>: {comment.content}
-                                    </div>
+                                    //<div className="blurred">This should be blurred</div>
+                                     <div 
+                                     key={index} 
+                                     //className={/*comment.sentimentScore < -0.25 ?*/ "blurred" /*: ''*/}
+                                 >
+                                     <strong>{comment.username}</strong>: {comment.content}
+                                 </div>
                                 ))}
                             </Card.Body>
                         </Card>

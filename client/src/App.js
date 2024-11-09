@@ -64,18 +64,20 @@ const App = () => {
     const [role, setRole] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState(null);
-
+    const [id, setId] = useState(null);
     const handleRoleSelection = (role) => {
         setRole(role);
     };
 
-    const handleLogin = (username, role) => {
+    const handleLogin = (username, id, role) => {
         setRole(role); 
         console.log(`role : ${role}`);
         setIsAuthenticated(true);
         ///localStorage.setItem('username', username);
         setUsername(username);
         console.log(`username : ${username}`);
+        setId(id);
+        console.log(`Id : ${id}`);
     };
 
     const resetAuth = () => {
@@ -93,7 +95,7 @@ const App = () => {
     return (
         <Router>
             <div>
-                {isAuthenticated && role && <DynamicNavbar role={role} />}
+                {isAuthenticated && role && <DynamicNavbar role={role} username={username} id ={id} resetAuth={resetAuth} />}
 
                 <Routes>
                     <Route 
@@ -117,9 +119,9 @@ const App = () => {
                     <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === 'admin' ? <QuizUpload /> : <Navigate to="/" />} />
                     <Route path="/AdminHome/quiz/:id" element={isAuthenticated && role === 'admin' ? <QuizDetails /> : <Navigate to="/" />} />
                     <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
-                    <Route path="/Home/forum" element={isAuthenticated ? <PostList username={username} /> : <Navigate to="/" />} />
-                    <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm username={username}  /> : <Navigate to="/" />} />
-                    <Route path="/Home/create-post" element={isAuthenticated ? <PostForm username={username} /> : <Navigate to="/" />} />
+                    <Route path="/Home/forum" element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />} />
+                    <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm username={username} id={id} /> : <Navigate to="/" />} />
+                    <Route path="/Home/create-post" element={isAuthenticated ? <PostForm username={username} id={id} /> : <Navigate to="/" />} />
                 </Routes>
             </div>
         </Router>

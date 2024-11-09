@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import './PostForm.css'; 
 
-const PostForm = ({ username/*, onPostCreated */}) => {
+const PostForm = ({ username, id/*, onPostCreated */}) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
@@ -12,10 +12,11 @@ const PostForm = ({ username/*, onPostCreated */}) => {
         console.log('In create Posts');
         // Retrieve the stored username (from localStorage, sessionStorage, or context)
         const username = localStorage.getItem('username'); // Or sessionStorage.getItem('username')
-        
+        const id = localStorage.getItem('id');
         
         if (username) {
             console.log(`Posting as: ${username}`);
+            console.log(`Also Id: ${id}`);
         }
         else{
             console.log('no username given');
