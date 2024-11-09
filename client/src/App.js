@@ -6,7 +6,7 @@ import RegistrationForm from './components/RegistrationForm';
 import AdminHome from './components/AdminHome';
 import Home from './components/Home';
 import DomainSelection from './components/DomainSelection'; // Import DomainSelection
-
+import Sections from './components/Sections';
 import PostList from './components/PostList'; // Import PostList
 import QuizList from './components/QuizList';
 import QuizUpload from './components/QuizUpload';
