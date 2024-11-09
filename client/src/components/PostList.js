@@ -4,7 +4,7 @@ import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import './PostList.css'; 
 
-const PostList = ({username, id}) => {
+const PostList = ({username, id, domain}) => {
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState({}); 
     const [likedPosts, setLikedPosts] = useState([]);
@@ -13,7 +13,8 @@ const PostList = ({username, id}) => {
         const fetchPosts = async () => {
             try {
                 const res = await axios.get('http://localhost:5000/api/posts');
-                setPosts(res.data);
+                const filteredPosts = res.data.filter(post => post.domain === domain);
+                setPosts(filteredPosts);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }

@@ -112,14 +112,14 @@ const App = () => {
                     />
 
                     {/* Authenticated Routes */}
-                    <Route path="/AdminHome" element={isAuthenticated && role === 'admin' ? <AdminHome /> : <Navigate to="/" />} />
+                    <Route path="/AdminHome" element={isAuthenticated && role === 'admin' ? <AdminHome username={username} id={id} /> : <Navigate to="/" />} />
                     <Route path="/Home" element={isAuthenticated && role === 'user' ? <Home /> : <Navigate to="/" />} />
                     <Route path="/Home/sections" element={isAuthenticated ? <Sections /> : <Navigate to="/" />} />
                     <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList /> : <Navigate to="/" />} />
                     <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === 'admin' ? <QuizUpload /> : <Navigate to="/" />} />
                     <Route path="/AdminHome/quiz/:id" element={isAuthenticated && role === 'admin' ? <QuizDetails /> : <Navigate to="/" />} />
                     <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
-                    <Route path="/Home/forum" element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />} />
+                    <Route path="/Home/forum" element={isAuthenticated ? <PostList username={username} id={id} domain='engagement' /> : <Navigate to="/" />} />
                     <Route path="/AdminHome/create-post" element={isAuthenticated && role === 'admin' ? <PostForm username={username} id={id} /> : <Navigate to="/" />} />
                     <Route path="/Home/create-post" element={isAuthenticated ? <PostForm username={username} id={id} /> : <Navigate to="/" />} />
                 </Routes>

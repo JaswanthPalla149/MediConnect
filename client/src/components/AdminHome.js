@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import './AdminHome.css';
 
-const AdminHome = () => {
+const AdminHome = (username, id) => {
     const navigate = useNavigate();
 
     const handleNavigation = (path) => {
