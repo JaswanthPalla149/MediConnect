@@ -27,7 +27,7 @@ const PostList = ({ username, id }) => {
 
   const handleLikePost = async (postId) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/users/interactions/like', { 
+      const res = await axios.post('http://localhost:5000/api/users/interactions/like', {
         userId: username,  // Pass the current user's ID
         postId
       });
@@ -38,7 +38,7 @@ const PostList = ({ username, id }) => {
     }
   };
 
-  const handleCommentPost = async (postId, username, content) => {
+  const handleCommentPost = async (postId, content) => {
     try {
       const sentimentResponse = await axios.post('http://localhost:5000/api/sentiment', { text: content });
       const sentimentScore = sentimentResponse.data.compound;
@@ -54,7 +54,7 @@ const PostList = ({ username, id }) => {
         sentimentScore: sentimentScore
       });
 
-      setComments((prevComments) => ({ ...prevComments, [postId]: { username: '', content: '' } }));
+      setComments((prevComments) => ({ ...prevComments, [postId]: { content: '' } }));
     } catch (error) {
       console.error('Error adding comment:', error);
     }
@@ -88,23 +88,16 @@ const PostList = ({ username, id }) => {
                     onSubmit={(e) => {
                       e.preventDefault();
                       const content = comments[post._id]?.content || '';
-                      handleCommentPost(post._id, username, content);
+                      handleCommentPost(post._id, content);
                     }}
                   >
                     <Form.Group controlId={`comment-${post._id}`}>
-                      <Form.Control
-                        type="text"
-                        placeholder="Your Name"
-                        required
-                        onChange={(e) => setComments({ ...comments, [post._id]: { ...comments[post._id], username: e.target.value, content: comments[post._id]?.content || '' } })}
-                        value={comments[post._id]?.username || ''}
-                      />
                       <Form.Control
                         as="textarea"
                         rows={3}
                         placeholder="Your Comment"
                         required
-                        onChange={(e) => setComments({ ...comments, [post._id]: { ...comments[post._id]?.username || '', content: e.target.value } })}
+                        onChange={(e) => setComments({ ...comments, [post._id]: { content: e.target.value } })}
                         value={comments[post._id]?.content || ''}
                       />
                     </Form.Group>

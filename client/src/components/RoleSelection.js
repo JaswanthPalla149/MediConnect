@@ -28,13 +28,13 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
         setErrorMessage(null); // Reset error message
 
         try {
-            const loginUrl = selectedRole === 'admin' 
-                ? 'http://localhost:5000/api/admins/login' 
-                : 'http://localhost:5000/api/users/login'; 
-    
+            const loginUrl = selectedRole === 'admin'
+                ? 'http://localhost:5000/api/admins/login'
+                : 'http://localhost:5000/api/users/login';
+
             const response = await fetch(loginUrl, {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
@@ -44,16 +44,22 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                     password
                 }),
             });
-    
+
             const result = await response.json();
-            
+
             if (response.ok) {
                 console.log('Login successful:', result);
                 localStorage.setItem('username', username);
                 console.log(`username after succesfull login: ${username}`);
                 localStorage.setItem('token', result.token);
-                localStorage.setItem('id',result._id);
-                onLoginSuccess(username,result._id, selectedRole); // Notify App.js of successful login
+                localStorage.setItem('id', result._id);
+                if (selectedRole === "admin") {
+                    localStorage.setItem('domain', result.domain);
+                }
+                else {
+                    localStorage.setItem("", result.domain);
+                }
+                onLoginSuccess(username, result._id, selectedRole, result.domain); // Notify App.js of successful login
             } else {
                 console.error('Login failed:', result.message);
                 setErrorMessage(result.message); // Show error message to user
@@ -67,37 +73,22 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
     };
 
     return (
-        <div className="role-selection-container text-center mt-5"
-            style = {{backgroundColor: 'rgba(0,0,0,0.5)', marign: 0,
-                backdropFilter: 'blur(10px)',
-                borderRadius:  '15px',
-                color: 'white',
-                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)', 
-                position: 'relative',
-                padding: '20px',
-
-            }}
-        >
-            <div className = "role">
-            {/* <h2>Select Your Role</h2> */}
-            <img src = "https://i.pinimg.com/originals/1f/bf/bb/1fbfbb99e0901fc3101f220d17b35e39.jpg" style = {{borderRadius: '50%',
-            }}/>
-            <Button 
-                variant="primary" 
-                className="m-3" 
+        <div className="role-selection-container text-center mt-5">
+            <h2>Select Your Role</h2>
+            <Button
+                variant="primary"
+                className="m-3"
                 onClick={() => handleRoleSelection('admin')}
             >
                 Admin
             </Button>
-            <Button 
-                variant="secondary" 
-                className="m-3" 
+            <Button
+                variant="secondary"
+                className="m-3"
                 onClick={() => handleRoleSelection('user')}
             >
                 User
             </Button>
-
-            </div>
 
             {showForms && (
                 <div className="mt-4">
@@ -105,16 +96,16 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                         <>
                             <h4>Please Sign In or Sign Up</h4>
                             <div className="d-flex justify-content-around mb-4">
-                                <Button 
-                                    variant="outline-primary" 
-                                    className="m-2" 
+                                <Button
+                                    variant="outline-primary"
+                                    className="m-2"
                                     onClick={() => toggleForm('signup')}
                                 >
                                     Sign Up
                                 </Button>
-                                <Button 
-                                    variant="outline-secondary" 
-                                    className="m-2" 
+                                <Button
+                                    variant="outline-secondary"
+                                    className="m-2"
                                     onClick={() => toggleForm('login')}
                                 >
                                     Sign In
@@ -145,7 +136,6 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                     </Card>
                 </div>
             )}
-            
         </div>
     );
 };
