@@ -14,6 +14,9 @@ import Chatbot from './components/Chatbot';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
+import YogaPage from './components/YogaPage';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const DynamicNavbar = ({ role, username, resetAuth }) => {
   const renderAdminLinks = () => (
@@ -32,6 +35,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/forum/select-domain">Community Forum</Nav.Link>
       <Nav.Link as={Link} to="/Home/quizzes">Quizzes</Nav.Link>
       <Nav.Link as={Link} to="/Home/sections">Explore Sections</Nav.Link>
+      <Nav.Link as={Link} to="/Home/YogaPage">Yoga</Nav.Link>
     </>
   );
 
@@ -105,6 +109,7 @@ const App = () => {
           <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
           <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList /> : <Navigate to="/" />} />
           <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === 'admin' ? <QuizUpload /> : <Navigate to="/" />} />
+          <Route path="/Home/YogaPage" element={isAuthenticated ? <YogaPage /> : <Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

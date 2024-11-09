@@ -1,0 +1,81 @@
+/* YogaPage.css */
+
+/* Full-page background with black color */
+.yoga-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontally centers the slider */
+    align-items: center;     /* Vertically centers the slider */
+    height: 100vh;        /* Full viewport height */
+    background-color: black; /* Black background */
+    padding: 0;
+    margin: 0;
+}
+
+.img-div{
+    background-color: black;
+    /* height: 5rem; */
+}
+
+/* Container for the slider, centered in the page */
+.yoga-page {
+    width: 90%;              /* Make the slider take 90% of the width */
+    max-width: 1200px;       /* Limit the maximum width */
+    padding: 20px;
+
+}
+
+/* Card styles */
+.yoga-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;            /* Space between the cards */
+}
+
+.yoga-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;  /* White background for the card */
+}
+
+/* Image styling inside each card */
+.yoga-image {
+    width: 100%;
+    height: 200px;           /* Adjust the height of the image */
+    object-fit: cover;       /* Ensure the image covers the space */
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Title for each yoga card */
+.yoga-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+/* Description for each yoga card */
+.yoga-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Styling for slick slider dots (pagination) */
+.slick-dots {
+    bottom: 10px;
+}
+
+.slick-dots li button:before {
+    font-size: 12px;
+    color: #777;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #333;
+}
