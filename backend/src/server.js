@@ -8,6 +8,7 @@ const quizzesRouter = require('./routes/quizzes');
 const usersRouter = require('./routes/users');
 const adminsRouter = require('./routes/admins');
 const { execFile } = require('child_process');
+const path = require('path'); 
 
 // Load environment variables from .env file
 dotenv.config();
@@ -36,6 +37,29 @@ app.use('/api/quizzes', quizzesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
 
+app.post('/api/chat', (req, res) => {
+    const text = req.body.text;
+    const serverPyPath = path.join(__dirname, 'routes', 'ChatServer.py');
+
+    execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
+        if (error) {
+            console.error('Error executing Python script:', error);
+            return res.status(500).json({ error: 'Failed to generate response' });
+        }
+
+        if (stderr) {
+            console.error('Python script error output:', stderr);
+        }
+
+        try {
+            const response = JSON.parse(stdout);
+            res.json(response);
+        } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+            res.status(500).json({ error: 'Invalid JSON response from Python script' });
+        }
+    });
+});
 app.post('/api/sentiment', (req, res) => {
     const text = req.body.text;
    // console.log(text);
