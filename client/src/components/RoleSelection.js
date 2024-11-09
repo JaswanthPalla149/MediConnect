@@ -65,8 +65,21 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
     };
 
     return (
-        <div className="role-selection-container text-center mt-5">
-            <h2>Select Your Role</h2>
+        <div className="role-selection-container text-center mt-5"
+            style = {{backgroundColor: 'rgba(0,0,0,0.5)', marign: 0,
+                backdropFilter: 'blur(10px)',
+                borderRadius:  '15px',
+                color: 'white',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)', 
+                position: 'relative',
+                padding: '20px',
+
+            }}
+        >
+            <div className = "role">
+            {/* <h2>Select Your Role</h2> */}
+            <img src = "https://i.pinimg.com/originals/1f/bf/bb/1fbfbb99e0901fc3101f220d17b35e39.jpg" style = {{borderRadius: '50%',
+            }}/>
             <Button 
                 variant="primary" 
                 className="m-3" 
@@ -81,6 +94,8 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
             >
                 User
             </Button>
+
+            </div>
 
             {showForms && (
                 <div className="mt-4">
@@ -128,6 +143,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                     </Card>
                 </div>
             )}
+            
         </div>
     );
 };

@@ -17,6 +17,7 @@ const Sections = () => {
     };
 
     return (
+        <div>
         <div className="mt-5 text-center">
             {/* Conditionally render the heading and instructions */}
             {!selectedSection && (
@@ -46,6 +47,7 @@ const Sections = () => {
                     ))}
                 </Row>
             )}
+        </div>
         </div>
     );
 };

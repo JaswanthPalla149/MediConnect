@@ -97,6 +97,9 @@ span {
     color: #e74c3c;
 }
 
+
+
+
 /* Responsive Styling */
 @media (max-width: 768px) {
     .card-body img {
