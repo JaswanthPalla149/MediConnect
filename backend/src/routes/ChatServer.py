@@ -5,13 +5,16 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import bitsandbytes as bnb
 import huggingface_hub
 import logging
+import os
+from dotenv import load_dotenv
 
 # Configure logging to suppress unwanted info logs
 logging.basicConfig(level=logging.WARNING)
 
 # Environment variable setup
-ngrok_token = "2oa7cOMmFjhiTxe8I70OhOxLoFP_76RHvz7qkLvGdQU8xYgrH"
-huggingface_token = "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"
+const ngrok_token = os.getenv("ngrok_tok")
+
+huggingface_token = os.getenv("huggingface_tok")
 
 # Hugging Face login
 huggingface_hub.login(huggingface_token)

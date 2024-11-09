@@ -7,38 +7,36 @@
     font-family: "Open Sans", sans-serif;
 }
 
-.role-selection-container text-center mt-5{
-    height: 200vh;
-    
+.role-selection-container {
+    background-image: url("./selec.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
 }
 
-
-
-h2{
-    font-weight: bolder;
-    font-family: sans-serif;
-    color: orange;
+.role-selection-container.hide-background {
+    background-image: none;
 }
 
 .role-selection-wrapper {
-    width: 350px;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
     padding: 20px 30px;
     text-align: center;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 350px;
 }
 
 .role-selection-wrapper h2 {
-    color: #fff;
-    margin-bottom: 20px;
     font-size: 1.5rem;
     font-weight: 600;
+    color: orange;
 }
 
 .role-buttons {
@@ -49,21 +47,84 @@ h2{
 
 .role-button {
     width: 100px;
-    padding: 10px 0;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    background: linear-gradient(145deg, #4A90E2, #357ABD);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    border: none;
 }
 
 .role-button:hover {
-    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(145deg, #357ABD, #2C6DA4);
 }
 
-.role-button.active {
-    background: rgba(255, 255, 255, 0.4);
-    border-color: #007bff;
+.form-section {
+   /* background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Gradient background */
+    background: rgba(0, 0, 0, 0.15);
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Enhanced shadow */
+    border: 1px solid #ccc;
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.form-section h4 {
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+    font-size: 1.25rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+    padding: 25px;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Hover effect */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.d-flex .btn-outline-primary, .btn-outline-secondary {
+    border: 2px solid;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 12px 30px;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.d-flex .btn-outline-primary:hover, .btn-outline-secondary:hover {
+    background-color: #f0f0f0;
+    color: #555;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 400px) {
