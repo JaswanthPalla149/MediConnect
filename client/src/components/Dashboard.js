@@ -6,21 +6,14 @@ import { PieChart, Pie, Cell, Tooltip as PieTooltip } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']; // Colors for pie chart slices
 
-const Dashboard = ({ username, id }) => {
+const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
 
   useEffect(() => {
-    // Fetch the dashboard data for the specific user
-    console.log(`In dashboard user id:${id}`);
+    // Fetch the dashboard data from the backend
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token'); // Using token for authorization
-        const response = await axios.get(`http://localhost:5000/api/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(`setting data :${response}`);
+        const response = await axios.get('/api/user/dashboard'); // Replace with your API URL
         setDashboardData(response.data);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -28,19 +21,19 @@ const Dashboard = ({ username, id }) => {
     };
 
     fetchData();
-  }, [id]); // Fetch data when `id` changes
+  }, []);
 
   if (!dashboardData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div style={{ padding: '20px', color: 'white', backgroundColor: '#1a1a2e', minHeight: '100vh' }}>
-      <h1>{username}'s Dashboard</h1>
+    <div style={{ padding: '20px', color: 'white' }}>
+      <h1>User Dashboard</h1>
 
       {/* Happiness and Mindfulness Level - Bar Chart */}
-      <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <div style={{ width: '100%', maxWidth: '600px' }}>
+      <div style={{ display: 'flex', gap: '30px' }}>
+        <div style={{ width: '45%' }}>
           <h3>Happiness & Mindfulness Levels</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={[
@@ -58,7 +51,7 @@ const Dashboard = ({ username, id }) => {
         </div>
 
         {/* Wellness Status - Pie Chart */}
-        <div style={{ width: '100%', maxWidth: '600px' }}>
+        <div style={{ width: '45%' }}>
           <h3>Wellness Status</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
@@ -87,17 +80,13 @@ const Dashboard = ({ username, id }) => {
       {/* Quiz Scores - Displaying the list of quiz scores */}
       <div style={{ marginTop: '30px' }}>
         <h3>Quiz Scores</h3>
-        {dashboardData.quizScores.length > 0 ? (
-          <ul style={{ listStyleType: 'none', padding: 0 }}>
-            {dashboardData.quizScores.map((score, index) => (
-              <li key={index} style={{ marginBottom: '10px', color: 'white' }}>
-                Quiz {index + 1}: {score.score} (Date: {new Date(score.timestamp).toLocaleDateString()})
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No quiz scores available</p>
-        )}
+        <ul style={{ listStyleType: 'none' }}>
+          {dashboardData.quizScores.map((score, index) => (
+            <li key={index} style={{ marginBottom: '10px', color: 'white' }}>
+              Quiz {index + 1}: {score.score} (Date: {new Date(score.timestamp).toLocaleDateString()})
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
