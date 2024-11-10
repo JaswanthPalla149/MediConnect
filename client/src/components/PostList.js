@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';  // Import useParams to access domain from URL
+import { useParams } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import axios from 'axios';
 
 const PostList = ({ username, id }) => {
-  const { domain } = useParams(); // Get domain from URL parameter
+  const { domain } = useParams();
   const [posts, setPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [comments, setComments] = useState({});
 
-  // Fetch posts based on the domain
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/posts');  // Fetch all posts
-        const filteredPosts = res.data.filter(post => post.domain === domain);  // Filter posts by domain
+        const res = await axios.get('http://localhost:5000/api/posts');
+        const filteredPosts = res.data.filter(post => post.domain === domain);
         setPosts(filteredPosts);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -23,18 +22,38 @@ const PostList = ({ username, id }) => {
     };
 
     fetchPosts();
-  }, [domain]);  // Re-run when domain changes (e.g., from mindfulness to happiness)
+  }, [domain]);
 
   const handleLikePost = async (postId) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/users/interactions/like', {
-        userId: username,  // Pass the current user's ID
-        postId
-      });
-      setLikedPosts(res.data.likedPosts.map(like => like.postId));
-      setPosts(prevPosts => prevPosts.map(post => post._id === postId ? { ...post, likes: res.data.postLikes } : post));
+      const isLiked = likedPosts.includes(postId);
+
+      // Send appropriate request for like or unlike
+      if (isLiked) {
+        // Unlike the post
+        const res = await axios.post(`http://localhost:5000/api/posts/${postId}/unlike`, {
+          userId: username,
+        });
+        setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId));
+        setPosts(prevPosts =>
+          prevPosts.map(post =>
+            post._id === postId ? { ...post, likes: res.data.likes } : post
+          )
+        );
+      } else {
+        // Like the post
+        const res = await axios.post(`http://localhost:5000/api/posts/${postId}/like`, {
+          userId: username,
+        });
+        setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
+        setPosts(prevPosts =>
+          prevPosts.map(post =>
+            post._id === postId ? { ...post, likes: res.data.likes } : post
+          )
+        );
+      }
     } catch (error) {
-      console.error('Error liking post:', error);
+      console.error('Error toggling like status:', error);
     }
   };
 
@@ -44,17 +63,17 @@ const PostList = ({ username, id }) => {
       const sentimentScore = sentimentResponse.data.compound;
       const res = await axios.post(`http://localhost:5000/api/posts/${postId}/comment`, { username, content });
 
-      setPosts((prevPosts) =>
-        prevPosts.map((post) => (post._id === res.data._id ? res.data : post))
+      setPosts(prevPosts =>
+        prevPosts.map(post => (post._id === res.data._id ? res.data : post))
       );
 
       await axios.post(`http://localhost:5000/api/users/${username}/comments`, {
         content: content,
         postId: postId,
-        sentimentScore: sentimentScore
+        sentimentScore: sentimentScore,
       });
 
-      setComments((prevComments) => ({ ...prevComments, [postId]: { content: '' } }));
+      setComments(prevComments => ({ ...prevComments, [postId]: { content: '' } }));
     } catch (error) {
       console.error('Error adding comment:', error);
     }
@@ -62,10 +81,10 @@ const PostList = ({ username, id }) => {
 
   return (
     <Container className="my-4">
-      <h2>Posts in {domain.charAt(0).toUpperCase() + domain.slice(1)} Domain</h2> {/* Capitalize the domain name */}
+      <h2>Posts in {domain.charAt(0).toUpperCase() + domain.slice(1)} Domain</h2>
       <Row>
         {posts.length > 0 ? (
-          posts.map((post) => (
+          posts.map(post => (
             <Col key={post._id} md={4} className="mb-4">
               <Card>
                 <Card.Body>
@@ -85,7 +104,7 @@ const PostList = ({ username, id }) => {
 
                   {/* Comment Form */}
                   <Form
-                    onSubmit={(e) => {
+                    onSubmit={e => {
                       e.preventDefault();
                       const content = comments[post._id]?.content || '';
                       handleCommentPost(post._id, content);
@@ -97,7 +116,7 @@ const PostList = ({ username, id }) => {
                         rows={3}
                         placeholder="Your Comment"
                         required
-                        onChange={(e) => setComments({ ...comments, [post._id]: { content: e.target.value } })}
+                        onChange={e => setComments({ ...comments, [post._id]: { content: e.target.value } })}
                         value={comments[post._id]?.content || ''}
                       />
                     </Form.Group>
