@@ -1,3 +1,57 @@
+/* Laptop Wrapper */
+.laptop-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: -6.2rem;
+    height: 80vh; /* Height of the laptop */
+    background: #ddd;
+    border-radius: 20px;
+    border: 8px solid black;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* Laptop Screen (Blue) */
+.laptop-screen {
+    background: #007bff; /* Blue screen */
+    height: 100%; /* Screen height */
+    border-radius: 15px 15px 0 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Laptop Base (Yellow) */
+.laptop-base {
+    background: #FFEB3B; /* Yellow base */
+    height: 15%; /* Base height */
+    border-radius: 0 0 15px 15px;
+    width: 100%;
+    position: relative;
+}
+
+/* Laptop Stand (Black) */
+.laptop-stand {
+    background: black; /* Black stand */
+    height: 12rem; /* Height of the stand */
+    width: 15%;
+    margin-top: -8rem;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    margin-top: -3.7rem;
+    left: 39rem;
+    border: 8px solid black;
+    bottom: -10%; /* Makes the stand stick out from the laptop base */
+}
+
 /* Base Styles for adminHome */
 .adminHome body {
     margin: 0;
@@ -5,25 +59,6 @@
     background-color: #f2f2f2;
     color: white;
     scroll-behavior: smooth;
-}
-
-/* Home Container with Vibrating Light Orange and Light Green Background */
-.adminHome .home-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #FFECB3, #A5D6A7);
-    background-size: 200% 200%;
-    animation: gradientVibrate 5s ease-in-out infinite;
-    padding: 20px;
-}
-
-/* Vibrating Background Animation */
-@keyframes gradientVibrate {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* Home Section */
@@ -188,4 +223,11 @@
     .adminHome .button-container {
         margin-top: -10px; /* Adjust margin for mobile */
     }
+}
+
+#home-admin {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 25px;
+    backdrop-filter: blur(8px); 
+    margin: -2rem;
 }
