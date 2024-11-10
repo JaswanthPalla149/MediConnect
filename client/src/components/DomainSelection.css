@@ -1,0 +1,56 @@
+#cards-page{
+    background: rgba(0, 0, 0, 0.6); 
+    height: 100vh;/* Semi-transparent white */
+    backdrop-filter: blur(8px); 
+    border-radius: 25px;
+    margin: -2rem;
+    display: flex;
+    flex-direction: column;
+    padding-left: 4rem;
+    justify-content: center;
+}
+
+#cards-page-text{
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.card-wrapper .card {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Keep card position relative, avoid absolute */
+    background: rgba(255, 255, 255, 1); /* Semi-transparent white */
+    backdrop-filter: blur(8px);            /* Apply the blur effect */
+    border-radius: 15px;                   /* Rounded corners */
+    padding: 16px;                         /* Padding inside the card */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    transition: box-shadow 0.3s ease;      /* Smooth transition for hover effect */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Optional: Light border to enhance the glass effect */
+    color: black
+}
+
+.card-wrapper .card-body {
+    position: relative; /* Ensure card body is positioned relative */
+}
+
+.card-wrapper .card-footer {
+    margin-top: 3rem; /* Adjust as needed */
+    margin-left: -2rem;
+    margin-right: -2rem;
+    margin-bottom: 0;
+    height: 15rem;  
+    background: linear-gradient(to bottom,  #6830f4, #9b68fa); 
+    border-radius: 30px 30px 0px 0px;
+}
+
+.card-wrapper .card-footer a {
+    display: inline-block; /* Ensure the button is a block element */
+    z-index: 10; /* Make sure the button is clickable */
+}
+
+.center-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
