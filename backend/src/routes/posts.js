@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose'); 
-const Post = require('../models/Post'); 
+const mongoose = require('mongoose');
+const Post = require('../models/Post');
 
 // GET: Fetch Post by id
 router.get('/:id', async (req, res) => {
@@ -53,10 +53,10 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: 'Username is required' });
     }
 
-    const newPost = new Post({ title, content, domain, author : username });
+    const newPost = new Post({ title, content, domain, author: username });
     try {
         const savedPost = await newPost.save();
-        res.status(201).json(savedPost); 
+        res.status(201).json(savedPost);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -74,14 +74,58 @@ router.get('/', async (req, res) => {
 // Like a post
 router.post('/:id/like', async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id);
+        const { id } = req.params;
+        const { userId } = req.body; // Assuming we use userId for tracking who liked the post
+
+        // Check if the ID is valid
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid post ID format' });
+        }
+
+        // Find the post by ID and increment likes
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
         post.likes += 1;
         await post.save();
-        res.json(post);
+
+        res.status(200).json({ message: 'Post liked successfully', likes: post.likes });
     } catch (error) {
-        res.status(500).send(error);
+        console.error('Error liking post:', error);
+        res.status(500).json({ message: 'Error liking post', error });
     }
 });
+
+// Unlike a post
+router.post('/:id/unlike', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid post ID format' });
+        }
+
+        const post = await Post.findById(id);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        if (post.likes > 0) {
+            post.likes -= 1;
+            await post.save();
+        }
+
+        res.status(200).json({ message: 'Post unliked successfully', likes: post.likes });
+    } catch (error) {
+        console.error('Error unliking post:', error);
+        res.status(500).json({ message: 'Error unliking post', error });
+    }
+});
+
+
 
 // Add a comment to a post
 router.post('/:id/comment', async (req, res) => {

@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import './PostForm.css'; 
+import './PostForm.css';
 
-const PostForm = ({ username, id/*, onPostCreated */}) => {
+const PostForm = ({ username, id }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+
+    // If necessary, retrieve username and id from localStorage
     useEffect(() => {
         console.log('In create Posts');
-        // Retrieve the stored username (from localStorage, sessionStorage, or context)
-        const username = localStorage.getItem('username'); // Or sessionStorage.getItem('username')
-        const id = localStorage.getItem('id');
-        
-        if (username) {
-            console.log(`Posting as: ${username}`);
-            console.log(`Also Id: ${id}`);
-        }
-        else{
-            console.log('no username given');
+        const storedUsername = localStorage.getItem('username'); // Or sessionStorage.getItem('username')
+        const storedId = localStorage.getItem('id');
+
+        if (storedUsername) {
+            console.log(`Posting as: ${storedUsername}`);
+            console.log(`Also Id: ${storedId}`);
+        } else {
+            console.log('No username found');
         }
     }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newPost = { title, content, username};
+        const newPost = { title, content, username };
 
         setLoading(true);
         setError(null);
@@ -41,7 +42,7 @@ const PostForm = ({ username, id/*, onPostCreated */}) => {
 
             if (response.ok) {
                 const createdPost = await response.json();
-               // onPostCreated(createdPost);
+                // Optionally, call a callback (onPostCreated) to update parent component or clear form
                 setTitle('');
                 setContent('');
                 setSuccessMessage('Post created successfully!');
@@ -83,10 +84,10 @@ const PostForm = ({ username, id/*, onPostCreated */}) => {
                         className="form-input"
                     />
                 </Form.Group>
-                <Button 
-                    variant="primary" 
-                    type="submit" 
-                    disabled={loading} 
+                <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={loading}
                     className="submit-button"
                 >
                     Create Post
