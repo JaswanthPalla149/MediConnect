@@ -1,0 +1,14 @@
+{
+    "name": "MediConnect",
+    "version": "3",
+    "scripts": {
+      "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+      "start-server": "npm --prefix backend start",
+      "start-client": "npm --prefix client start",
+      "install-all": "npm install --prefix backend && npm install --prefix client"
+    },
+    "dependencies": {
+      "concurrently": "^8.2.2"
+    }
+  }
+  

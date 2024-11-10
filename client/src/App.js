@@ -130,7 +130,7 @@ const App = () => {
   <Route path="/AdminHome/manage-posts" element={isAuthenticated && role === "admin" ? <AdminPostList username={username} id={id} /> : <Navigate to="/" />} />
   <Route path="/AdminHome/sections" element={isAuthenticated && role === "admin" ? <Sections /> : <Navigate to="/" />} />
   <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === "admin" ? <QuizUpload /> : <Navigate to="/" />} />
-  <Route path="/Home" element={isAuthenticated && role === "user" ? <Home /> : <Navigate to="/" />} />
+  <Route path="/Home" element={isAuthenticated && role === "user" ? <Home username={username} id={id}/> : <Navigate to="/" />} />
   <Route path="/Home/forum/select-domain" element={isAuthenticated ? <DomainSelection /> : <Navigate to="/" />} />
   <Route path="/Home/forum/:domain" element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />} />
   <Route path="/Home/sections" element={isAuthenticated ? <Sections /> : <Navigate to="/" />} />

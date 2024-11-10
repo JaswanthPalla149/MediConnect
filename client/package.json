@@ -14,6 +14,7 @@
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "MediConnect": "file:..",
     "nltk": "^0.0.1",
     "pip": "^0.0.1",
     "react-bootstrap": "^2.10.5",

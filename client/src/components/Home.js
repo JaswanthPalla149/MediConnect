@@ -2,8 +2,10 @@ import React from "react";
 import "@splinetool/viewer";
 import { Link } from "react-router-dom";
 import './Home.css';
+import Dashboard from './dborad';
 
-const Home = () => {
+
+const Home = ({username, id}) => {
   return (
     <div className="home-container">
       <div className="home">
@@ -86,6 +88,10 @@ const Home = () => {
             A quiz can't tell you everything you need to know about yourself, but it can help provide insight into some of your personality traits, behaviors, and how you view and respond to the world around you.
           </p>
         </div>
+      </div>
+
+      <div className = "dash-div">
+          <Dashboard username={username} id={id} style = {{borderRadius: '25px'}}/>
       </div>
 
       {/* Explore Sections */}
