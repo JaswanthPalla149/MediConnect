@@ -1,32 +1,202 @@
-/* QuizList.css */
+/* Background Styling */
+
+
+/* Main Container for QuizList */
+.quiz-container {
+    background: url('https://www.example.com/background-image.jpg') no-repeat center center fixed; /* Substitute with actual URL */
+    background-size: cover;
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: fadeInUp 1s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quiz-container:hover {
+    transform: translateY(-12px);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Elevated Quiz List Title with Enhanced Font */
+h1 {
+    font-family: 'Poppins', sans-serif;
+    color: #3e2723;
+    font-size: 5rem; /* Increased size for much larger title */
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ff8a65, #7e57c2, #42a5f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    animation: colorShift 3s infinite linear;
+    padding: 10px;
+}
+
+.quiz-list-title{
+    font-size: 5rem;
+    font-weight: 900;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Individual Quiz Title with Enhanced Font */
+h4 {
+    font-family: 'Roboto Slab', serif;
+    color: #303f9f;
+    font-size: 3rem; /* Increased size for quiz title */
+    font-weight: 900; /* Bold font */
+    text-align: center;
+    margin-top: 30px;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    position: relative;
+    text-shadow: 2px 2px 8px rgba(158, 158, 158, 0.5);
+}
+.quiz-title{
+    font-size: 3rem;
+    color: #303f9f;
+    font-weight: 900; /* Bold font */
+    text-shadow: 2px 2px 8px rgba(158, 158, 158, 0.5);
+}
+
+/* Color-shifting effect for the main title */
+@keyframes colorShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* Quiz Link Styling */
+.quiz-link {
+    display: inline-block;
+    color: #ff6f00;
+    font-size: 1.8rem; /* Increased font size for better visibility */
+    font-weight: 600;
+    padding: 12px 18px;
+    background-color: rgba(255, 111, 0, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.quiz-link:hover {
+    color: #ff7043;
+    background-color: rgba(255, 111, 0, 0.3);
+    transform: scale(1.1);
+    box-shadow: 0px 5px 15px rgba(255, 111, 0, 0.5);
+}
+
+/* Enlarged Bullets for Options */
+.option-label {
+    margin-left: 15px;
+    font-size: 1.6rem; /* Increased font size for option text */
+    font-weight: 500;
+    color: #6a1b9a;
+    transition: color 0.3s ease;
+}
+
+.option-label:hover {
+    color: #ab47bc;
+}
+
+/* Option Radio Button Styling */
+input[type="radio"] {
+    transform: scale(1.8); /* Enlarged radio buttons */
+    margin-right: 12px;
+    accent-color: #8e24aa;
+}
+
+/* Button Styling */
 .quiz-button {
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #ff7043, #8e24aa);
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
     border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0px 8px 16px rgba(186, 104, 200, 0.4);
+    text-transform: uppercase;
+    margin: 30px auto;
+    display: block;
+    width: fit-content;
 }
 
 .quiz-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #8e24aa, #ff7043);
+    transform: scale(1.1);
+    box-shadow: 0px 12px 24px rgba(186, 104, 200, 0.6);
 }
 
-.quiz-button:active {
-    transform: translateY(0);
-}
-
+/* Question Container Styling */
 .question-container {
-    margin: 15px 0;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    background-color: #f8f9fa; /* Light background for question area */
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-left: 8px solid #8e24aa;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-.option-label {
-    margin-left: 5px;
+/* Make questions bigger and more prominent */
+.question-container p {
+    font-size: 1.6rem; /* Increased size for question text */
+    font-weight: 600;
+    color: #3e2723;
+    margin: 10px 0;
+}
+
+/* Hover effect on question container */
+.question-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Points Display */
+.quiz-container p {
+    color: #d32f2f;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+}
+
+/* Circular Image with Glowing Effect on Right Side */
+.circular-image {
+    width: 200px; /* Adjust size */
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Glowing effect */
+    border: 5px solid #ff4081; /* Border color matching theme */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.circular-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 1); /* Intense glowing effect */
 }

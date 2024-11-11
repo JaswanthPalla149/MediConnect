@@ -22,7 +22,7 @@ const Sections = () => {
             {/* Conditionally render the heading and instructions */}
             {!selectedSection && (
                 <>
-                    <h1>Mental Health Resources</h1>
+                    <h1 id="sr">Mental Health Resources</h1>
                     <p>Select a section to learn more about it.</p>
                 </>
             )}

@@ -6,9 +6,10 @@
     margin: 0 -2rem -3rem -2rem;
     justify-content: center;
     align-items: center;
-    border-radius: 25px ;
+    border-radius: 25px;
     height: 100vh;
     background: linear-gradient(to bottom, #6830f4, #6830f4);
+    font-weight: 900;
 }
 
 /* Slider container */
@@ -127,4 +128,16 @@
 
 .slick-dots li.slick-active button:before {
     color: red;
+}
+
+/* Ensure the h1 in YogaPage remains white and unaffected by color-shifting animation */
+
+/* Color-shifting effect for the main title (global, but not applied to h1 in YogaPage) */
+@keyframes colorShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+#vk{
+   font-weight: 900;
+   color: #fff;
 }

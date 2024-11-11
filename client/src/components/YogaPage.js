@@ -58,7 +58,7 @@ const YogaPage = () => {
 
     return (
         <div className="yoga-page-wrapper">
-            <h1 style = {{color:'white'}}>The Indian Yoga</h1>
+            <h1 id = "vk">The Indian Yoga</h1>
             {/* Overlay Panel */}
             {isPanelVisible && selectedCard && (
                 <div className="overlay">
