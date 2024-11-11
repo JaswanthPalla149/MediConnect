@@ -8,8 +8,9 @@
 }
 
 .role-selection-container {
-    background-image: url("./selec.jpg");
+    /* background-image: url("./selec.jpg"); */
     background-size: cover;
+    background: linear-gradient(to bottom, blue, rgb(249, 73, 190));
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
@@ -127,6 +128,15 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+#particle-canvas {
+    width: 100%;
+    height: 100vh;
+    position: absolute; /* Ensure it's behind content */
+    top: 0;
+    left: 0;
+    z-index: 0; /* Make sure canvas stays behind other content */
+  }
+  
 @media (max-width: 400px) {
     .role-selection-wrapper {
         width: 90%;
