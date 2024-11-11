@@ -9,6 +9,7 @@
 
 .role-selection-container {
     /* background-image: url("./selec.jpg"); */
+    margin: -2rem;
     background-size: cover;
     background: linear-gradient(to bottom, blue, rgb(249, 73, 190));
     background-position: center;
