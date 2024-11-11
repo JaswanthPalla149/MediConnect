@@ -9,7 +9,6 @@
     border-radius: 25px;
     height: 100vh;
     background: linear-gradient(to bottom, #6830f4, #6830f4);
-    font-weight: 900;
 }
 
 /* Slider container */
@@ -102,6 +101,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -111,6 +111,7 @@
     from {
         transform: translateY(100%);
     }
+
     to {
         transform: translateY(0);
     }
@@ -130,14 +131,32 @@
     color: red;
 }
 
-/* Ensure the h1 in YogaPage remains white and unaffected by color-shifting animation */
-
-/* Color-shifting effect for the main title (global, but not applied to h1 in YogaPage) */
-@keyframes colorShift {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
+/* Styling for the "Do exercises" button */
+.exercise-btn {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #ff8a00, #e52e71);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 138, 0, 0.3);
+    font-family: 'Arial', sans-serif;
 }
-#vk{
-   font-weight: 900;
-   color: #fff;
+
+/* Hover effect for the button */
+.exercise-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(45deg, #e52e71, #ff8a00);
+    box-shadow: 0 8px 20px rgba(255, 138, 0, 0.5);
+    color: white;
+    /* Ensure text stays white on hover */
+}
+
+/* Focus and active effects */
+.exercise-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 10px rgba(255, 138, 0, 0.3);
 }
