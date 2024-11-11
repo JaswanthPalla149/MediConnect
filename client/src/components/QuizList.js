@@ -10,6 +10,7 @@ const QuizList = () => {
     const [selectedOptions, setSelectedOptions] = useState({});
     const [points, setPoints] = useState(0);
     const [visibleQuestions, setVisibleQuestions] = useState({});
+    const [isSubmitted, setIsSubmitted] = useState(false); // Track if quiz is submitted
 
     const fetchQuizzes = async () => {
         try {
@@ -37,18 +38,25 @@ const QuizList = () => {
     };
 
     const handleSubmit = () => {
+        if (isSubmitted) return; // Prevent re-submitting and recalculating points
+
         let totalPoints = 0;
 
-        for (const questionIndex in selectedOptions) {
-            const selectedOption = selectedOptions[questionIndex];
-            const question = quizzes[0].questions[questionIndex];
-            const optionDetails = question.options.find(opt => opt.text === selectedOption);
-            if (optionDetails) {
-                totalPoints += optionDetails.points;
-            }
-        }
+        // Loop through all quizzes and questions to calculate the total points
+        quizzes.forEach((quiz) => {
+            quiz.questions.forEach((question, questionIndex) => {
+                const selectedOption = selectedOptions[`${quiz.quizId}-${questionIndex}`]; // Use a combined key for uniqueness
+                if (selectedOption) {
+                    const optionDetails = question.options.find(opt => opt.text === selectedOption);
+                    if (optionDetails) {
+                        totalPoints += optionDetails.points;
+                    }
+                }
+            });
+        });
 
         setPoints(totalPoints);
+        setIsSubmitted(true); // Mark the quiz as submitted
     };
 
     const toggleQuestionVisibility = (questionIndex) => {
@@ -93,7 +101,7 @@ const QuizList = () => {
                                                         id={`question${index}-option${oIndex}`} 
                                                         name={`question${index}`} 
                                                         value={option.text} 
-                                                        onChange={() => handleOptionChange(index, option.text)}
+                                                        onChange={() => handleOptionChange(`${quiz.quizId}-${index}`, option.text)}
                                                     />
                                                     <label className="option-label" htmlFor={`question${index}-option${oIndex}`}>
                                                         {option.text}
@@ -105,7 +113,7 @@ const QuizList = () => {
                                 )}
                             </div>
                         ))}
-                        <button className="quiz-button submit-button" onClick={handleSubmit}>Submit</button>
+                        <button className="quiz-button submit-button" onClick={handleSubmit} disabled={isSubmitted}>Submit</button>
                         {points > 0 && <p className="points-display">Total Points Gained: {points}</p>}
                     </div>
                 ))
