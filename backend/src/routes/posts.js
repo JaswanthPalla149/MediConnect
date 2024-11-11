@@ -139,5 +139,37 @@ router.post('/:id/comment', async (req, res) => {
         res.status(500).send(error);
     }
 });
+// DELETE: Delete a comment from a post
+router.delete('/:postId/comments/:commentId', async (req, res) => {
+    const { postId, commentId } = req.params;
+
+    try {
+        // Check if the post ID is valid
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            return res.status(400).json({ message: 'Invalid post ID format' });
+        }
+
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        // Find the index of the comment to be deleted
+        const commentIndex = post.comments.findIndex(comment => comment._id.toString() === commentId);
+        if (commentIndex === -1) {
+            return res.status(404).json({ message: 'Comment not found' });
+        }
+
+        // Remove the comment from the comments array
+        post.comments.splice(commentIndex, 1);
+        await post.save();
+
+        res.status(200).json({ message: 'Comment deleted successfully', comments: post.comments });
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        res.status(500).json({ message: 'Error deleting comment', error });
+    }
+});
+
 
 module.exports = router;

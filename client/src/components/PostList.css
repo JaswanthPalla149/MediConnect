@@ -1,4 +1,82 @@
 .blurred {
     filter: blur(3px);
-    color: #888; /* Optional: adjust color for blurred effect */
+    color: #888;
+    /* Optional: adjust color for blurred effect */
+}
+
+.post-list-container {
+    background: linear-gradient(135deg, #f7f9fc, #eaeff5);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Add a subtle background texture */
+.post-list-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+    opacity: 0.05;
+    z-index: 0;
+}
+
+/* Card Styling */
+.text-only-card {
+    background: #ffffff;
+    /* Use off-white or light grey for a professional touch */
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.text-only-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.text-only-card-title {
+    font-family: 'Merriweather', serif;
+    font-size: 1.5rem;
+    color: #2a2a2a;
+    font-weight: 700;
+}
+
+.text-only-card-content {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: #4a4a4a;
+    line-height: 1.6;
+}
+
+/* Buttons Styling */
+.comment-button,
+.like-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.comment-button:hover,
+.like-button:hover {
+    background-color: #0056b3;
+}
+
+/* Comments Section */
+.comments-section {
+    background: #f0f4f8;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }

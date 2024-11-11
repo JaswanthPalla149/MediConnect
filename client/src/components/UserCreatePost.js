@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import './PostForm.css';
+import './UserCreatePost.css';
 
-const PostForm = ({ username, domain, id }) => {
+const UserCreatePost = ({ username, id }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [selectedDomain, setSelectedDomain] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
-    // If necessary, retrieve username and domain from localStorage
     useEffect(() => {
-        console.log('In create Posts');
-        const storedUsername = localStorage.getItem('username'); // Or sessionStorage.getItem('username')
-        const storedDomain = localStorage.getItem('domain');
+        const storedUsername = localStorage.getItem('username');
         const storedId = localStorage.getItem('id');
 
-        if (storedUsername && storedDomain) {
+        if (storedUsername) {
             console.log(`Posting as: ${storedUsername}`);
-            console.log(`Domain: ${storedDomain}`);
             console.log(`Also Id: ${storedId}`);
         } else {
-            console.log('No username or domain found');
+            console.log('No username found');
         }
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newPost = { title, content, username, domain };
+        if (!selectedDomain) {
+            setError('Please select a domain');
+            return;
+        }
+
+        const newPost = { title, content, username, domain: selectedDomain };
 
         setLoading(true);
         setError(null);
@@ -43,9 +45,10 @@ const PostForm = ({ username, domain, id }) => {
             });
 
             if (response.ok) {
-                const createdPost = await response.json();
+                await response.json();
                 setTitle('');
                 setContent('');
+                setSelectedDomain('');
                 setSuccessMessage('Post created successfully!');
             } else {
                 throw new Error('Failed to create post');
@@ -85,6 +88,19 @@ const PostForm = ({ username, domain, id }) => {
                         className="form-input"
                     />
                 </Form.Group>
+                <Form.Group>
+                    <Form.Select
+                        value={selectedDomain}
+                        onChange={(e) => setSelectedDomain(e.target.value)}
+                        required
+                        className="form-input"
+                    >
+                        <option value="">Select Domain</option>
+                        <option value="mindfulness">Mindfulness</option>
+                        <option value="engagement">Engagement</option>
+                        <option value="happiness">Happiness</option>
+                    </Form.Select>
+                </Form.Group>
                 <Button
                     variant="primary"
                     type="submit"
@@ -98,4 +114,4 @@ const PostForm = ({ username, domain, id }) => {
     );
 };
 
-export default PostForm;
+export default UserCreatePost;
