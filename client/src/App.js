@@ -22,6 +22,8 @@ import Dboard from './components/Dboard';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import UserCreatePost from './components/UserCreatePost';
+import ExerciseVideos from './components/ExerciseVideos';  // Import ExerciseVideos component
+
 const DynamicNavbar = ({ role, username, resetAuth }) => {
   const renderAdminLinks = () => (
     <>
@@ -45,6 +47,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/YogaPage">Yoga</Nav.Link>
       <Nav.Link as={Link} to="/Home/create-post">Create Post</Nav.Link>
       <Nav.Link as={Link} to="/Home/Dboard">DashBoard</Nav.Link>
+      <Nav.Link as={Link} to="/Home/exercise-videos">Exercise Videos</Nav.Link> {/* Add link to Exercise Videos page */}
     </>
   );
 
@@ -83,6 +86,7 @@ const App = () => {
   const [username, setUsername] = useState(null);
   const [id, setId] = useState(null);
   const [domain, setDomain] = useState(null);
+
   const handleRoleSelection = (role) => {
     setRole(role);
   };
@@ -142,9 +146,9 @@ const App = () => {
           <Route path="/Home/YogaPage" element={isAuthenticated ? <YogaPage /> : <Navigate to="/" />} />
           <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
           <Route path="/Home/create-post" element={isAuthenticated ? <UserCreatePost username={username} id={id} /> : <Navigate to="/" />} />
+          <Route path="/Home/exercise-videos" element={isAuthenticated ? <ExerciseVideos /> : <Navigate to="/" />} /> {/* Add Exercise Videos route */}
           <Route path="/Home/Dboard" element={isAuthenticated ? <Dboard username={username} id={id}/> : <Navigate to="/" />} />
         </Routes>
-
       </div>
     </Router>
   );

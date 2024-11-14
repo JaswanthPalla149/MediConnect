@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import YogaCard from './YogaCard';
 import YogaData from './YogaData';
 import './YogaPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const settings = {
     infinite: true,
@@ -29,6 +30,7 @@ const settings = {
 const YogaPage = () => {
     const [isPanelVisible, setPanelVisible] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
+    const navigate = useNavigate();  // Use react-router's useNavigate for navigation
 
     // Click handler for the image
     const handleImageClick = (card) => {
@@ -42,6 +44,14 @@ const YogaPage = () => {
         console.log("Back button clicked");
         setPanelVisible(false);
         setSelectedCard(null);
+    };
+
+    // Navigate to the exercise page
+    const handleDoExercisesClick = () => {
+        // Hide any open panel before navigating
+        setPanelVisible(false);
+        setSelectedCard(null);
+        navigate('/Home/exercise-videos'); // Redirect to ExerciseVideos page
     };
 
     // Render the cards
@@ -58,7 +68,11 @@ const YogaPage = () => {
 
     return (
         <div className="yoga-page-wrapper">
-            <h1 id = "vk">The Indian Yoga</h1>
+            <h1 style={{ color: 'white' }}>The Indian Yoga</h1>
+            <button className="exercise-btn" onClick={handleDoExercisesClick}>
+                Do exercises
+            </button>
+
             {/* Overlay Panel */}
             {isPanelVisible && selectedCard && (
                 <div className="overlay">
