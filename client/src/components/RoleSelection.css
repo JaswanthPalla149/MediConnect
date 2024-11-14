@@ -33,6 +33,7 @@
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     width: 350px;
+    z-index: 5;
 }
 
 .role-selection-wrapper h2 {
@@ -135,7 +136,7 @@
     position: absolute; /* Ensure it's behind content */
     top: 0;
     left: 0;
-    z-index: 0; /* Make sure canvas stays behind other content */
+    z-index: -1; /* Make sure canvas stays behind other content */
   }
   
 @media (max-width: 400px) {

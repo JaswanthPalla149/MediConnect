@@ -2,8 +2,9 @@ import React from "react";
 import "@splinetool/viewer";
 import { Link } from "react-router-dom";
 import './Home.css';
+//import Dboard from "./Dboard";
 
-const Home = () => {
+const Home = ({id}) => {
   return (
     <div className="home-container">
       <div className="home">
@@ -54,6 +55,9 @@ const Home = () => {
         </div>
       </div>
 
+      {/* <div>
+        <Dboard/>
+      </div> */}
       {/* Community Section */}
       <div className="community" id="community">
         <div className="spline-container">
@@ -71,6 +75,10 @@ const Home = () => {
           <p>Stay tuned for upcoming events and discussions!</p>
         </div>
       </div>
+{/* 
+        <div>
+        <Dboard id={id}/>
+      </div>    */}
 
       {/* Quizzes Section */}
       <div className="quizzes-section">

@@ -18,6 +18,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import YogaPage from './components/YogaPage';
+import Dboard from './components/Dboard';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import UserCreatePost from './components/UserCreatePost';
@@ -43,6 +44,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/sections">Explore Sections</Nav.Link>
       <Nav.Link as={Link} to="/Home/YogaPage">Yoga</Nav.Link>
       <Nav.Link as={Link} to="/Home/create-post">Create Post</Nav.Link>
+      <Nav.Link as={Link} to="/Home/Dboard">DashBoard</Nav.Link>
     </>
   );
 
@@ -132,7 +134,7 @@ const App = () => {
           <Route path="/AdminHome/manage-posts" element={isAuthenticated && role === "admin" ? <AdminPostList username={username} domain={domain} id={id} /> : <Navigate to="/" />} />
           <Route path="/AdminHome/sections" element={isAuthenticated && role === "admin" ? <Sections /> : <Navigate to="/" />} />
           <Route path="/AdminHome/upload-quiz" element={isAuthenticated && role === "admin" ? <QuizUpload /> : <Navigate to="/" />} />
-          <Route path="/Home" element={isAuthenticated && role === "user" ? <Home /> : <Navigate to="/" />} />
+          <Route path="/Home" element={isAuthenticated && role === "user" ? <Home id={id}/> : <Navigate to="/" />} />
           <Route path="/Home/forum/select-domain" element={isAuthenticated ? <DomainSelection /> : <Navigate to="/" />} />
           <Route path="/Home/forum/:domain" element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />} />
           <Route path="/Home/sections" element={isAuthenticated ? <Sections /> : <Navigate to="/" />} />
@@ -140,6 +142,7 @@ const App = () => {
           <Route path="/Home/YogaPage" element={isAuthenticated ? <YogaPage /> : <Navigate to="/" />} />
           <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
           <Route path="/Home/create-post" element={isAuthenticated ? <UserCreatePost username={username} id={id} /> : <Navigate to="/" />} />
+          <Route path="/Home/Dboard" element={isAuthenticated ? <Dboard username={username} id={id}/> : <Navigate to="/" />} />
         </Routes>
 
       </div>
