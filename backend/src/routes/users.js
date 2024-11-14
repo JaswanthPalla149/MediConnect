@@ -129,7 +129,7 @@ router.post('/interactions/like', async (req, res) => {
 // POST request to add a comment to a user's profile based on their username
 router.post('/:username/comments', async (req, res) => {
     const { username } = req.params;  // Extract username from URL
-    const { content, postId, sentimentScore } = req.body; // Extract content and postId from the request body
+    const { content, postId, sentimentScore, domain } = req.body; // Include `domain` in the request body
 
     try {
         // Find the user by their username
@@ -140,7 +140,8 @@ router.post('/:username/comments', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
- if (!user.interactions) {
+        // Initialize the interactions structure if not already set
+        if (!user.interactions) {
             user.interactions = {};
         }
         if (!user.interactions.comments) {
@@ -150,17 +151,30 @@ router.post('/:username/comments', async (req, res) => {
         // Add the comment to the user's comments array
         user.interactions.comments.push({ content, postId, sentimentScore, timestamp: new Date() });
 
-        // Save the user document with the new comment
+        // Update the domain level directly here
+        const currentLevel = user[`${domain}Level`] || 0;
+
+        // Define a smoothing factor (alpha) to control how much weight we give to the new sentiment score
+        const alpha = 0.3;  // Adjust alpha between 0 and 1 for responsiveness
+    
+        // Calculate the new level using a weighted moving average
+        const newLevel = (1 - alpha) * currentLevel + alpha * sentimentScore;
+    
+        // Clamp the result between -1 and 1 to ensure it stays within valid range
+        user[`${domain}Level`] = Math.min(1, Math.max(-1, newLevel));
+
+        // Save the user document with the new comment and updated domain level
         await user.save();
 
         // Respond with a success message
-        res.status(200).json({ message: 'Comment added to user profile' });
+        res.status(200).json({ message: 'Comment added and domain level updated' });
 
     } catch (error) {
         console.error('Error adding comment to user:', error);
         res.status(500).json({ message: 'Error adding comment to user profile', error });
     }
 });
+
 // Route to get comments for a specific user by username
 router.get('/:username/comments', async (req, res) => {
     const { username } = req.params; // Extract username from URL

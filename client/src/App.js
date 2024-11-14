@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import ChatPage from './components/ChatPage';
 import RoleSelection from './components/RoleSelection';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
@@ -46,6 +47,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/sections">Explore Sections</Nav.Link>
       <Nav.Link as={Link} to="/Home/YogaPage">Yoga</Nav.Link>
       <Nav.Link as={Link} to="/Home/create-post">Create Post</Nav.Link>
+      <Nav.Link as={Link} to="/Home/ChatPage">ChatUs</Nav.Link>
       <Nav.Link as={Link} to="/Home/Dboard">DashBoard</Nav.Link>
       <Nav.Link as={Link} to="/Home/exercise-videos">Exercise Videos</Nav.Link> {/* Add link to Exercise Videos page */}
     </>
@@ -148,6 +150,7 @@ const App = () => {
           <Route path="/Home/create-post" element={isAuthenticated ? <UserCreatePost username={username} id={id} /> : <Navigate to="/" />} />
           <Route path="/Home/exercise-videos" element={isAuthenticated ? <ExerciseVideos /> : <Navigate to="/" />} /> {/* Add Exercise Videos route */}
           <Route path="/Home/Dboard" element={isAuthenticated ? <Dboard username={username} id={id}/> : <Navigate to="/" />} />
+          <Route path="/Home/ChatPage" element={isAuthenticated ? <ChatPage username={username} id={id}/> : <Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 logging.basicConfig(level=logging.WARNING)
 
 # Environment variable setup
-const ngrok_token = os.getenv("ngrok_tok")
+ngrok_token = os.getenv("ngrok_tok")
 
 huggingface_token = os.getenv("huggingface_tok")
 

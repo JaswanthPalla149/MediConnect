@@ -54,6 +54,7 @@ const PostList = ({ username }) => {
         content: content,
         postId: postId,
         sentimentScore: sentimentScore,
+        domain: domain,
       });
 
       setComments(prevComments => ({ ...prevComments, [postId]: { content: '' } }));

@@ -6,32 +6,30 @@ import axios from 'axios';
 
 // Register chart elements
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
-
 const Dboard = ({ username, id }) => {
   const [userData, setUserData] = useState(null);
   const [wellnessStatus, setWellnessStatus] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Function to calculate wellness status
   const calculateWellnessStatus = (mindfulness, engagement, happiness) => {
-    const average = (mindfulness + engagement + happiness) / 3;
+    const mindfulnessScaled = (mindfulness + 1) * 50;
+    const engagementScaled = (engagement + 1) * 50;
+    const happinessScaled = (happiness + 1) * 50;
+    const average = (mindfulnessScaled + engagementScaled + happinessScaled) / 3;
+
     if (average >= 80) return 'Excellent';
     if (average >= 60) return 'Good';
     if (average >= 40) return 'Moderate';
     return 'Needs Attention';
   };
 
-  // Fetch user data using `id`
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/users/${id}`);
         const data = response.data;
 
-        // Set user data
         setUserData(data);
-
-        // Calculate and set wellness status
         const { mindfulnessLevel, engagementLevel, happinessLevel } = data;
         setWellnessStatus(calculateWellnessStatus(mindfulnessLevel, engagementLevel, happinessLevel));
         setLoading(false);
@@ -41,29 +39,27 @@ const Dboard = ({ username, id }) => {
         setUserData(null);
       }
     };
-
     fetchUserData();
   }, [id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (!userData) return <div>No user data found</div>;
 
-  if (!userData) {
-    return <div>No user data found</div>;
-  }
-
-  // Prepare data for charts
   const { mindfulnessLevel, engagementLevel, happinessLevel, interactions } = userData;
   const { comments, likedPosts } = interactions;
 
-  // Bar chart data
+  // Scale domain levels for display
+  const mindfulnessScaled = (mindfulnessLevel + 1) * 50;
+  const engagementScaled = (engagementLevel + 1) * 50;
+  const happinessScaled = (happinessLevel + 1) * 50;
+
+  // Bar chart data with scaled levels
   const barData = {
     labels: ['Mindfulness', 'Engagement', 'Happiness'],
     datasets: [
       {
-        label: 'Levels',
-        data: [mindfulnessLevel, engagementLevel, happinessLevel],
+        label: 'Levels (0–100)',
+        data: [mindfulnessScaled, engagementScaled, happinessScaled],
         backgroundColor: ['#4caf50', '#2196f3', '#ff9800'],
         borderColor: ['#388e3c', '#1976d2', '#f57c00'],
         borderWidth: 1,
@@ -71,7 +67,7 @@ const Dboard = ({ username, id }) => {
     ],
   };
 
-  // Pie chart data for wellness status
+  // Pie chart data with conditional segments based on wellness status
   const pieData = {
     labels: ['Excellent', 'Good', 'Moderate', 'Needs Attention'],
     datasets: [
@@ -89,7 +85,6 @@ const Dboard = ({ username, id }) => {
     ],
   };
 
-  // Additional metrics for user activity
   const totalComments = comments.length;
   const totalLikedPosts = likedPosts.length;
 
@@ -100,13 +95,19 @@ const Dboard = ({ username, id }) => {
         <Grid item xs={12} md={6}>
           <Card>
             <Paper elevation={3} sx={{ padding: 2, textAlign: 'center' }}>
-              <Typography variant="h6">User Levels</Typography>
+              <Typography variant="h6">User Levels (0–100)</Typography>
               <Bar
                 data={barData}
                 options={{
                   responsive: true,
                   plugins: {
                     title: { display: true, text: 'Mindfulness, Engagement & Happiness Levels' },
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      max: 100,
+                    },
                   },
                 }}
               />
