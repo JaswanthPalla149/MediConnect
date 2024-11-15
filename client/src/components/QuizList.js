@@ -10,14 +10,14 @@ const QuizList = () => {
     const [selectedOptions, setSelectedOptions] = useState({});
     const [points, setPoints] = useState(0);
     const [visibleQuestions, setVisibleQuestions] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false); // Track if quiz is submitted
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const fetchQuizzes = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/quizzes');
             if (!response.ok) throw new Error('Failed to fetch quizzes');
             const data = await response.json();
-            console.log('Fetched quizzes:', data); // Log to confirm the quiz data structure
+            console.log('Fetched quizzes:', data);
             setQuizzes(data);
         } catch (err) {
             setError(err.message);
@@ -30,24 +30,24 @@ const QuizList = () => {
         fetchQuizzes();
     }, []);
 
-    const handleOptionChange = (questionIndex, option) => {
+    const handleOptionChange = (questionKey, option) => {
         setSelectedOptions((prev) => ({
             ...prev,
-            [questionIndex]: option,
+            [questionKey]: option,
         }));
     };
 
     const handleSubmit = () => {
-        if (isSubmitted) return; // Prevent re-submitting and recalculating points
+        if (isSubmitted) return;
 
         let totalPoints = 0;
 
-        // Loop through all quizzes and questions to calculate the total points
         quizzes.forEach((quiz) => {
             quiz.questions.forEach((question, questionIndex) => {
-                const selectedOption = selectedOptions[`${quiz.quizId}-${questionIndex}`]; // Use a combined key for uniqueness
+                const questionKey = `${quiz.quizId}-${questionIndex}`;
+                const selectedOption = selectedOptions[questionKey];
                 if (selectedOption) {
-                    const optionDetails = question.options.find(opt => opt.text === selectedOption);
+                    const optionDetails = question.options.find((opt) => opt.text === selectedOption);
                     if (optionDetails) {
                         totalPoints += optionDetails.points;
                     }
@@ -56,13 +56,13 @@ const QuizList = () => {
         });
 
         setPoints(totalPoints);
-        setIsSubmitted(true); // Mark the quiz as submitted
+        setIsSubmitted(true);
     };
 
-    const toggleQuestionVisibility = (questionIndex) => {
+    const toggleQuestionVisibility = (questionKey) => {
         setVisibleQuestions((prev) => ({
             ...prev,
-            [questionIndex]: !prev[questionIndex],
+            [questionKey]: !prev[questionKey],
         }));
     };
 
@@ -84,36 +84,51 @@ const QuizList = () => {
                         <p className="quiz-description">{quiz.description}</p>
                         <h5 className="sample-questions-title">Sample Questions:</h5>
 
-                        {quiz.questions.map((question, index) => (
-                            <div key={index} className="question-container">
-                                <button className="quiz-button" onClick={() => toggleQuestionVisibility(index)}>
-                                    Question {index + 1}
-                                </button>
+                        {quiz.questions.map((question, index) => {
+                            const questionKey = `${quiz.quizId}-${index}`;
+                            return (
+                                <div key={questionKey} className="question-container">
+                                    <button
+                                        className="quiz-button"
+                                        onClick={() => toggleQuestionVisibility(questionKey)}
+                                    >
+                                        Question {index + 1}
+                                    </button>
 
-                                {visibleQuestions[index] && (
-                                    <div>
-                                        <p className="question-text">{question.questionText}</p>
+                                    {visibleQuestions[questionKey] && (
                                         <div>
-                                            {question.options.map((option, oIndex) => (
-                                                <div key={oIndex} className="option-container">
-                                                    <input 
-                                                        type="radio" 
-                                                        id={`question${index}-option${oIndex}`} 
-                                                        name={`question${index}`} 
-                                                        value={option.text} 
-                                                        onChange={() => handleOptionChange(`${quiz.quizId}-${index}`, option.text)}
-                                                    />
-                                                    <label className="option-label" htmlFor={`question${index}-option${oIndex}`}>
-                                                        {option.text}
-                                                    </label>
-                                                </div>
-                                            ))}
+                                            <p className="question-text">{question.questionText}</p>
+                                            <div>
+                                                {question.options.map((option, oIndex) => (
+                                                    <div key={oIndex} className="option-container">
+                                                        <input
+                                                            type="radio"
+                                                            id={`${questionKey}-option${oIndex}`}
+                                                            name={questionKey}
+                                                            value={option.text}
+                                                            onChange={() => handleOptionChange(questionKey, option.text)}
+                                                        />
+                                                        <label
+                                                            className="option-label"
+                                                            htmlFor={`${questionKey}-option${oIndex}`}
+                                                        >
+                                                            {option.text}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        <button className="quiz-button submit-button" onClick={handleSubmit} disabled={isSubmitted}>Submit</button>
+                                    )}
+                                </div>
+                            );
+                        })}
+                        <button
+                            className="quiz-button submit-button"
+                            onClick={handleSubmit}
+                            disabled={isSubmitted}
+                        >
+                            Submit
+                        </button>
                         {points > 0 && <p className="points-display">Total Points Gained: {points}</p>}
                     </div>
                 ))

@@ -1,5 +1,3 @@
-/* PostForm.css */
-
 /* Base styling for the form container */
 .post-form-container {
     background-color: #f9f9f9;
@@ -18,40 +16,51 @@
     margin-bottom: 20px;
 }
 
-/* Alert styling */
-.alert {
-    margin-top: 10px;
-    font-size: 1rem;
-}
-
 /* Styling form inputs */
 .form-input {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    font-size: 1.2rem; /* Increase font size */
+    padding: 16px; /* Increase padding for larger input area */
+    height: 50px; /* Make the input taller */
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid #ccc; /* Add border for clarity */
+    margin-bottom: 20px;
 }
 
+/* Focus effect for form inputs */
 .form-input:focus {
     border-color: #007bff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
+    outline: none; /* Remove default browser outline */
+}
+
+/* Styling for text areas */
+textarea.form-input {
+    resize: vertical; /* Allow resizing only vertically */
+    height: 180px; /* Increase height for text area */
+    padding: 16px; /* Add more padding */
 }
 
 /* Styling for the Submit button */
 .submit-button {
-    background-color: #FFA500;  /* Orange background */
-    border-color: #FFA500;  /* Matching border color */
+    background-color: #FFA500; /* Orange background */
+    border-color: #FFA500; /* Matching border color */
     font-size: 1.2rem;
-    padding: 12px 25px;  /* Added extra padding for better size */
+    padding: 12px 25px; /* Adjust padding */
     border-radius: 25px;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    margin-top: 20px; /* Push the button a little lower */
+    margin-top: 20px; /* Push the button lower */
     font-weight: bold;
+    width: 100%; /* Make button width consistent */
 }
 
-/* Hover effect for submit button */
+/* Hover effect for the Submit button */
 .submit-button:hover {
     background-color: white;
-    color: #FFA500;  /* Orange text when hovered */
+    color: #FFA500; /* Orange text when hovered */
     border-color: #FFA500;
     transform: scale(1.05);
 }
@@ -82,18 +91,7 @@
     background-color: #e9ecef;
 }
 
-/* A smooth transition for form inputs */
-.form-input {
-    padding: 12px;
-    font-size: 1rem;
-    background-color: #fff;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-/* Additional touch-ups */
+/* General body styling */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f7fa;
