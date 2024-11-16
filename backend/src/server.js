@@ -38,7 +38,7 @@ app.use('/api/quizzes', quizzesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
 
-app.use(express.static(path, join(__dirname, '/client/build')));
+app.use(express.static(path, join(__dirname, '../client/build')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'App.js'));
