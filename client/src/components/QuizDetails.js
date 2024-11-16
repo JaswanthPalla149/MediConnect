@@ -9,7 +9,7 @@ const QuizDetails = () => {
 
     const fetchQuiz = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/quizzes/${id}`);
+            const response = await fetch(`${url}/api/quizzes/${id}`);
             if (!response.ok) throw new Error('Failed to fetch quiz');
             const data = await response.json();
             setQuiz(data);

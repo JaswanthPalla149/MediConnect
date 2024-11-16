@@ -59,7 +59,7 @@ const QuizUpload = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/quizzes', {
+            const response = await fetch(`${url}/api/quizzes`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, domain, questions }),
