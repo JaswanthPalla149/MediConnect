@@ -3,9 +3,12 @@ import { Bar, Pie } from 'react-chartjs-2';
 import { Container, Grid, Card, Typography, Paper } from '@mui/material';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import axios from 'axios';
+import './Dboard.css'; // Import the CSS file into your component
+
 
 // Register chart elements
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+
 const Dboard = ({ username, id }) => {
   const [userData, setUserData] = useState(null);
   const [wellnessStatus, setWellnessStatus] = useState('');
@@ -89,11 +92,11 @@ const Dboard = ({ username, id }) => {
   const totalLikedPosts = likedPosts.length;
 
   return (
-    <Container>
+    <Container className="dashboard-container">
       <Grid container spacing={3}>
         {/* Bar Chart */}
         <Grid item xs={12} md={6}>
-          <Card>
+          <Card className="dashboard-card">
             <Paper elevation={3} sx={{ padding: 2, textAlign: 'center' }}>
               <Typography variant="h6">User Levels (0–100)</Typography>
               <Bar
@@ -117,7 +120,7 @@ const Dboard = ({ username, id }) => {
 
         {/* Pie Chart */}
         <Grid item xs={12} md={6}>
-          <Card>
+          <Card className="dashboard-card">
             <Paper elevation={3} sx={{ padding: 2, textAlign: 'center' }}>
               <Typography variant="h6">Wellness Status</Typography>
               <Pie
@@ -136,7 +139,7 @@ const Dboard = ({ username, id }) => {
 
         {/* Additional User Activity Metrics */}
         <Grid item xs={12}>
-          <Card>
+          <Card className="dashboard-card">
             <Paper elevation={3} sx={{ padding: 2, textAlign: 'center' }}>
               <Typography variant="h6">User Activity Metrics</Typography>
               <Typography>Total Comments: {totalComments}</Typography>

@@ -58,7 +58,7 @@ const PostForm = ({ username, domain, id }) => {
     };
 
     return (
-        <div className="post-form-container">
+        <div className="post-form-container" style = {{marginTop:'5rem'}}>
             <h2>Create a New Post</h2>
             {loading && <Alert variant="info">Creating post...</Alert>}
             {error && <Alert variant="danger">{error}</Alert>}

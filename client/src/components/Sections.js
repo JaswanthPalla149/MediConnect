@@ -23,7 +23,7 @@ const Sections = () => {
             {!selectedSection && (
                 <>
                     <h1 id="sr">Mental Health Resources</h1>
-                    <p>Select a section to learn more about it.</p>
+                    <p style = {{color:'whitesmoke'}}>Select a section to learn more about it.</p>
                 </>
             )}
 

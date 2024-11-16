@@ -68,7 +68,7 @@ const YogaPage = () => {
 
     return (
         <div className="yoga-page-wrapper">
-            <h1 style={{ color: 'white' }}>The Indian Yoga</h1>
+            <h2 style={{ color: '#ffff33',fontSize:'3rem',fontWeight:'700'}}>The Indian Yoga</h2>
             <button className="exercise-btn" onClick={handleDoExercisesClick}>
                 Do exercises
             </button>

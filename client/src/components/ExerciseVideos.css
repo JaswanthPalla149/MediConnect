@@ -5,12 +5,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(20, 30, 48, 0.95); /* Semi-transparent dark background color */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
     animation: fadeIn 0.5s ease;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5); /* Add inner shadow to create depth */
 }
 
 .popup-message {
@@ -21,6 +22,14 @@
     text-align: center;
     width: 320px;
     animation: slideIn 0.5s ease;
+    transform: translateY(-20px); /* Starting off with a slight upward offset */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Enhance the effect by giving a slight shadow and 3D feel */
+.popup-message:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Deep shadow on hover for 3D effect */
+    transform: translateY(-10px); /* Slight movement upwards on hover */
 }
 
 .popup-message h3 {
@@ -83,8 +92,7 @@
 
 .video-player-container.changing {
     opacity: 0;
-    transform: translateX(50px);
-    /* Slide effect */
+    transform: translateX(50px); /* Slide effect */
 }
 
 /* Allow smoother transition when opacity and transform change */

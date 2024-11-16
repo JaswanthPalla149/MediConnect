@@ -45,34 +45,34 @@ button:hover {
 
 /* DynamicNavbar Styles */
 
-/* General Navbar Styling */
-.navbar {
-  background-color: #f8f9fa; /* Light background color */
-  padding: 1rem 2rem; /* Padding for top and bottom, left and right */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
+
+/* .navbar {
+  background-color: #f8f9fa; 
+  padding: 1rem 2rem; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+} */
 
 /* Navbar Brand Styling */
-.navbar-brand {
-  font-size: 1.5rem; /* Increase font size for brand */
-  font-weight: bold; /* Make brand name bold */
-  color: #007bff; /* Bootstrap primary color */
-  text-decoration: none; /* Remove underline */
-}
+/* .navbar-brand {
+  font-size: 1.5rem; 
+  font-weight: bold; 
+  color: #007bff; 
+  text-decoration: none; 
+} */
 
-/* Navbar Link Styling */
+/* 
 .nav-link {
-  color: #343a40; /* Dark color for text */
-  font-size: 1.1rem; /* Slightly larger font size */
-  margin: 0 15px; /* Space between links */
-  transition: color 0.3s, transform 0.2s; /* Smooth color transition */
-}
+  color: #343a40; 
+  font-size: 1.1rem; 
+  margin: 0 15px; 
+  transition: color 0.3s, transform 0.2s; 
+} */
 
-/* Hover Effect for Links */
-.nav-link:hover {
-  color: #007bff; /* Change color on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
-}
+
+/* .nav-link:hover {
+  color: #007bff; 
+  transform: scale(1.05); 
+} */
 
 /* Responsive Navbar */
 @media (max-width: 768px) {

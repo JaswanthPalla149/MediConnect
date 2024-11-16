@@ -1,0 +1,67 @@
+/* General styles for dashboard container */
+.dashboard-container {
+    padding: 30px;
+    background: #f4f7fa; /* Light background for contrast */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 5rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Card styling for each section */
+  .dashboard-card {
+    background-color: #ffffff; /* White background for cards */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .dashboard-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+  }
+  
+  /* Typography enhancements */
+  h6 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  h5 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  /* Paper elevation customization */
+  .MuiPaper-elevation3 {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  /* Grid layout adjustments */
+  @media (max-width: 768px) {
+    .MuiGrid-item {
+      margin-bottom: 20px; /* Add space between cards on mobile */
+    }
+  }
+  
+  /* Card section for metrics */
+  .dashboard-card .MuiTypography-root {
+    color: #6c757d;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  
+  /* Enhance pie and bar chart appearance */
+  .MuiPaper-elevation3 canvas {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Add a smooth background transition for the container */
+  .dashboard-container:hover {
+    background-color: #e9ecef; /* Lighten the background on hover */
+  }
+  

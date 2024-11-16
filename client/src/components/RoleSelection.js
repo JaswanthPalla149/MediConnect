@@ -191,7 +191,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                 <div className="form-section">
                     {selectedRole === 'user' ? (
                         <>
-                            <h4>Please Sign In or Sign Up</h4>
+                            <h4 style ={{color:'red',fontSize:'1.5rem'}}>Please Sign In or Sign Up</h4>
                             <div className="d-flex justify-content-around mb-4">
                                 <Button
                                     variant="outline-primary"
@@ -208,7 +208,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                             </div>
                         </>
                     ) : (
-                        <h4>Admin Sign In</h4>
+                        <h4 style ={{color:'red',fontSize:'2rem'}}>Admin Sign In</h4>
                     )}
 
                     <Card className="p-4" style={{ maxWidth: '400px', margin: '0 auto' }}>

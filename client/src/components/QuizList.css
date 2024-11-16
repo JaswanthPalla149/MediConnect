@@ -1,6 +1,5 @@
 /* Background Styling */
 
-
 /* Main Container for QuizList */
 .quiz-container {
     background: url('https://www.example.com/background-image.jpg') no-repeat center center fixed; /* Substitute with actual URL */
@@ -64,7 +63,7 @@ h1 {
 /* Individual Quiz Title with Enhanced Font */
 h4 {
     font-family: 'Roboto Slab', serif;
-    color: #303f9f;
+    color: #ff1744; /* Changed color to vibrant red */
     font-size: 3rem; /* Increased size for quiz title */
     font-weight: 900; /* Bold font */
     text-align: center;
@@ -76,7 +75,7 @@ h4 {
 }
 .quiz-title{
     font-size: 3rem;
-    color: #303f9f;
+    color: #ff1744; /* Vibrant Red for quiz title */
     font-weight: 900; /* Bold font */
     text-shadow: 2px 2px 8px rgba(158, 158, 158, 0.5);
 }
@@ -199,4 +198,19 @@ input[type="radio"] {
 .circular-image:hover {
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(0, 255, 255, 1); /* Intense glowing effect */
+}
+.sample-questions-title {
+    font-size: 1.8rem;
+    color: white !important; /* White text for better visibility */
+    text-align: left;
+    margin-top: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adding text shadow for contrast */
+}
+/* Points Display Styling */
+.points-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white !important; /* White text for contrast */
+    text-align: left;
+    margin-top: 20px;
 }

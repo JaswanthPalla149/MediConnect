@@ -47,8 +47,8 @@ const Home = ({id}) => {
           />
         </div>
         <div className="text-container">
-          <h1> Mental Health Chatbot</h1>
-          <p>
+          <h2 style = {{color: '#ff0000', fontWeight: '1000', fontSize:'2.5rem'}}> Mental Health Chatbot</h2>
+          <p style = {{color:'whitesmoke', fontSize:'1.5rem'}}>
             If you're feeling overwhelmed, don't hesitate to reach out to our chatbot for support.
             You're not alone, and help is just a message away.
           </p>
@@ -59,7 +59,7 @@ const Home = ({id}) => {
         <Dboard/>
       </div> */}
       {/* Community Section */}
-      <div className="community" id="community">
+      <div className="community" id="community" style = {{marginTop:'8rem'}}>
         <div className="spline-container">
           <spline-viewer
             url="https://prod.spline.design/3nUiXob4AEk5Ygug/scene.splinecode"
@@ -67,12 +67,12 @@ const Home = ({id}) => {
           />
         </div>
         <div className="community-container" style={{ marginTop: "20px", marginLeft: "20px" }}>
-          <h1>Community Support</h1>
-          <p>
+          <h2 style = {{color: '#ff0000', fontWeight: '1000', fontSize:'2.5rem'}}>Community Support</h2>
+          <p style = {{color:'whitesmoke' , fontSize:'1.5rem'}}>
             Join our community to connect with others who share similar experiences.
             Support each other, share resources, and grow together. Your voice matters!
           </p>
-          <p>Stay tuned for upcoming events and discussions!</p>
+          <p style = {{color:'whitesmoke' , fontSize:'1.5rem'}}>Stay tuned for upcoming events and discussions!</p>
         </div>
       </div>
 {/* 
@@ -83,14 +83,14 @@ const Home = ({id}) => {
       {/* Quizzes Section */}
       <div className="quizzes-section">
         <div className="quiz-img">
-          <h1>QUIZZES</h1>
+          <h2 style = {{color: '#00e676', fontWeight: '1000', fontSize:'4rem'}}>QUIZZES</h2>
           <img
             src="https://binghomepageweeklyquiz.com/wp-content/uploads/2022/04/mental-health-quiz.jpg"
             alt="Quizzes"
           />
         </div>
         <div className="quiz-textbox">
-          <p className="quiz-description">
+          <p className="quiz-description" style = {{fontSize:'1.5rem'}}>
             A quiz can't tell you everything you need to know about yourself, but it can help provide insight into some of your personality traits, behaviors, and how you view and respond to the world around you.
           </p>
         </div>
@@ -98,8 +98,8 @@ const Home = ({id}) => {
 
       {/* Explore Sections */}
       <div className="explore-sections" id="explore">
-        <h1 className="text-center mt-5">Explore Sections</h1>
-        <p className="text-center">
+        <h2 className="text-center mt-5" style = {{color: '#ff0000', fontWeight: '1000', fontSize:'2.5rem'}}>Explore Sections</h2>
+        <p className="text-center"  style = {{color:'whitesmoke' , fontSize:'1.5rem'}}>
           Discover our resources and participate in exciting workshops and community events!
         </p>
         <div className="button-container">

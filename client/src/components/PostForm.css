@@ -1,75 +1,88 @@
 /* Base styling for the form container */
 .post-form-container {
-    background-color: #f9f9f9;
-    border-radius: 10px;
+    background-color: #f9f9f9; /* Light gray background */
+    border-radius: 10px; /* Rounded corners for a soft look */
     padding: 40px;
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    max-width: 600px; /* Set max width to keep it well-aligned */
+    margin-right: 0 auto; /* Center align the form */
+    margin-top: 5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Light shadow for floating effect */
+    transition: background-color 0.3s ease; /* Smooth background transition */
 }
 
+/* Header styling for the form */
 .post-form-container h2 {
-    color: #333;
+    color: #333; /* Dark text color for headings */
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 2rem; /* Larger font size for heading */
 }
 
 /* Styling form inputs */
 .form-input {
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    font-size: 1.2rem; /* Increase font size */
-    padding: 16px; /* Increase padding for larger input area */
-    height: 50px; /* Make the input taller */
-    background-color: #fff;
-    width: 100%;
-    border: 1px solid #ccc; /* Add border for clarity */
-    margin-bottom: 20px;
+    border-radius: 8px; /* Rounded corners for inputs */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover/focus effects */
+    font-size: 1.2rem; /* Larger font size for better readability */
+    padding: 16px; /* Spacious padding */
+    height: 50px; /* Taller input box */
+    background-color: #ffffff; /* White background */
+    width: 100%; /* Full width */
+    border: 1px solid #ccc; /* Subtle border */
+    margin-bottom: 20px; /* Space below input fields */
 }
 
 /* Focus effect for form inputs */
 .form-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-    outline: none; /* Remove default browser outline */
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* Soft blue glow */
+    outline: none; /* Remove default outline */
 }
 
 /* Styling for text areas */
 textarea.form-input {
-    resize: vertical; /* Allow resizing only vertically */
-    height: 180px; /* Increase height for text area */
-    padding: 16px; /* Add more padding */
+    resize: vertical; /* Allow resizing vertically only */
+    height: 180px; /* Taller text area */
+    padding: 16px; /* More padding for comfort */
+}
+
+/* Button container styling */
+.post-form-container .button-container {
+    margin-top: 30px; /* Add space between the form and button container */
+    display: flex;
+    justify-content: center; /* Center align the button */
 }
 
 /* Styling for the Submit button */
 .submit-button {
-    background-color: #FFA500; /* Orange background */
-    border-color: #FFA500; /* Matching border color */
-    font-size: 1.2rem;
-    padding: 12px 25px; /* Adjust padding */
-    border-radius: 25px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    margin-top: 20px; /* Push the button lower */
-    font-weight: bold;
-    width: 100%; /* Make button width consistent */
+    border-radius: 30px; /* Rounded corners for modern look */
+    border: none; /* No border */
+    width: 200px; /* Fixed width */
+    height: 60px; /* Taller button for better click area */
+    font-size: 1.1rem; /* Readable font size */
+    background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradient background */
+    color: #ffffff; /* White text */
+    font-weight: bold; /* Bold text for emphasis */
+    font-family: 'Montserrat', sans-serif; /* Modern font */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 8px rgba(0, 114, 255, 0.5); /* Subtle shadow */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
 /* Hover effect for the Submit button */
 .submit-button:hover {
-    background-color: white;
-    color: #FFA500; /* Orange text when hovered */
-    border-color: #FFA500;
-    transform: scale(1.05);
+    transform: scale(1.1); /* Slight zoom effect */
+    background: linear-gradient(to right, #00e676, #00c6ff); /* Green-Blue gradient on hover */
+    color: #121212; /* Dark text color */
+    box-shadow: 0 6px 12px rgba(0, 230, 118, 0.5); /* Stronger shadow */
 }
 
 /* Disabled button styling */
 .submit-button:disabled {
-    background-color: #ccc;
-    border-color: #ccc;
-    cursor: not-allowed;
+    background-color: #ccc; /* Lighter background */
+    border-color: #ccc; /* Matching border */
+    cursor: not-allowed; /* No pointer on disabled button */
 }
 
 /* Adding the vibrate animation for the form container */
@@ -88,12 +101,12 @@ textarea.form-input {
 
 /* Adding a background color transition for the container */
 .post-form-container:hover {
-    background-color: #e9ecef;
+    background-color: #e9ecef; /* Lighter background on hover */
 }
 
 /* General body styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f7fa;
+    background-color: #f4f7fa; /* Light background color for the body */
     padding: 30px;
 }
