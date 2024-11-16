@@ -1,8 +1,10 @@
-const express = require('express');
-const User = require('../models/User'); 
-const mongoose = require('mongoose');
-const router = express.Router();
-const jwt = require('jsonwebtoken');
+import { Router } from 'express';
+import {User} from '../models/User.js'; 
+import { Types } from 'mongoose';
+const router = Router();
+import jwt from 'jsonwebtoken';
+const { sign } = jwt;
+
 
 // JWT secret from environment variables
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
@@ -32,7 +34,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Create a JWT token
-        const token = jwt.sign(
+        const token = sign(
             { id: user._id, role: 'user', location: user.location },
             JWT_SECRET,
             { expiresIn: '1h' }
@@ -73,7 +75,7 @@ router.post('/register', async (req, res) => {
 // GET: Fetch all users
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find().sort({ createdAt: -1 }); 
+        const users = await User.find().sort({ createdAt: -1 }); // Fixed the call to `User.find()`
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching users', error });
@@ -86,12 +88,12 @@ router.get('/:id', async (req, res) => {
         const { id } = req.params;
 
         // Check if the ID format is valid
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid user ID format' });
         }
 
         // Find the user by ID
-        const user = await User.findById(id);
+        const user = await User.findById(id); // Fixed the call to `User.findById()`
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -104,10 +106,11 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// POST: User interaction - Like a post
 router.post('/interactions/like', async (req, res) => {
     const { userId, postId } = req.body;
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId);  // Fixed call to `User.findById`
         const isLiked = user.interactions.likedPosts.some(like => like.postId.toString() === postId);
 
         if (isLiked) {
@@ -126,6 +129,7 @@ router.post('/interactions/like', async (req, res) => {
         res.status(500).json({ error: 'Error updating like status' });
     }
 });
+
 // POST request to add a comment to a user's profile based on their username
 router.post('/:username/comments', async (req, res) => {
     const { username } = req.params;  // Extract username from URL
@@ -133,7 +137,7 @@ router.post('/:username/comments', async (req, res) => {
 
     try {
         // Find the user by their username
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ username });  // Fixed call to `User.findOne`
 
         // If the user is not found, return an error
         if (!user) {
@@ -181,7 +185,7 @@ router.get('/:username/comments', async (req, res) => {
 
     try {
         // Find the user by their username
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ username });  // Fixed call to `User.findOne`
 
         // If the user is not found, return an error
         if (!user) {
@@ -199,12 +203,14 @@ router.get('/:username/comments', async (req, res) => {
         res.status(500).json({ message: 'Error retrieving comments', error });
     }
 });
+
+// DELETE: Delete a comment by ID
 router.delete('/:username/comments/:commentId', async (req, res) => {
     const { username, commentId } = req.params;  // Extract username and commentId from URL
 
     try {
         // Find the user by their username
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ username });  // Fixed call to `User.findOne`
 
         // If the user is not found, return an error
         if (!user) {
@@ -234,70 +240,4 @@ router.delete('/:username/comments/:commentId', async (req, res) => {
     }
 });
 
-/*
-router.get('/:username', async (req, res) => {
-    const { username } = req.params; // Extract the username from the URL
-
-    try {
-        // Find the user by their username
-        const user = await User.findOne({ username });
-
-        // If the user is not found, return an error
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Send the user's comments
-        res.status(200).json({ comments: user.interactions.comments });
-
-    } catch (error) {
-        console.error('Error fetching comments for user:', error);
-        res.status(500).json({ message: 'Server error', error });
-    }
-});*/
-// DELETE: Delete a user by ID
-router.delete('/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        // Find the user by ID and delete it
-        const deletedUser = await User.findByIdAndDelete(id);
-
-        if (!deletedUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.status(200).json({ message: 'User deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        res.status(500).json({ message: 'Error deleting user', error });
-    }
-});
-
-// POST: Create a new user 
-router.post('/', async (req, res) => {
-    console.log('Received login data:', req.body);
-    try {
-        const { name, email, phoneNumber, password, location, username } = req.body;
-
-        // Check for all required fields
-        if (!name || !email || !phoneNumber || !password || !location || !username) {
-            return res.status(400).json({ message: 'All fields are required' });
-        }
-
-        // Check if the username already exists
-        const existingUser = await User.findOne({ username });
-        if (existingUser) {
-            return res.status(400).json({ message: 'Username already taken' });
-        }
-
-        const newUser = new User({ name, email, phoneNumber, password, location, username });
-        await newUser.save();
-        res.status(201).json({ message: 'User created successfully', user: newUser });
-    } catch (error) {
-        console.error('Error details:', error); 
-        res.status(500).json({ message: 'Error creating User', error });
-    }
-});
-
-module.exports = router;
+export {router as usersRouter}

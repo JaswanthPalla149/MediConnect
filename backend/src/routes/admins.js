@@ -1,9 +1,12 @@
-const express = require('express');
-const Joi = require('joi');
-const Admin = require('../models/admin'); 
-const mongoose = require('mongoose');
-const router = express.Router();
-const jwt = require('jsonwebtoken');
+import { Router } from 'express';
+import Joi from 'joi';
+import { Admin } from '../models/Admin.js'; 
+import { Types } from 'mongoose';
+import jwt from 'jsonwebtoken';
+
+const router = Router();
+const { sign } = jwt;
+
 // JWT secret from environment variables
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
@@ -11,6 +14,7 @@ const loginSchema = Joi.object({
     adminId: Joi.string().required(),
     password: Joi.string().required()
 });
+
 // Admin login route
 router.post('/login', async (req, res) => {
     console.log('Received login data:', req.body);
@@ -37,7 +41,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Create a JWT token
-        const token = jwt.sign(
+        const token = sign(
             { id: admin._id, role: 'admin', domain: admin.domain },
             JWT_SECRET,
             { expiresIn: '1h' }
@@ -49,10 +53,11 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 // GET: Fetch all Admins
 router.get('/', async (req, res) => {
     try {
-        const admins = await Admin.find().sort({ createdAt: -1 }); 
+        const admins = await Admin.find().sort({ createdAt: -1 });
         res.status(200).json(admins);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching admins', error });
@@ -65,11 +70,11 @@ router.get('/:id', async (req, res) => {
         const { id } = req.params;
 
         // Check if the ID format is valid
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid Admin ID format' });
         }
 
-        // Find the user by ID
+        // Find the admin by ID
         const admin = await Admin.findById(id);
 
         if (!admin) {
@@ -87,6 +92,11 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
+
+        // Check if the ID format is valid
+        if (!Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid Admin ID format' });
+        }
 
         // Find the admin by ID and delete it
         const deletedAdmin = await Admin.findByIdAndDelete(id);
@@ -128,4 +138,4 @@ router.post('/', async (req, res) => {
     }
 });
 
-module.exports = router;
+export { router as adminsRouter };

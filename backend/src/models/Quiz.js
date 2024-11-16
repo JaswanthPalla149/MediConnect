@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid'); // Import uuid to generate unique IDs
+import mongoose from 'mongoose';
+
+import { v4 as uuidv4 } from 'uuid';
+ // Import uuid to generate unique IDs
 
 const questionSchema = new mongoose.Schema({
     questionId: { type: String, default: uuidv4 }, // Unique identifier for each question
@@ -19,5 +21,5 @@ const quizSchema = new mongoose.Schema({
     questions: [questionSchema],
 }, { timestamps: true });
 
-const Quiz = mongoose.model('Quiz', quizSchema);
-module.exports = Quiz;
+const Quizm = mongoose.model('Quiz', quizSchema);
+export { Quizm as Quiz}

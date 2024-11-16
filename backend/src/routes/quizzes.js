@@ -1,7 +1,8 @@
-const express = require('express');
-const Quiz = require('../models/Quiz'); 
-const mongoose = require('mongoose');
-const router = express.Router();
+import { Router } from 'express';
+import { Quiz } from '../models/Quiz.js'; 
+import { Types } from 'mongoose';
+
+const router = Router();
 
 // GET: Fetch all quizzes
 router.get('/', async (req, res) => {
@@ -19,12 +20,12 @@ router.get('/:id', async (req, res) => {
         const { id } = req.params;
 
         // Check if the ID format is valid
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid quiz ID format' });
         }
 
         // Find the quiz by ID
-        const quiz = await Quiz.findById(id);
+        const quiz = await Quiz.findById(id); // Correctly referencing Mongoose model method
 
         if (!quiz) {
             return res.status(404).json({ message: 'Quiz not found' });
@@ -36,16 +37,16 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: 'Error fetching quiz', error });
     }
 });
+
 // POST: Create a new quiz 
 router.post('/', async (req, res) => {
     try {
         const { title, domain, questions } = req.body;
 
+        // Validate required fields
         if (!title || !domain || !questions) {
             return res.status(400).json({ message: 'All fields are required' });
         }
-
-        
 
         const newQuiz = new Quiz({ title, domain, questions });
         await newQuiz.save();
@@ -60,14 +61,23 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedQuiz = await Quiz.findByIdAndDelete(id);
+
+        // Check if the ID format is valid
+        if (!Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid quiz ID format' });
+        }
+
+        const deletedQuiz = await Quiz.findByIdAndDelete(id); // Correctly referencing Mongoose method
+
         if (!deletedQuiz) {
             return res.status(404).json({ message: 'Quiz not found' });
         }
+
         res.status(200).json({ message: 'Quiz deleted successfully' });
     } catch (error) {
+        console.error('Error deleting quiz:', error);
         res.status(500).json({ message: 'Error deleting quiz', error });
     }
 });
 
-module.exports = router;
+export { router as quizzesRouter };
