@@ -1,17 +1,17 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
+import express, { json } from 'express';
+import { connect } from 'mongoose';
+import cors from 'cors';
+import { config } from 'dotenv';
 //console.log("Environment Variables:", process.env);
-const postsRouter = require('./routes/posts');
-const quizzesRouter = require('./routes/quizzes');
-const usersRouter = require('./routes/users');
-const adminsRouter = require('./routes/admins');
-const { execFile } = require('child_process');
-const path = require('path');
+import postsRouter from './routes/posts.js';
+import quizzesRouter from './routes/quizzes.js';
+import usersRouter from './routes/users.js';
+import adminsRouter from './routes/admins.js';
+import { execFile } from 'child_process';
+import { join } from 'path';
 
 // Load environment variables from .env file
-dotenv.config();
+config();
 
 const app = express();
 app.use(cors({
@@ -19,11 +19,11 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
-app.use(express.json());
+app.use(json());
 
 // MongoDB connection
 console.log("MONGO_DB_URL:", process.env.DB_URL)
-mongoose.connect(process.env.DB_URL
+connect(process.env.DB_URL
     , {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -39,7 +39,7 @@ app.use('/api/admins', adminsRouter);
 
 app.post('/api/chat', (req, res) => {
     const text = req.body.text;
-    const serverPyPath = path.join(__dirname, 'routes', 'Gem_Ser.py');
+    const serverPyPath = join(__dirname, 'routes', 'Gem_Ser.py');
 
     execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
         if (error) {
