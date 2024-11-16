@@ -60,6 +60,12 @@ h1 {
     font-family: 'Poppins', sans-serif;
 }
 
+/* Color-shifting effect for the main title */
+@keyframes colorShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
 /* Individual Quiz Title with Enhanced Font */
 h4 {
     font-family: 'Roboto Slab', serif;
@@ -78,12 +84,6 @@ h4 {
     color: #ff1744; /* Vibrant Red for quiz title */
     font-weight: 900; /* Bold font */
     text-shadow: 2px 2px 8px rgba(158, 158, 158, 0.5);
-}
-
-/* Color-shifting effect for the main title */
-@keyframes colorShift {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
 }
 
 /* Quiz Link Styling */
@@ -108,11 +108,12 @@ h4 {
 
 /* Enlarged Bullets for Options */
 .option-label {
-    margin-left: -500px;
+    margin-left: 0; /* Removed previous margin to ensure options are visible */
     font-size: 1.6rem; /* Increased font size for option text */
     font-weight: 500;
     color: #6a1b9a;
     transition: color 0.3s ease;
+    padding-left: 10px; /* Added padding for spacing */
 }
 
 .option-label:hover {
@@ -121,8 +122,8 @@ h4 {
 
 /* Option Radio Button Styling */
 input[type="radio"] {
-    transform: scale(1.8); /* Enlarged radio buttons */
-    margin-left: -550px;
+    transform: scale(1.6); /* Enlarged radio buttons */
+    margin-left: 0; /* Adjusted to align properly */
     accent-color: #8e24aa;
 }
 
@@ -199,6 +200,8 @@ input[type="radio"] {
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(0, 255, 255, 1); /* Intense glowing effect */
 }
+
+/* Sample Questions Title */
 .sample-questions-title {
     font-size: 1.8rem;
     color: white !important; /* White text for better visibility */
@@ -206,6 +209,7 @@ input[type="radio"] {
     margin-top: 20px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Adding text shadow for contrast */
 }
+
 /* Points Display Styling */
 .points-display {
     font-size: 1.5rem;

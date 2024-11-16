@@ -82,7 +82,7 @@ const ExerciseVideos = () => {
 
     return (
         <div className="exercise-video-container">
-            <h2 className="exercise-video-title" style = {{color:'red',fontSize:'3rem'}}>Exercise Videos</h2>
+            <h2 className="exercise-video-title" style = {{color:'red',fontSize:'3rem',textAlign:'center'}}>Exercise Videos</h2>
             <div className={`video-player-container ${isVideoChanging ? 'changing' : ''}`}>
                 <video
                     ref={videoRef}

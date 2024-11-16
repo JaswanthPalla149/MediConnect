@@ -66,14 +66,14 @@ const ChatPage = ({ username, id }) => {
             </div>
 
             <div className="input-container">
-                <input
+                <input id='chatpage-textfield'
                     type="text"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     placeholder="Type your message..."
                     disabled={isLoading} // Disable input while loading
                 />
-                <button onClick={handleSendMessage} disabled={isLoading}>Send</button>
+                <button  id = "chatpage-button" onClick={handleSendMessage} disabled={isLoading}>Send</button>
             </div>
 
             {error && <p className="error">{error}</p>}
