@@ -38,7 +38,7 @@ app.use('/api/quizzes', quizzesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
 
-/*app.post('/api/chat', (req, res) => {
+app.post('/api/chat', (req, res) => {
     const text = req.body.text;
     const serverPyPath = path.join(__dirname, 'routes', 'Gem_Ser.py');
 
@@ -81,7 +81,7 @@ app.post('/api/sentiment', (req, res) => {
         const sentimentScores = JSON.parse(stdout);
         res.json(sentimentScores);
     });
-});*/
+});
 
 // Basic route for testing
 app.get('/', (req, res) => {
@@ -94,9 +94,9 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-// Start the server
-//  const port = process.env.PORT || 5000;
-//  app.listen(port, () => {
-//      console.log(`Server running on port ${port}`);
-//  });
-module.exports.handler = serverless(app);
+ //Start the server
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+  });
+//module.exports.handler = serverless(app);
