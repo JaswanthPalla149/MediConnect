@@ -37,7 +37,7 @@ app.use('/api/quizzes', quizzesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
 
-app.post('/api/chat', (req, res) => {
+/*app.post('/api/chat', (req, res) => {
     const text = req.body.text;
     const serverPyPath = path.join(__dirname, 'routes', 'Gem_Ser.py');
 
@@ -80,7 +80,7 @@ app.post('/api/sentiment', (req, res) => {
         const sentimentScores = JSON.parse(stdout);
         res.json(sentimentScores);
     });
-});
+});*/
 
 // Basic route for testing
 app.get('/', (req, res) => {
@@ -94,7 +94,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const port = process.env.PORT;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
