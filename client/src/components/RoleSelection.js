@@ -125,8 +125,8 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
 
         try {
             const loginUrl = selectedRole === 'admin'
-                ? `${url}api/admins/login`
-                : `${url}api/users/login`;
+                ? `${url}/api/admins/login`
+                : `${url}/api/users/login`;
 
             const response = await fetch(loginUrl, {
                 method: 'POST',
