@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material'; // For Circular progress indicator
 import './ChatPage.css';  // Custom CSS for styling
-
+const url = process.env.REACT_APP_BACKURL;
 const ChatPage = ({ username, id }) => {
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -15,7 +15,7 @@ const ChatPage = ({ username, id }) => {
             setIsLoading(true); // Start loading
 
             // 1. Perform sentiment analysis on the input text
-            const sentimentResponse = await axios.post('http://localhost:5000/api/sentiment', {
+            const sentimentResponse = await axios.post(`${url}/api/sentiment`, {
                 text: inputText
             });
             const sentimentScore = sentimentResponse.data.compound;
@@ -29,7 +29,7 @@ const ChatPage = ({ username, id }) => {
             }
 
             // 3. Send the message to the chatbot if sentiment is okay
-            const chatResponse = await axios.post('http://localhost:5000/api/chat', {
+            const chatResponse = await axios.post(`${url}/api/chat`, {
                 text: inputText
             });
             const botReply = chatResponse.data.response;  // Extract response from the `response` key

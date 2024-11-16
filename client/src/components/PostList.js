@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import axios from 'axios';
 import './PostList.css'; // Ensure this file exists with your custom styles
-
+const url = process.env.REACT_APP_BACKURL;
 const PostList = ({ username }) => {
   const { domain } = useParams();
   const [posts, setPosts] = useState([]);
@@ -14,7 +14,7 @@ const PostList = ({ username }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/posts');
+        const res = await axios.get(`${url}/api/posts`);
         const filteredPosts = res.data.filter(post => post.domain === domain);
         setPosts(filteredPosts);
       } catch (error) {
@@ -30,11 +30,11 @@ const PostList = ({ username }) => {
       const isLiked = likedPosts.includes(postId);
 
       if (isLiked) {
-        const res = await axios.post(`http://localhost:5000/api/posts/${postId}/unlike`, { userId: username });
+        const res = await axios.post(`${url}/api/posts/${postId}/unlike`, { userId: username });
         setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId));
         setPosts(prevPosts => prevPosts.map(post => (post._id === postId ? { ...post, likes: res.data.likes } : post)));
       } else {
-        const res = await axios.post(`http://localhost:5000/api/posts/${postId}/like`, { userId: username });
+        const res = await axios.post(`${url}/${postId}/like`, { userId: username });
         setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
         setPosts(prevPosts => prevPosts.map(post => (post._id === postId ? { ...post, likes: res.data.likes } : post)));
       }
@@ -45,12 +45,12 @@ const PostList = ({ username }) => {
 
   const handleCommentPost = async (postId, content) => {
     try {
-      const sentimentResponse = await axios.post('http://localhost:5000/api/sentiment', { text: content });
+      const sentimentResponse = await axios.post(`${url}/api/sentiment`, { text: content });
       const sentimentScore = sentimentResponse.data.compound;
-      const res = await axios.post(`http://localhost:5000/api/posts/${postId}/comment`, { username, content });
+      const res = await axios.post(`${url}/api/posts/${postId}/comment`, { username, content });
 
       setPosts(prevPosts => prevPosts.map(post => (post._id === res.data._id ? res.data : post)));
-      await axios.post(`http://localhost:5000/api/users/${username}/comments`, {
+      await axios.post(`${url}/api/users/${username}/comments`, {
         content: content,
         postId: postId,
         sentimentScore: sentimentScore,

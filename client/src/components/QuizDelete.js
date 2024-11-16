@@ -1,11 +1,11 @@
 // src/components/QuizDelete.js
 import React from 'react';
 import { Button } from 'react-bootstrap';
-
+const url = process.env.REACT_APP_BACKURL;
 const QuizDelete = ({ quizId, onDelete }) => {
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/quizzes/${quizId}`, {
+            const response = await fetch(`${url}/api/quizzes/${quizId}`, {
                 method: 'DELETE',
             });
 
