@@ -46,11 +46,11 @@ app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
 
 // Serve static files
-app.use(express.static(join(__dirname, '../client/build')));
+/*app.use(express.static(join(__dirname, '../client/build')));
 
 app.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'client', 'build', 'App.js'));
-});
+});*/
 
 app.post('/api/chat', (req, res) => {
   const text = req.body.text;
