@@ -39,7 +39,7 @@ app.use('/api/admins', adminsRouter);
 
 app.post('/api/chat', (req, res) => {
     const text = req.body.text;
-    const serverPyPath = path.join(__dirname, 'routes', 'ChatServer.py');
+    const serverPyPath = path.join(__dirname, 'routes', 'Gem_Ser.py');
 
     execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
         if (error) {
@@ -94,7 +94,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT; //|| 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
