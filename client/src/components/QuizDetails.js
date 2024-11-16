@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+const url = process.env.REACT_APP_BACKURL;
 const QuizDetails = () => {
     const { id } = useParams();
     const [quiz, setQuiz] = useState(null);

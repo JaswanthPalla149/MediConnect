@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Col, Row } from 'react-bootstrap';
 import './QuizUpload.css'; // Ensure this file exists for styling
-
+const url = process.env.REACT_APP_BACKURL;
 const QuizUpload = () => {
     const [title, setTitle] = useState('');
     const [domain, setDomain] = useState('');

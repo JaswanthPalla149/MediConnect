@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './QuizList.css';
-
+const url = process.env.REACT_APP_BACKURL;
 const QuizList = () => {
     const [quizzes, setQuizzes] = useState([]);
     const [loading, setLoading] = useState(true);
