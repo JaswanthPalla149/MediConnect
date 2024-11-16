@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: process.env.FE_URL, // Adjust this to your React app's URL
+    origin: 'http://localhost:3000', // Adjust this to your React app's URL
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
