@@ -7,6 +7,7 @@ const postsRouter = require('./routes/posts');
 const quizzesRouter = require('./routes/quizzes');
 const usersRouter = require('./routes/users');
 const adminsRouter = require('./routes/admins');
+const serverless = require('serverless-http');
 const { execFile } = require('child_process');
 const path = require('path');
 
@@ -94,7 +95,8 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+//  const port = process.env.PORT || 5000;
+//  app.listen(port, () => {
+//      console.log(`Server running on port ${port}`);
+//  });
+module.exports.handler = serverless(app);
