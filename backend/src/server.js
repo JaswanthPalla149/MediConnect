@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:3000', // Adjust this to your React app's URL
+    origin: process.env.FE_URL, // Adjust this to your React app's URL
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
@@ -93,8 +93,8 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+ //Start the server
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+  });
