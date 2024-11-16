@@ -8,6 +8,11 @@ import {postsRouter} from './routes/posts.js';
 import {quizzesRouter} from './routes/quizzes.js';
 import {usersRouter} from './routes/users.js';
 import {adminsRouter} from './routes/admins.js';
+import { fileURLToPath } from 'url';
+import path from 'path'; 
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Load environment variables from .env file
 config();
@@ -23,7 +28,7 @@ app.use(
 app.use(express.json());
 
 // Fix __dirname for ES modules
-const __dirname = resolve();
+//const __dirname = resolve();
 
 // MongoDB connection
 console.log('MONGO_DB_URL:', process.env.DB_URL);
@@ -71,29 +76,26 @@ app.post('/api/chat', (req, res) => {
   });
 });
 
+
 app.post('/api/sentiment', (req, res) => {
-  const text = req.body.text;
-  const serverPyPath = join(__dirname, 'routes', 'server.py');
+    const text = req.body.text;
+    const serverPyPath = path.join(__dirname, 'routes', 'server.py');
+    execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
+        if (error) {
+            console.error('Error executing Python script:', error);
+            return res.status(500).json({ error: 'Failed to analyze sentiment' });
+        }
 
-  execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
-    if (error) {
-      console.error('Error executing Python script:', error);
-      return res.status(500).json({ error: 'Failed to analyze sentiment' });
-    }
+        if (stderr) {
+            console.error('Python script error output:', stderr);
+        }
 
-    if (stderr) {
-      console.error('Python script error output:', stderr);
-    }
-
-    try {
-      const sentimentScores = JSON.parse(stdout);
-      res.json(sentimentScores);
-    } catch (parseError) {
-      console.error('Error parsing JSON:', parseError);
-      res.status(500).json({ error: 'Invalid JSON response from Python script' });
-    }
-  });
+        // Parse and send the Python script output
+        const sentimentScores = JSON.parse(stdout);
+        res.json(sentimentScores);
+    });
 });
+
 
 // Basic route for testing
 app.get('/', (req, res) => {
