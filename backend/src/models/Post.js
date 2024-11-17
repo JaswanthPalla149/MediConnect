@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
     username: { type: String, required: true },
@@ -15,6 +15,6 @@ const postSchema = new mongoose.Schema({
     author: { type: String, required: true },
 }, { timestamps: true });
 
-const Post = mongoose.model('Post', postSchema);
+const Postm = mongoose.model('Post', postSchema);
 
-module.exports = Post;
+export { Postm as Post}

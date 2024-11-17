@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "generated_backend is the ultimate backend solution",
     "main": "src/server.js",
+    "type": "module",
     "scripts": {
         "setup": "npm install && npm update",
         "start": "node src/server.js",
@@ -15,12 +16,12 @@
     ],
     "license": "UNLICENSED",
     "dependencies": {
+        "express": "^4.21.1",
         "@google/generative-ai": "^0.21.0",
         "body-parser": "^1.20.3",
         "cookie-parser": "^1.0.0",
         "cors": "^2.8.5",
         "dotenv": "^16.4.5",
-        "express": "^4.21.1",
         "express-custom-error": "^1.8.4",
         "has-keys": "^0.1.0",
         "helmet": "^3.21.2",

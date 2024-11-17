@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import './PostForm.css';
-
+const url = process.env.REACT_APP_BACKURL;
 const PostForm = ({ username, domain, id }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -34,7 +34,7 @@ const PostForm = ({ username, domain, id }) => {
         setSuccessMessage('');
 
         try {
-            const response = await fetch('http://localhost:5000/api/posts', {
+            const response = await fetch(`${url}/api/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

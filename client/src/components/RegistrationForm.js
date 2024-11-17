@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, InputGroup, Row, Col, Alert } from 'react-bootstrap';
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaMapMarkerAlt, FaUserCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './RegistrationForm.css';
-
+const url = process.env.REACT_APP_BACKURL;
 const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ const RegistrationForm = () => {
         console.log('Form data before submission:', formData);
 
         try {
-            const response = await fetch('http://localhost:5000/api/users/register', {
+            const response = await fetch(`${url}/api/users/register`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Col, Row } from 'react-bootstrap';
 import './QuizUpload.css'; // Ensure this file exists for styling
-
+const url = process.env.REACT_APP_BACKURL;
 const QuizUpload = () => {
     const [title, setTitle] = useState('');
     const [domain, setDomain] = useState('');
@@ -59,7 +59,7 @@ const QuizUpload = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/quizzes', {
+            const response = await fetch(`${url}/api/quizzes`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ title, domain, questions }),

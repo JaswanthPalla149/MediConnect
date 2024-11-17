@@ -3,7 +3,7 @@ import { Button, Card, Alert } from 'react-bootstrap';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 import './RoleSelection.css';
-
+const url = process.env.REACT_APP_BACKURL;
 // Particle animation initialization
 const NUM_PARTICLES = 600;
 const PARTICLE_SIZE = 0.5; // View heights
@@ -125,9 +125,9 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
 
         try {
             const loginUrl = selectedRole === 'admin'
-                ? 'http://localhost:5000/api/admins/login'
-                : 'http://localhost:5000/api/users/login';
-
+                ? `${url}/api/admins/login`
+                : `${url}/api/users/login`;
+                console.log(loginUrl);
             const response = await fetch(loginUrl, {
                 method: 'POST',
                 headers: {

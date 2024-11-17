@@ -3,16 +3,17 @@ import { Container, Card, Row, Col, Button, Form } from 'react-bootstrap';
 import { FaHeart, FaRegHeart, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
 import './AdminPostList.css'; // Ensure your custom styles are included
-
+const url = process.env.REACT_APP_BACKURL;
 const AdminPostList = ({ username, domain, id }) => {
     const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState([]);
     const [comments, setComments] = useState({});
-
+    
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/posts');
+                console.log(`url : ${url}`);
+                const res = await axios.get(`${url}/api/posts`);
                 const filteredPosts = res.data.filter(post => post.domain === domain);
                 setPosts(filteredPosts);
             } catch (error) {
@@ -28,11 +29,11 @@ const AdminPostList = ({ username, domain, id }) => {
             const isLiked = likedPosts.includes(postId);
 
             if (isLiked) {
-                const res = await axios.post(`http://localhost:5000/api/posts/${postId}/unlike`, { userId: username });
+                const res = await axios.post(`${url}/api/posts/${postId}/unlike`, { userId: username });
                 setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId));
                 setPosts(prevPosts => prevPosts.map(post => (post._id === postId ? { ...post, likes: res.data.likes } : post)));
             } else {
-                const res = await axios.post(`http://localhost:5000/api/posts/${postId}/like`, { userId: username });
+                const res = await axios.post(`${url}/api/posts/${postId}/like`, { userId: username });
                 setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
                 setPosts(prevPosts => prevPosts.map(post => (post._id === postId ? { ...post, likes: res.data.likes } : post)));
             }
@@ -43,12 +44,12 @@ const AdminPostList = ({ username, domain, id }) => {
 
     const handleCommentPost = async (postId, content) => {
         try {
-            const sentimentResponse = await axios.post('http://localhost:5000/api/sentiment', { text: content });
+            const sentimentResponse = await axios.post('${url}/api/sentiment', { text: content });
             const sentimentScore = sentimentResponse.data.compound;
-            const res = await axios.post(`http://localhost:5000/api/posts/${postId}/comment`, { username, content });
+            const res = await axios.post(`${url}/api/posts/${postId}/comment`, { username, content });
 
             setPosts(prevPosts => prevPosts.map(post => (post._id === res.data._id ? res.data : post)));
-            await axios.post(`http://localhost:5000/api/users/${username}/comments`, {
+            await axios.post(`${url}/api/users/${username}/comments`, {
                 content: content,
                 postId: postId,
                 sentimentScore: sentimentScore,
@@ -62,7 +63,7 @@ const AdminPostList = ({ username, domain, id }) => {
 
     const handleDeletePost = async (postId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/posts/${postId}`);
+            await axios.delete(`${url}/api/posts/${postId}`);
             setPosts(prevPosts => prevPosts.filter(post => post._id !== postId));
         } catch (error) {
             console.error('Error deleting post:', error);
@@ -71,7 +72,7 @@ const AdminPostList = ({ username, domain, id }) => {
 
     const handleDeleteComment = async (postId, commentId) => {
         try {
-            const res = await axios.delete(`http://localhost:5000/api/posts/${postId}/comments/${commentId}`);
+            const res = await axios.delete(`${url}/api/posts/${postId}/comments/${commentId}`);
             setPosts(prevPosts => prevPosts.map(post =>
                 post._id === postId ? { ...post, comments: res.data.comments } : post
             ));

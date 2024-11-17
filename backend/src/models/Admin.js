@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const adminSchema = new mongoose.Schema({
     adminId: { type: String, required: true, unique: true },
@@ -6,6 +6,6 @@ const adminSchema = new mongoose.Schema({
     domain: { type: String, required: true }, 
 }, { timestamps: true });
 
-const Admin = mongoose.model('Admin', adminSchema);
+const Adminm = mongoose.model('Admin', adminSchema);
 
-module.exports = Admin;
+export { Adminm as Admin}

@@ -1,15 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const Post = require('../models/Post');
+import { Router } from 'express';
+import { Types } from 'mongoose';
+import { Post } from '../models/Post.js';
 
-// GET: Fetch Post by id
+const router = Router();
+
+// GET: Fetch Post by ID
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
 
         // Check if the ID is valid
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid post ID format' });
         }
 
@@ -45,10 +46,12 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: 'Error deleting post', error });
     }
 });
+
 // POST: Create a new post
 router.post('/', async (req, res) => {
     const { title, content, username, domain } = req.body;
-    console.log(`request body :${req.body}`)
+    console.log(`Request body: ${req.body}`);
+
     if (!username) {
         return res.status(400).json({ message: 'Username is required' });
     }
@@ -71,14 +74,14 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 // Like a post
 router.post('/:id/like', async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req.body; // Assuming we use userId for tracking who liked the post
 
         // Check if the ID is valid
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid post ID format' });
         }
 
@@ -102,9 +105,8 @@ router.post('/:id/like', async (req, res) => {
 router.post('/:id/unlike', async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req.body;
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: 'Invalid post ID format' });
         }
 
@@ -125,8 +127,6 @@ router.post('/:id/unlike', async (req, res) => {
     }
 });
 
-
-
 // Add a comment to a post
 router.post('/:id/comment', async (req, res) => {
     const { username, content } = req.body;
@@ -134,18 +134,20 @@ router.post('/:id/comment', async (req, res) => {
         const post = await Post.findById(req.params.id);
         post.comments.push({ username, content });
         await post.save();
-        res.json(post);
+        res.status(201).json(post);
     } catch (error) {
+        console.error('Error adding comment:', error);
         res.status(500).send(error);
     }
 });
+
 // DELETE: Delete a comment from a post
 router.delete('/:postId/comments/:commentId', async (req, res) => {
     const { postId, commentId } = req.params;
 
     try {
         // Check if the post ID is valid
-        if (!mongoose.Types.ObjectId.isValid(postId)) {
+        if (!Types.ObjectId.isValid(postId)) {
             return res.status(400).json({ message: 'Invalid post ID format' });
         }
 
@@ -171,5 +173,4 @@ router.delete('/:postId/comments/:commentId', async (req, res) => {
     }
 });
 
-
-module.exports = router;
+export { router as postsRouter };

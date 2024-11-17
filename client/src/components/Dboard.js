@@ -4,7 +4,7 @@ import { Container, Grid, Card, Typography, Paper } from '@mui/material';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import axios from 'axios';
 import './Dboard.css'; // Import the CSS file into your component
-
+const url = process.env.REACT_APP_BACKURL;
 
 // Register chart elements
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
@@ -29,7 +29,7 @@ const Dboard = ({ username, id }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${id}`);
+        const response = await axios.get(`${url}/api/users/${id}`);
         const data = response.data;
 
         setUserData(data);
