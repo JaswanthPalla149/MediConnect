@@ -25,17 +25,21 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/create-post">Create Post</Nav.Link>
       <Nav.Link as={Link} to="/Home/ChatPage">ChatUs</Nav.Link>
       <Nav.Link as={Link} to="/Home/Dboard">Dashboard</Nav.Link>
-      <Nav.Link as={Link} to="/Home/exercise-videos">Exercise Videos</Nav.Link>
     </>
   );
+
+  const handleLogout = () => {
+    resetAuth();
+    console.log("Logout button clicked, resetAuth called");
+  };
 
   return (
     <Navbar bg="dark" expand="lg" className="dynamic-navbar">
       <div className="navbar-inner">
         <Navbar.Brand
           as={Link}
-          style = {{
-            fontFamily: 'Robotto'
+          style={{
+            fontFamily: 'Roboto'
           }}
           to="/"
           onClick={() => {
@@ -52,7 +56,11 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
             {role === "admin" ? renderAdminLinks() : renderUserLinks()}
           </Nav>
           <Nav className="ml-auto">
-            {username && <Nav.Link disabled className="username">Hello, {username}</Nav.Link>}
+            {username && (
+              <Nav.Link as={Link} to="#" onClick={handleLogout} className="logout-link">
+                Logout
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </div>

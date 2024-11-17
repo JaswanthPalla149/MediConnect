@@ -38,7 +38,7 @@ const QuizUpload = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Validation checks
         if (!title || !domain || questions.length === 0) {
             return setError('All fields are required');
@@ -114,7 +114,7 @@ const QuizUpload = () => {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Domain</Form.Label>
+                    <Form.Label>Domain (engagement/happiness/mindfullness)</Form.Label>
                     <Form.Control
                         type="text"
                         value={domain}

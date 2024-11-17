@@ -96,7 +96,7 @@ const UserCreatePost = ({ username, id }) => {
                         className="form-input"
                     >
                         <option value="">Select Domain</option>
-                        <option value="mindfulness">Mindfulness</option>
+                        <option value="mindfullness">Mindfullness</option>
                         <option value="engagement">Engagement</option>
                         <option value="happiness">Happiness</option>
                     </Form.Select>

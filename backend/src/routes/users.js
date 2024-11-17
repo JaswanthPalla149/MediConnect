@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {User} from '../models/User.js'; 
+import { User } from '../models/User.js';
 import { Types } from 'mongoose';
 const router = Router();
 import jwt from 'jsonwebtoken';
@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
             { expiresIn: '1h' }
         );
 
-        res.json({ token, role: 'user', message: 'Login successful', location: user.location, _id: user._id});
+        res.json({ token, role: 'user', message: 'Login successful', location: user.location, _id: user._id });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
@@ -67,7 +67,7 @@ router.post('/register', async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: 'User created successfully', user: newUser });
     } catch (error) {
-        console.error('Error details:', error); 
+        console.error('Error details:', error);
         res.status(500).json({ message: 'Error creating User', error });
     }
 });
@@ -130,6 +130,52 @@ router.post('/interactions/like', async (req, res) => {
     }
 });
 
+router.post('/:username/quiz', async (req, res) => {
+    const { username } = req.params; // Extract username from URL
+    const { quizId, score, domain } = req.body; // Include `quizId`, `score`, and `domain` in the request body
+
+    try {
+        // Find the user by their username
+        const user = await User.findOne({ username });
+
+        // If the user is not found, return an error
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Initialize the `quizScores` array if not already set
+        if (!user.quizScores) {
+            user.quizScores = [];
+        }
+
+        // Add the new quiz result to the user's `quizScores` array
+        user.quizScores.push({ quizId, score, timestamp: new Date() });
+
+        // Update the domain level directly here
+        const currentLevel = user[`${domain}Level`] || 0;
+
+        // Define a smoothing factor (alpha) to control how much weight we give to the new quiz score
+        const alpha = 0.3;  // Adjust alpha between 0 and 1 for responsiveness
+
+        // Calculate the new level using a weighted moving average
+        const newLevel = (1 - alpha) * currentLevel + alpha * score;
+
+        // Clamp the result between -1 and 1 to ensure it stays within valid range
+        user[`${domain}Level`] = Math.min(1, Math.max(-1, newLevel));
+
+        // Save the user document with the new quiz result and updated domain level
+        await user.save();
+
+        // Respond with a success message
+        res.status(200).json({ message: 'Quiz result added and domain level updated' });
+
+    } catch (error) {
+        console.error('Error adding quiz result to user:', error);
+        res.status(500).json({ message: 'Error adding quiz result to user profile', error });
+    }
+});
+
+
 // POST request to add a comment to a user's profile based on their username
 router.post('/:username/comments', async (req, res) => {
     const { username } = req.params;  // Extract username from URL
@@ -160,10 +206,10 @@ router.post('/:username/comments', async (req, res) => {
 
         // Define a smoothing factor (alpha) to control how much weight we give to the new sentiment score
         const alpha = 0.3;  // Adjust alpha between 0 and 1 for responsiveness
-    
+
         // Calculate the new level using a weighted moving average
         const newLevel = (1 - alpha) * currentLevel + alpha * sentimentScore;
-    
+
         // Clamp the result between -1 and 1 to ensure it stays within valid range
         user[`${domain}Level`] = Math.min(1, Math.max(-1, newLevel));
 
@@ -240,4 +286,4 @@ router.delete('/:username/comments/:commentId', async (req, res) => {
     }
 });
 
-export {router as usersRouter}
+export { router as usersRouter }

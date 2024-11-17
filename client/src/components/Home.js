@@ -9,7 +9,7 @@ const Home = ({ id }) => {
     <motion.div className="home-container">
       <div className="home">
         {/* Home Image Section with scroll animation */}
-        <motion.div 
+        <motion.div
           className="home-img"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -22,21 +22,21 @@ const Home = ({ id }) => {
         </motion.div>
 
         {/* Home Content with scroll animation */}
-        <motion.div 
+        <motion.div
           className="home-content"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <motion.h3 className="typing-text" 
-            initial={{ opacity: 0 }} 
+          <motion.h3 className="typing-text"
+            initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
             Welcome to Our Platform
           </motion.h3>
 
-          <motion.p 
+          <motion.p
             className="homepara"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -63,13 +63,15 @@ const Home = ({ id }) => {
       </div>
 
       {/* Chatbot Section with scroll animation */}
-      <motion.div 
+      <motion.div
         className="page2"
         id="chatbot"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7,
-          ease: "easeInOut",}}
+        transition={{
+          duration: 0.7,
+          ease: "easeInOut",
+        }}
       >
         <div className="spline-container">
           <spline-viewer
@@ -78,8 +80,8 @@ const Home = ({ id }) => {
           />
         </div>
         <div className="text-container">
-          <h2 style={{ color: '#00e6e6', fontWeight: '1000', fontSize: '2.5rem',fontFamily:'Lora'}}> Mental Health Chatbot</h2>
-          <p style={{ color: 'whitesmoke', fontSize: '1.5rem' }} id = "chatbot-txt">
+          <h2 style={{ color: '#00e6e6', fontWeight: '1000', fontSize: '2.5rem', fontFamily: 'Lora' }}> Mental Health Chatbot</h2>
+          <p style={{ color: 'whitesmoke', fontSize: '1.5rem' }} id="chatbot-txt">
             If you're feeling overwhelmed, don't hesitate to reach out to our chatbot for support.
             You're not alone, and help is just a message away.
           </p>
@@ -95,17 +97,17 @@ const Home = ({ id }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <div className="community" id="community" style = {{marginTop:'8rem'}}>
+        <div className="community" id="community" style={{ marginTop: '8rem' }}>
           <div className="spline-container">
-          <spline-viewer
-            url="https://prod.spline.design/3nUiXob4AEk5Ygug/scene.splinecode"
-            style={{ width: "100%", height: "500px" }}
-          />
-           </div>
-  </div>
-        
+            <spline-viewer
+              url="https://prod.spline.design/3nUiXob4AEk5Ygug/scene.splinecode"
+              style={{ width: "100%", height: "500px" }}
+            />
+          </div>
+        </div>
+
         <div className="community-container" style={{ marginTop: "20px", marginLeft: "20px" }}>
-          <h2 style={{ color: '#00e6e6', fontWeight: '1000', fontSize: '2.5rem',fontFamily: 'Lora'}}>Community Support</h2>
+          <h2 style={{ color: '#00e6e6', fontWeight: '1000', fontSize: '2.5rem', fontFamily: 'Lora' }}>Community Support</h2>
           <p style={{ color: 'whitesmoke', fontSize: '1.5rem' }}>
             Join our community to connect with others who share similar experiences.
             Support each other, share resources, and grow together. Your voice matters!
@@ -138,28 +140,6 @@ const Home = ({ id }) => {
             A quiz can't tell you everything you need to know about yourself, but it can help provide insight into some of your personality traits, behaviors, and how you view and respond to the world around you.
           </p>
         </motion.div>
-      </motion.div>
-
-      {/* Explore Sections with scroll animation */}
-      <motion.div 
-        className="explore-sections"
-        id="explore"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <h2 className="text-center mt-5" style={{ color: '#00e6e6', fontWeight: '1000', fontSize: '2.5rem',fontFamily:'Lora' }}>Explore Sections</h2>
-        <p className="text-center" style={{ color: 'whitesmoke', fontSize: '1.5rem' }}>
-          Discover our resources and participate in exciting workshops and community events!
-        </p>
-        <div className="button-container">
-          <Link to="/workshops">
-            <button className="custom-button workshops-btn">Upcoming Workshops</button>
-          </Link>
-          <Link to="/events">
-            <button className="custom-button events-btn">Community Events</button>
-          </Link>
-        </div>
       </motion.div>
     </motion.div>
   );

@@ -1,28 +1,38 @@
-
-
-
 /* Main Navbar Style */
 .dynamic-navbar {
-    background-color: #141e30; /* Dark background */
-    color: #fff; /* Light text */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Soft bottom border */
+    background-color: #141e30;
+    /* Dark background */
+    color: #fff;
+    /* Light text */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    /* Soft bottom border */
     border-radius: 3rem;
     text-align: center;
-    padding: 0.8rem 2rem; /* Adjusted padding for a more compact navbar */
-    font-family: 'Poppins', sans-serif; /* Clean font */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Depth with a soft shadow */
-    position: fixed; /* Fixes navbar to the top of the page */
-    top: 0; /* Stick the navbar to the top */
+    padding: 0.8rem 2rem;
+    /* Adjusted padding for a more compact navbar */
+    font-family: 'Poppins', sans-serif;
+    /* Clean font */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    /* Depth with a soft shadow */
+    position: fixed;
+    /* Fixes navbar to the top of the page */
+    top: 0;
+    /* Stick the navbar to the top */
     left: 0;
-    width: 100%; /* Ensure the navbar spans the entire width */
-    z-index: 9999; /* Ensure navbar stays above all other content */
-    transition: background-color 0.3s ease; /* Smooth background transition on scroll */
-    margin-top: 0; /* No top margin, so it’s right at the top of the screen */
+    width: 100%;
+    /* Ensure the navbar spans the entire width */
+    z-index: 9999;
+    /* Ensure navbar stays above all other content */
+    transition: background-color 0.3s ease;
+    /* Smooth background transition on scroll */
+    margin-top: 0;
+    /* No top margin, so it’s right at the top of the screen */
 }
 
 /* Prevent content from being hidden behind the navbar */
 body {
-    padding-top: 70px; /* Add top padding to body content to account for fixed navbar height */
+    padding-top: 70px;
+    /* Add top padding to body content to account for fixed navbar height */
 }
 
 /* Navbar Inner for Centering */
@@ -34,13 +44,17 @@ body {
 /* Navbar Brand Styling */
 .dynamic-navbar .navbar-brand {
     font-weight: 600;
-    font-size: 2rem; /* Larger font size for the brand */
-    color: #fff; /* Initially white */
+    font-size: 2rem;
+    /* Larger font size for the brand */
+    color: #fff;
+    /* Initially white */
     text-transform: uppercase;
-    letter-spacing: 2px; /* Increased letter-spacing for style */
+    letter-spacing: 2px;
+    /* Increased letter-spacing for style */
     position: relative;
     display: inline-block;
-    transition: transform 0.3s ease, color 0.3s ease, letter-spacing 0.3s ease; /* Smooth transition for hover effects */
+    transition: transform 0.3s ease, color 0.3s ease, letter-spacing 0.3s ease;
+    /* Smooth transition for hover effects */
 }
 
 .dynamic-navbar .navbar-brand:before {
@@ -48,16 +62,20 @@ body {
     position: absolute;
     width: 0;
     height: 3px;
-    background-color: #f44336; /* Red underline color */
+    background-color: #f44336;
+    /* Red underline color */
     bottom: -8px;
     left: 50%;
     transition: width 0.3s ease, left 0.3s ease;
 }
 
 .dynamic-navbar .navbar-brand:hover {
-    color: #f44336; /* Red on hover */
-    transform: scale(1.1); /* Slight zoom effect */
-    letter-spacing: 4px; /* Increase letter-spacing on hover */
+    color: #f44336;
+    /* Red on hover */
+    transform: scale(1.1);
+    /* Slight zoom effect */
+    letter-spacing: 4px;
+    /* Increase letter-spacing on hover */
 }
 
 .dynamic-navbar .navbar-brand:hover:before {
@@ -68,11 +86,13 @@ body {
 /* Nav Links Styling */
 .dynamic-navbar .nav-link {
     font-size: 1.2rem;
-    color: #fff; /* Initially white */
+    color: #fff;
+    /* Initially white */
     margin: 0 1rem;
     text-decoration: none;
     position: relative;
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color and transform transition */
+    transition: color 0.3s ease, transform 0.3s ease;
+    /* Smooth color and transform transition */
 }
 
 .dynamic-navbar .nav-link:before {
@@ -82,13 +102,16 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #f44336; /* Red underline color */
+    background-color: #f44336;
+    /* Red underline color */
     transition: width 0.3s ease;
 }
 
 .dynamic-navbar .nav-link:hover {
-    color: #f44336; /* Red on hover */
-    transform: translateY(-5px); /* Lift effect on hover */
+    color: #f44336;
+    /* Red on hover */
+    transform: translateY(-5px);
+    /* Lift effect on hover */
 }
 
 .dynamic-navbar .nav-link:hover:before {
@@ -98,32 +121,39 @@ body {
 /* Active Link */
 .dynamic-navbar .nav-link.active {
     font-weight: bold;
-    color: #f44336; 
+    color: #f44336;
     text-decoration: underline;
     border-bottom: 2px solid #f44336;
 }
 
 /* Visited Link Styling - Keep them white initially, no color change on visited */
 .dynamic-navbar .nav-link:visited {
-    color: #fff; /* Keep the text white for visited links */
+    color: #fff;
+    /* Keep the text white for visited links */
 }
 
 .dynamic-navbar .navbar-brand:visited {
-    color: #fff; /* Keep the brand white for visited links */
+    color: #fff;
+    /* Keep the brand white for visited links */
 }
 
 /* Username Styling (Inside the navbar) */
 .dynamic-navbar .username {
     font-size: 1.1rem;
-    color: #fff !important; /* Ensure the text is always white */
-    font-style: italic; /* Italic font style */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color and transform */
+    color: #fff !important;
+    /* Ensure the text is always white */
+    font-style: italic;
+    /* Italic font style */
+    transition: color 0.3s ease, transform 0.3s ease;
+    /* Smooth transition for color and transform */
 }
 
 /* Ensure "Hello, Username" stays white and italic even on hover */
 .dynamic-navbar .username:hover {
-    color: #fff !important; /* Keep the username white even when hovered */
-    transform: scale(1.05); /* Slight zoom effect */
+    color: #fff !important;
+    /* Keep the username white even when hovered */
+    transform: scale(1.05);
+    /* Slight zoom effect */
 }
 
 /* Dropdown Menu */
@@ -165,6 +195,7 @@ body {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -180,60 +211,78 @@ body {
 }
 
 .dynamic-navbar .navbar-toggler:hover {
-    color: #f44336; /* Toggler turns red on hover */
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover background */
+    color: #f44336;
+    /* Toggler turns red on hover */
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Subtle hover background */
 }
 
 /* Flexbox for Navbar Links to Stay in One Line */
 .dynamic-navbar .navbar-collapse {
     display: flex;
-    justify-content: space-between; /* Distribute the space between navbar links */
-    align-items: center; /* Center the navbar items vertically */
-    flex-wrap: nowrap; /* Prevent wrapping of the links */
+    justify-content: space-between;
+    /* Distribute the space between navbar links */
+    align-items: center;
+    /* Center the navbar items vertically */
+    flex-wrap: nowrap;
+    /* Prevent wrapping of the links */
 }
 
 .dynamic-navbar .navbar-nav {
     display: flex;
-    align-items: center; /* Vertically center navbar items */
-    flex-wrap: nowrap; /* Prevent wrapping */
+    align-items: center;
+    /* Vertically center navbar items */
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
 }
 
 .dynamic-navbar .nav-link {
-    white-space: nowrap; /* Prevent line break in link text */
+    white-space: nowrap;
+    /* Prevent line break in link text */
 }
 
 /* Move the username inside the navbar collapse */
 .dynamic-navbar .navbar-collapse .username {
-    order: 1; /* Move it to the right side of navbar */
-    margin-left: auto; /* Ensure it aligns to the right */
+    order: 1;
+    /* Move it to the right side of navbar */
+    margin-left: auto;
+    /* Ensure it aligns to the right */
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
     .dynamic-navbar {
-        padding: 1rem; /* Reduce padding on smaller screens */
+        padding: 1rem;
+        /* Reduce padding on smaller screens */
     }
 
     .dynamic-navbar .nav-link {
-        font-size: 1rem; /* Smaller text for nav links */
+        font-size: 1rem;
+        /* Smaller text for nav links */
     }
 
     .dynamic-navbar .navbar-brand {
-        font-size: 1.6rem; /* Slightly smaller brand text on small screens */
+        font-size: 1.6rem;
+        /* Slightly smaller brand text on small screens */
     }
 }
 
 /* Navbar Hover States - Additional Animation */
-.dynamic-navbar .nav-link:hover, .dynamic-navbar .navbar-brand:hover {
+.dynamic-navbar .nav-link:hover,
+.dynamic-navbar .navbar-brand:hover {
     animation: bounce 0.5s ease-in-out;
 }
 
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
-        transform: translateY(-5px); /* Bounce effect */
+        transform: translateY(-5px);
+        /* Bounce effect */
     }
 }
 
@@ -259,4 +308,35 @@ html {
 
 .dynamic-navbar::-webkit-scrollbar-track {
     background-color: #141e30;
+}
+
+.logout-link {
+    color: #fff;
+    /* Matches navbar text color */
+    font-size: 1rem;
+    /* Matches font size of navbar links */
+    padding: 8px 16px;
+    /* Adds padding to the button */
+    text-decoration: none;
+    /* Removes underline */
+}
+
+.logout-link:hover {
+    color: #00e676;
+    /* Example hover color */
+    background-color: transparent;
+    /* Removes the background color on hover */
+}
+
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    /* Matches font size of other navbar links */
+    padding: 8px 16px;
+    /* Ensures consistent padding */
+    text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #00e676;
+    /* Example hover color for all navbar links */
 }

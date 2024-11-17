@@ -12,7 +12,7 @@ const AdminHome = () => {
     };
 
     return (
-        <motion.div className="adminHome home-container" style={{ height: '140vh', width: '100%',  background: 'rgba(155, 104, 250, 0.1)', backdropFilter: 'blur(10px)', borderRadius: '25px', marginTop: '2rem'}}>
+        <motion.div className="adminHome home-container" style={{ height: '140vh', width: '100%', background: 'rgba(155, 104, 250, 0.1)', backdropFilter: 'blur(10px)', borderRadius: '25px', marginTop: '2rem' }}>
             {/* Laptop Wrapper */}
             <motion.div className="laptop-wrapper">
                 {/* Laptop Screen (Blue) */}
@@ -57,15 +57,6 @@ const AdminHome = () => {
                                     onChange={() => handleNavigation("/AdminHome/upload-quiz")}
                                 />
                                 <label htmlFor="uploadQuiz" className="adminHome admin-label">Upload Quiz</label>
-
-                                <input
-                                    type="radio"
-                                    name="adminOption"
-                                    id="manageWorkshops"
-                                    className="adminHome admin-radio"
-                                    onChange={() => handleNavigation("/AdminHome/manage-workshops")}
-                                />
-                                <label htmlFor="manageWorkshops" className="adminHome admin-label">Manage Workshops</label>
                             </div>
                         </div>
                     </section>

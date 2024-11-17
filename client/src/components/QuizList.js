@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './QuizList.css';
+
 const url = process.env.REACT_APP_BACKURL;
+
 const QuizList = () => {
     const [quizzes, setQuizzes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedOptions, setSelectedOptions] = useState({}); // Store selected answers for each question
-    const [points, setPoints] = useState(0); // Total points earned
-    const [visibleQuestions, setVisibleQuestions] = useState({}); // Track visible questions
-    const [isSubmitted, setIsSubmitted] = useState(false); // To track if the quiz has been submitted
+    const [points, setPoints] = useState({}); // Track points separately for each quiz
+    const [isSubmitted, setIsSubmitted] = useState({}); // Track submission status for each quiz
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState({}); // Track the current question index for each quiz
+    const [quizSubmitted, setQuizSubmitted] = useState({}); // Track if a quiz has been submitted
 
     // Fetch quizzes from the API
     const fetchQuizzes = async () => {
@@ -31,43 +34,67 @@ const QuizList = () => {
     }, []);
 
     // Handle change in selected options for each question
-    const handleOptionChange = (questionKey, option) => {
+    const handleOptionChange = (quizId, questionIndex, option) => {
         setSelectedOptions((prev) => ({
             ...prev,
-            [questionKey]: option, // Store selected option for the question
+            [`${quizId}-${questionIndex}`]: option, // Store selected option for the question
         }));
     };
 
     // Handle form submission (calculate total points)
-    const handleSubmit = () => {
-        if (isSubmitted) return;
+    const handleSubmit = async (quizId) => {
+        if (isSubmitted[quizId]) return;
 
         let totalPoints = 0;
 
-        quizzes.forEach((quiz) => {
-            quiz.questions.forEach((question, questionIndex) => {
-                const questionKey = `${quiz.quizId}-${questionIndex}`;
-                const selectedOption = selectedOptions[questionKey]; // Get the selected option for the question
 
-                if (selectedOption) {
-                    const optionDetails = question.options.find((opt) => opt.text === selectedOption);
-                    if (optionDetails) {
-                        totalPoints += optionDetails.points;
-                    }
+        const quiz = quizzes.find((q) => q.quizId === quizId);
+        const domain = quiz.domain;
+        quiz.questions.forEach((question, questionIndex) => {
+            const questionKey = `${quizId}-${questionIndex}`;
+            const selectedOption = selectedOptions[questionKey]; // Get the selected option for the question
+
+            if (selectedOption) {
+                const optionDetails = question.options.find((opt) => opt.text === selectedOption);
+                if (optionDetails) {
+                    totalPoints += optionDetails.points;
                 }
-            });
+            }
         });
+        // Make a POST request to submit the quiz score to the server
+        try {
+            await axios.post(`${url}/api/users/${username}/quiz`, {
+                quizId,
+                score: totalPoints,
+                domain
+            });
 
-        setPoints(totalPoints); // Set total points earned
-        setIsSubmitted(true); // Mark the quiz as submitted
+            console.log('Quiz score submitted successfully');
+        } catch (error) {
+            console.error('Error submitting quiz score:', error);
+        }
+
+        setPoints((prev) => ({ ...prev, [quizId]: totalPoints })); // Set total points for the quiz
+        setIsSubmitted((prev) => ({ ...prev, [quizId]: true })); // Mark the quiz as submitted
+        setQuizSubmitted((prev) => ({ ...prev, [quizId]: true })); // Mark quiz as closed
+
     };
 
-    // Toggle visibility of questions
-    const toggleQuestionVisibility = (questionKey) => {
-        setVisibleQuestions((prev) => ({
+    // Function to move to the next question
+    const nextQuestion = (quizId) => {
+        setCurrentQuestionIndex((prev) => ({
             ...prev,
-            [questionKey]: !prev[questionKey], // Toggle the visibility
+            [quizId]: (prev[quizId] || 0) + 1, // Increment the current question index for the quiz
         }));
+    };
+
+    // Check if all questions are answered for a given quiz
+    const isQuizCompleted = (quizId) => {
+        const quiz = quizzes.find((q) => q.quizId === quizId);
+        return quiz.questions.every((question, index) => {
+            const questionKey = `${quizId}-${index}`;
+            return selectedOptions[questionKey] !== undefined;
+        });
     };
 
     // If data is loading, show loading message
@@ -86,44 +113,42 @@ const QuizList = () => {
             ) : (
                 quizzes.map((quiz) => (
                     <div key={quiz.quizId} className="quiz-card">
-                        <Link to={`/quiz/${quiz.quizId}`} className="quiz-link">
-                            <h4 className="quiz-title">{quiz.title}</h4>
-                        </Link>
+                        {/* Toggle visibility of quiz questions when clicked */}
+                        <h4 className="quiz-title" onClick={() => setCurrentQuestionIndex((prev) => ({ ...prev, [quiz.quizId]: 0 }))}>
+                            {quiz.title}
+                        </h4>
+
                         <p className="quiz-description">{quiz.description}</p>
-                        <h5 className="sample-questions-title">Sample Questions:</h5>
 
-                        {/* Loop through questions of each quiz */}
-                        {quiz.questions.map((question, index) => {
-                            const questionKey = `${quiz.quizId}-${index}`;
-                            return (
-                                <div key={questionKey} className="question-container">
-                                    {/* Button to toggle visibility of question and options */}
-                                    <button
-                                        className="quiz-button"
-                                        onClick={() => toggleQuestionVisibility(questionKey)}
-                                    >
-                                        Question {index + 1}
-                                    </button>
+                        {/* Conditionally render questions if the quiz is visible */}
+                        {currentQuestionIndex[quiz.quizId] !== undefined && quiz.questions.length > 0 && !quizSubmitted[quiz.quizId] && (
+                            <div>
+                                <h5 className="sample-questions-title">Sample Questions:</h5>
 
-                                    {/* Conditionally render question and options */}
-                                    {visibleQuestions[questionKey] && (
-                                        <div className="question-details">
-                                            <p className="question-text">{question.questionText}</p>
+                                {/* Render only the current question */}
+                                <div>
+                                    {/* Make sure the current question exists */}
+                                    {quiz.questions[currentQuestionIndex[quiz.quizId]] && (
+                                        <div className="question-container">
+                                            <p className="question-text">
+                                                {quiz.questions[currentQuestionIndex[quiz.quizId]].questionText}
+                                            </p>
+
                                             <div className="options-container">
                                                 {/* Loop through the options for the question */}
-                                                {question.options.map((option, oIndex) => (
+                                                {quiz.questions[currentQuestionIndex[quiz.quizId]].options.map((option, oIndex) => (
                                                     <div key={oIndex} className="option-container">
                                                         <input
                                                             type="radio"
-                                                            id={`${questionKey}-option${oIndex}`}
-                                                            name={questionKey} // Group by question
+                                                            id={`${quiz.quizId}-${currentQuestionIndex[quiz.quizId]}-option${oIndex}`}
+                                                            name={`${quiz.quizId}-${currentQuestionIndex[quiz.quizId]}`} // Group by question
                                                             value={option.text}
-                                                            onChange={() => handleOptionChange(questionKey, option.text)}
-                                                            checked={selectedOptions[questionKey] === option.text}
+                                                            onChange={() => handleOptionChange(quiz.quizId, currentQuestionIndex[quiz.quizId], option.text)}
+                                                            checked={selectedOptions[`${quiz.quizId}-${currentQuestionIndex[quiz.quizId]}`] === option.text}
                                                         />
                                                         <label
                                                             className="option-label"
-                                                            htmlFor={`${questionKey}-option${oIndex}`}
+                                                            htmlFor={`${quiz.quizId}-${currentQuestionIndex[quiz.quizId]}-option${oIndex}`}
                                                         >
                                                             {option.text}
                                                         </label>
@@ -132,20 +157,37 @@ const QuizList = () => {
                                             </div>
                                         </div>
                                     )}
-                                </div>
-                            );
-                        })}
-                        {/* Submit button for the quiz */}
-                        <button
-                            className="quiz-button submit-button"
-                            onClick={handleSubmit}
-                            disabled={isSubmitted}
-                        >
-                            Submit
-                        </button>
 
-                        {/* Display points if the quiz is submitted */}
-                        {points > 0 && <p className="points-display">Total Points Gained: {points}</p>}
+                                    {/* Button to go to the next question */}
+                                    {currentQuestionIndex[quiz.quizId] < quiz.questions.length - 1 && (
+                                        <button
+                                            className="quiz-button next-button"
+                                            onClick={() => nextQuestion(quiz.quizId)}
+                                        >
+                                            Next Question
+                                        </button>
+                                    )}
+                                </div>
+
+                                {/* Submit button for the quiz (only show if quiz is completed) */}
+                                {currentQuestionIndex[quiz.quizId] === quiz.questions.length - 1 && (
+                                    <button
+                                        className="quiz-button submit-button"
+                                        onClick={() => handleSubmit(quiz.quizId)}
+                                        disabled={!isQuizCompleted(quiz.quizId)}
+                                    >
+                                        Submit
+                                    </button>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Display points after quiz submission */}
+                        {quizSubmitted[quiz.quizId] && (
+                            <p className="points-display">
+                                Total Points Gained: {points[quiz.quizId]}
+                            </p>
+                        )}
                     </div>
                 ))
             )}
