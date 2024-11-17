@@ -20,7 +20,6 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 app.use(express.json());
-const __dirname = path.resolve();
 
 // MongoDB connection
 console.log("MONGO_DB_URL:",process.env.DB_URL )
@@ -37,12 +36,6 @@ app.use('/api/posts', postsRouter);
 app.use('/api/quizzes', quizzesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/admins', adminsRouter);
-
-app.use(express.static(path, join(__dirname, '../client/build')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'App.js'));
-})
 
 app.post('/api/chat', (req, res) => {
     const text = req.body.text;
