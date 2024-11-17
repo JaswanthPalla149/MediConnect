@@ -101,7 +101,7 @@ const Home = ({ id }) => {
             url="https://prod.spline.design/3nUiXob4AEk5Ygug/scene.splinecode"
             style={{ width: "100%", height: "500px" }}
           />
-          </div>
+           </div>
   </div>
         
         <div className="community-container" style={{ marginTop: "20px", marginLeft: "20px" }}>
