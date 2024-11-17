@@ -4,7 +4,7 @@ import os
 
 # Determine the path to requirements.txt
 requirements_path = os.path.join(os.getcwd(), r"src\routes\requirements.txt")
-
+print(requirements_path)
 # Install dependencies dynamically
 if os.path.exists(requirements_path):
     #print(f"Installing dependencies from {requirements_path}...")
