@@ -19,7 +19,7 @@ const DomainSelection = () => {
                                 <Card.Body>
                                     <Card.Title style = {{textAlign: 'center', fontWeight: 'bold'}}>{domain.charAt(0).toUpperCase() + domain.slice(1)}</Card.Title> {/* Capitalize first letter */}
                                     <Card.Text style = {{textAlign:'center', fontWeight: '500'}}>
-                                        Explore posts related to {domain}.
+                                        Exploring  posts related to {domain}.
                                     </Card.Text>
                                     <div className = "center-button">
                                     <Link to={`/Home/forum/${domain.toLowerCase()}`}>

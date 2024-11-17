@@ -8,32 +8,38 @@
 }
 
 .role-selection-container {
-    /* background-image: url("./selec.jpg"); */
+    
     margin: -2rem;
     background-size: cover;
-    background: linear-gradient(to bottom, blue, rgb(249, 73, 190));
+    /* background: linear-gradient(to bottom, blue, rgb(249, 73, 190)); */
+    background-image: url('https://framerusercontent.com/images/yuc6rS7w8ut3CHzfOOejcWZEk4.png');
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #fff;
 }
+
+
+
 
 .role-selection-container.hide-background {
     background-image: none;
 }
 
 .role-selection-wrapper {
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    /* background: rgba(0, 0, 0, 0.5); */
     padding: 20px 30px;
     text-align: center;
+    margin-top: 1rem;
     border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* backdrop-filter: blur(10px); */
+    /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
     width: 350px;
-    z-index: 5;
+    /* z-index: 5; */
 }
 
 .role-selection-wrapper h2 {
@@ -48,7 +54,7 @@
     margin-top: 20px;
 }
 
-.role-button {
+/* .role-button {
     width: 100px;
     padding: 12px;
     border-radius: 30px;
@@ -59,13 +65,31 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     border: none;
-}
+} */
 
+
+
+
+
+
+/* 
 .role-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     background: linear-gradient(145deg, #357ABD, #2C6DA4);
+} */
+
+.role-button:hover {
+    box-shadow: rgba(157, 79, 255, 0.7) 0px 0.36131px 0.65036px -0.5px, 
+                rgba(157, 79, 255, 0.7) 0px 1.37312px 2.47162px -1px, 
+                rgba(157, 79, 255, 0.7) 0px 6px 10.8px -1.5px, 
+                rgba(157, 79, 255, 0.7) 0px -0.72262px 0.72262px -0.66667px inset, 
+                rgba(157, 79, 255, 0.7) 0px -2.74624px 2.74624px -1.33333px inset, 
+                rgba(157, 79, 255, 0.8) 0px -12px 12px -2px inset;
+    background-color: rgba(158, 79, 255, 0.1); /* Light background change */
 }
+
+
 
 .form-section {
    /* background: linear-gradient(145deg, #ffffff, #e0e0e0); /* Gradient background */

@@ -164,20 +164,54 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
     return (
         <div className={`role-selection-container ${showForms ? 'hide-background' : ''}`}>
             <canvas id="particle-canvas"></canvas> {/* Particle Canvas Element */}
-
+            <h2 style = {{fontSize: '4rem', fontWeight:'bold', fontFamily: 'lora', color:'white'}}>Manaswini</h2>
             {!showForms && (
+                
                 <div className="role-selection-wrapper">
-                    <h2>Select Your Role</h2>
+                   
+                    
+                    {/* <h2>Select Your Role</h2> */}
                     <div className="role-buttons">
+                        
                         <Button
-                            variant="primary"
+                            style = {{
+                                backgroundColor: 'white',
+                                boxShadow: 'rgba(157, 79, 255, 0.325) 0px 0.36131px 0.65036px -0.5px, rgba(157, 79, 255, 0.392) 0px 1.37312px 2.47162px -1px, rgba(157, 79, 255, 0.7) 0px 6px 10.8px -1.5px, rgba(157, 79, 255, 0.41) 0px -0.72262px 0.72262px -0.66667px inset, rgba(157, 79, 255, 0.447) 0px -2.74624px 2.74624px -1.33333px inset, rgba(157, 79, 255, 0.6) 0px -12px 12px -2px inset',
+                                padding: '1rem 2rem',
+                                fontWeight: 800,
+                                fontSize: '1.5rem',
+                                color: 'rgba(158, 79, 255, 1)',
+                                transition: 'all 0.3s ease',
+                                border: 'none',
+                                display: 'inline-flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                borderRadius: '12px'
+
+                                
+                            }}
+                            // variant="primary"
                             className="role-button"
                             onClick={() => handleRoleSelection('admin')}
                         >
                             Admin
                         </Button>
                         <Button
-                            variant="secondary"
+                            style = {{
+                                backgroundColor: 'white',
+                                boxShadow: 'rgba(157, 79, 255, 0.325) 0px 0.36131px 0.65036px -0.5px, rgba(157, 79, 255, 0.392) 0px 1.37312px 2.47162px -1px, rgba(157, 79, 255, 0.7) 0px 6px 10.8px -1.5px, rgba(157, 79, 255, 0.41) 0px -0.72262px 0.72262px -0.66667px inset, rgba(157, 79, 255, 0.447) 0px -2.74624px 2.74624px -1.33333px inset, rgba(157, 79, 255, 0.6) 0px -12px 12px -2px inset',
+                                padding: '1rem 2rem',
+                                fontWeight: 800,
+                                fontSize: '1.5rem',
+                                color: 'rgba(158, 79, 255, 1)',
+                                transition: 'all 0.3s ease',
+                                border: 'none',
+                                display: 'inline-flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                borderRadius: '12px'
+                            }}
+                            // variant="secondary"
                             className="role-button"
                             onClick={() => handleRoleSelection('user')}
                         >
@@ -191,7 +225,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                 <div className="form-section">
                     {selectedRole === 'user' ? (
                         <>
-                            <h4 style ={{color:'red',fontSize:'1.5rem'}}>Please Sign In or Sign Up</h4>
+                            <h4 style ={{color:'Red',fontSize:'1.5rem'}}>Please Sign In or Sign Up</h4>
                             <div className="d-flex justify-content-around mb-4">
                                 <Button
                                     variant="outline-primary"
