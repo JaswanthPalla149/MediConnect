@@ -1,4 +1,19 @@
+import subprocess
 import sys
+import os
+
+# Determine the path to requirements.txt
+requirements_path = os.path.join(os.getcwd(), r"backend\src\routes\requirements.txt")
+
+# Install dependencies dynamically
+if os.path.exists(requirements_path):
+    print(f"Installing dependencies from {requirements_path}...")
+    subprocess.run([sys.executable, "-m", "pip", "install", "-r", requirements_path], check=True)
+else:
+    print(f"Error: {requirements_path} does not exist. Please ensure it is in the correct directory.")
+
+
+#import sys
 import json
 from nltk.sentiment import SentimentIntensityAnalyzer
 import nltk
