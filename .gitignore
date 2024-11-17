@@ -1,0 +1,17 @@
+# Ignore specific HTML files
+self-improvement.html
+Resources.html
+psychology.html
+meditation.html
+loginpage.html
+homepage.html
+followus.html
+Anxiety.html
+Addiction.html
+ADHD.html
+
+# Ignore specific CSS file
+Resources.css
+
+# Ignore specific image file
+self-improvement.jpg
