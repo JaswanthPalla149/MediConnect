@@ -14,11 +14,7 @@ if os.path.exists(requirements_path):
 else:
     print(f"Error: {requirements_path} does not exist. Please ensure it is in the correct directory.")
 
-# Check for errors in pip installation
-if pip_install.returncode != 0:
-    error_message = {"error": f"Error installing requirements: {pip_install.stderr.decode()}"}
-    print(json.dumps(error_message))
-    sys.exit(1)  # Exit if installation fails
+
 
 #import sys
 import json
