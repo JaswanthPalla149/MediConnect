@@ -49,7 +49,7 @@ const Home = ({ id }) => {
           </motion.p>
 
           <div className="button-container">
-            <Link to="/Home/chatbot">
+            <Link to="/Home/ChatPage">
               <button className="custom-button chatbot-btn">Chatbot</button>
             </Link>
             <Link to="/Home/forum/select-domain">
