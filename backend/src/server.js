@@ -91,9 +91,17 @@ app.post('/api/sentiment', (req, res) => {
             console.error('Python script error output:', stderr);
         }
 
-        // Parse and send the Python script output
-        const sentimentScores = JSON.parse(stdout);
-        res.json(sentimentScores);
+        // Log stdout to verify it's valid JSON
+        console.log('Python script output:', stdout);
+
+        try {
+            // Parse the JSON output from the Python script
+            const sentimentScores = JSON.parse(stdout);
+            res.json(sentimentScores);
+        } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+            return res.status(500).json({ error: 'Failed to parse sentiment result' });
+        }
     });
 });
 
