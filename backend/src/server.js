@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 //console.log("Environment Variables:", process.env);
-const postsRouter = require('./routes/posts');
+const postsRouter = require('./routes/posts'); 
 const quizzesRouter = require('./routes/quizzes');
 const usersRouter = require('./routes/users');
 const adminsRouter = require('./routes/admins');
 const { execFile } = require('child_process');
-import path from 'path';
+const path = require('path'); 
+
 // Load environment variables from .env file
 dotenv.config();
 
@@ -22,15 +23,14 @@ app.use(express.json());
 const __dirname = path.resolve();
 
 // MongoDB connection
-console.log("MONGO_DB_URL:", process.env.DB_URL)
+console.log("MONGO_DB_URL:",process.env.DB_URL )
 mongoose.connect(process.env.DB_URL
     , {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log("MongoDB connected"))
-    .catch(err => console.error("MongoDB connection error:", err));
-
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.error("MongoDB connection error:", err));
 
 // Define the API endpoint for posts and quizzes
 app.use('/api/posts', postsRouter);
@@ -46,7 +46,7 @@ app.get('*', (req, res) => {
 
 app.post('/api/chat', (req, res) => {
     const text = req.body.text;
-    const serverPyPath = path.join(__dirname, 'routes', 'Gem_Ser.py');
+    const serverPyPath = path.join(__dirname, 'routes', 'ChatServer.py');
 
     execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
         if (error) {
@@ -69,11 +69,11 @@ app.post('/api/chat', (req, res) => {
 });
 app.post('/api/sentiment', (req, res) => {
     const text = req.body.text;
-    // console.log(text);
+   // console.log(text);
     // Run the Python script as a child process
     const path = require('path');
-    const serverPyPath = path.join(__dirname, 'routes', 'server.py');
-    execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
+const serverPyPath = path.join(__dirname, 'routes', 'server.py');
+execFile('python', [serverPyPath, text], (error, stdout, stderr) => {
         if (error) {
             console.error('Error executing Python script:', error);
             return res.status(500).json({ error: 'Failed to analyze sentiment' });
@@ -100,8 +100,8 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
 });
 
-//Start the server
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

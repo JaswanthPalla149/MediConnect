@@ -1,8 +1,12 @@
+
+
+
 /* Main Navbar Style */
 .dynamic-navbar {
     background-color: #141e30; /* Dark background */
     color: #fff; /* Light text */
     border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Soft bottom border */
+    border-radius: 3rem;
     text-align: center;
     padding: 0.8rem 2rem; /* Adjusted padding for a more compact navbar */
     font-family: 'Poppins', sans-serif; /* Clean font */

@@ -4,6 +4,7 @@ import YogaCard from './YogaCard';
 import YogaData from './YogaData';
 import './YogaPage.css';
 import { useNavigate } from 'react-router-dom';
+import {motion} from "framer-motion";
 
 const settings = {
     infinite: true,
@@ -67,8 +68,8 @@ const YogaPage = () => {
     ));
 
     return (
-        <div className="yoga-page-wrapper">
-            <h2 style={{ color: '#ffff33',fontSize:'3rem',fontWeight:'700'}}>The Indian Yoga</h2>
+        <motion.div className="yoga-page-wrapper">
+            <h2 style={{ color: '#ffffff',fontSize:'60px',fontWeight:'700',fontFamily:'Playfair Display'}}>The Indian Yoga</h2>
             <button className="exercise-btn" onClick={handleDoExercisesClick}>
                 Do exercises
             </button>
@@ -99,7 +100,7 @@ const YogaPage = () => {
                     </Slider>
                 </div>
             )}
-        </div>
+        </motion.div>
     );
 };
 

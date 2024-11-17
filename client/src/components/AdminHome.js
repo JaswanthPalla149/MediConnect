@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import './AdminHome.css';
+import { motion } from 'framer-motion';
 import Wave from '../images/wave.png';
 
 const AdminHome = () => {
@@ -11,11 +12,11 @@ const AdminHome = () => {
     };
 
     return (
-        <div className="adminHome home-container" style={{ height: '140vh', width: '100%', background: 'rgba(0,0,0,0.7)' }}>
+        <motion.div className="adminHome home-container" style={{ height: '140vh', width: '100%',  background: 'rgba(155, 104, 250, 0.1)', backdropFilter: 'blur(10px)', borderRadius: '25px', marginTop: '2rem'}}>
             {/* Laptop Wrapper */}
-            <div className="laptop-wrapper">
+            <motion.div className="laptop-wrapper">
                 {/* Laptop Screen (Blue) */}
-                <div className="laptop-screen">
+                <motion.div className="laptop-screen">
                     <section id="home-admin" className="adminHome home">
                         <div className="adminHome admin-image-container">
                             <img
@@ -68,16 +69,16 @@ const AdminHome = () => {
                             </div>
                         </div>
                     </section>
-                </div>
+                </motion.div>
 
                 {/* Laptop Base (Yellow) */}
                 <div className="laptop-base"></div>
 
                 {/* Laptop Stand (Black) */}
 
-            </div>
+            </motion.div>
             <div className="laptop-stand"></div>
-        </div>
+        </motion.div>
     );
 };
 

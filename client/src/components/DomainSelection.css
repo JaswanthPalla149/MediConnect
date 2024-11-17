@@ -25,7 +25,7 @@
     border-radius: 15px;                   /* Rounded corners */
     padding: 16px;                         /* Padding inside the card */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-    transition: box-shadow 0.3s ease;      /* Smooth transition for hover effect */
+    transition: box-shadow 0.3s ease transform 0.3s ease;      /* Smooth transition for hover effect */
     border: 1px solid rgba(0, 0, 0, 0.1); /* Optional: Light border to enhance the glass effect */
     color: black
 }
