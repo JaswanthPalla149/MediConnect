@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import axios from 'axios';
 import './PostList.css'; // Ensure this file exists with your custom styles
+
 const url = process.env.REACT_APP_BACKURL;
+
 const PostList = ({ username }) => {
   const { domain } = useParams();
   const [posts, setPosts] = useState([]);
@@ -15,28 +17,42 @@ const PostList = ({ username }) => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get(`${url}/api/posts`);
-        const filteredPosts = res.data.filter(post => post.domain === domain);
+        const filteredPosts = res.data.filter((post) => post.domain === domain);
         setPosts(filteredPosts);
+
+        // Fetch liked posts for the user (assuming backend provides it)
+        const likedRes = await axios.get(`${url}/api/users/${username}/liked-posts`);
+        setLikedPosts(likedRes.data.likedPosts || []);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching posts or liked posts:', error);
       }
     };
 
     fetchPosts();
-  }, [domain]);
+  }, [domain, username]);
 
   const handleLikePost = async (postId) => {
     try {
       const isLiked = likedPosts.includes(postId);
 
       if (isLiked) {
+        // If already liked, send an unlike request
         const res = await axios.post(`${url}/api/posts/${postId}/unlike`, { userId: username });
-        setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId));
-        setPosts(prevPosts => prevPosts.map(post => (post._id === postId ? { ...post, likes: res.data.likes } : post)));
+        setLikedPosts((prevLikedPosts) => prevLikedPosts.filter((id) => id !== postId));
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post._id === postId ? { ...post, likes: res.data.likes } : post
+          )
+        );
       } else {
-        const res = await axios.post(`${url}/${postId}/like`, { userId: username });
-        setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]);
-        setPosts(prevPosts => prevPosts.map(post => (post._id === postId ? { ...post, likes: res.data.likes } : post)));
+        // Otherwise, send a like request
+        const res = await axios.post(`${url}/api/posts/${postId}/like`, { userId: username });
+        setLikedPosts((prevLikedPosts) => [...prevLikedPosts, postId]);
+        setPosts((prevPosts) =>
+          prevPosts.map((post) =>
+            post._id === postId ? { ...post, likes: res.data.likes } : post
+          )
+        );
       }
     } catch (error) {
       console.error('Error toggling like status:', error);
@@ -47,17 +63,20 @@ const PostList = ({ username }) => {
     try {
       const sentimentResponse = await axios.post(`${url}/api/sentiment`, { text: content });
       const sentimentScore = sentimentResponse.data.compound;
-      const res = await axios.post(`${url}/api/posts/${postId}/comment`, { username, content });
 
-      setPosts(prevPosts => prevPosts.map(post => (post._id === res.data._id ? res.data : post)));
+      const res = await axios.post(`${url}/api/posts/${postId}/comment`, { username, content });
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => (post._id === res.data._id ? res.data : post))
+      );
+
       await axios.post(`${url}/api/users/${username}/comments`, {
-        content: content,
-        postId: postId,
-        sentimentScore: sentimentScore,
-        domain: domain,
+        content,
+        postId,
+        sentimentScore,
+        domain,
       });
 
-      setComments(prevComments => ({ ...prevComments, [postId]: { content: '' } }));
+      setComments((prevComments) => ({ ...prevComments, [postId]: { content: '' } }));
     } catch (error) {
       console.error('Error adding comment:', error);
     }
@@ -70,7 +89,7 @@ const PostList = ({ username }) => {
       </h2>
       <Row>
         {posts.length > 0 ? (
-          posts.map(post => (
+          posts.map((post) => (
             <Col key={post._id} md={6} lg={4} className="mb-4">
               <Card className="text-only-card shadow-sm p-3 mb-5">
                 <Card.Body>
@@ -86,7 +105,7 @@ const PostList = ({ username }) => {
                     </Button>
                   </div>
                   <Form
-                    onSubmit={e => {
+                    onSubmit={(e) => {
                       e.preventDefault();
                       const content = comments[post._id]?.content || '';
                       handleCommentPost(post._id, content);
@@ -99,11 +118,15 @@ const PostList = ({ username }) => {
                         rows={2}
                         placeholder="Leave a comment"
                         required
-                        onChange={e => setComments({ ...comments, [post._id]: { content: e.target.value } })}
+                        onChange={(e) =>
+                          setComments({ ...comments, [post._id]: { content: e.target.value } })
+                        }
                         value={comments[post._id]?.content || ''}
                       />
                     </Form.Group>
-                    <Button type="submit" className="mt-2">Submit</Button>
+                    <Button type="submit" className="mt-2">
+                      Submit
+                    </Button>
                   </Form>
                   <div className="comments-section mt-3">
                     <h6>Comments:</h6>
