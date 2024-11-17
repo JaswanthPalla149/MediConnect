@@ -34,6 +34,9 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <div className="navbar-inner">
         <Navbar.Brand
           as={Link}
+          style = {{
+            fontFamily: 'Robotto'
+          }}
           to="/"
           onClick={() => {
             resetAuth();

@@ -39,7 +39,6 @@ connect(process.env.DB_URL, {
 })
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
-
 // Define the API endpoint for posts and quizzes
 app.use('/api/posts', postsRouter);
 app.use('/api/quizzes', quizzesRouter);

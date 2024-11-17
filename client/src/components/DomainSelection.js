@@ -15,7 +15,7 @@ const DomainSelection = () => {
                 <Row className="justify-content-center">
                     {domains.map((domain, index) => (
                         <Col key={index} md={4} className="mb-4 position-relative">
-                            <Card className={`card card-${index}`} style={{ top: '3rem', height: '25rem', width: '25rem' }}>
+                            <Card className={`card card-${index}`} style={{ top: '3rem', height: '25rem', width: '25rem' }} >
                                 <Card.Body>
                                     <Card.Title style = {{textAlign: 'center', fontWeight: 'bold'}}>{domain.charAt(0).toUpperCase() + domain.slice(1)}</Card.Title> {/* Capitalize first letter */}
                                     <Card.Text style = {{textAlign:'center', fontWeight: '500'}}>

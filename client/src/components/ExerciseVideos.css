@@ -59,17 +59,42 @@
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
 }
-.next-video-button{
-    background-color: blue;
-    color:whitesmoke;
-    font-size: 1.2rem;
-    padding: 0.2rem;
-    border-radius: 5px;
+.next-video-button {
+    background-color: #0dc6fa;  /* Neon Green color for a vibrant and modern look */
+    color: #ffffff;  /* White text for good contrast */
+    font-size: 1.2rem;  /* Slightly larger text size for readability */
+    padding: 12px 25px;  /* Slightly more padding for a smoother, fuller button */
+    border-radius: 30px;  /* Rounded corners for a modern, friendly appearance */
+    border: none;  /* No border for a cleaner look */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);  /* Soft shadow for depth */
+    transition: all 0.4s ease-in-out;  /* Smooth and relaxed transition for hover effects */
+    cursor: pointer;  /* Changes the cursor to a pointer to indicate interactivity */
 }
-.next-video-button:hover{
-    background-color: whitesmoke;
-    color: blue;
+
+.next-video-button:hover {
+    background-color: #ffffff;  /* White background on hover */
+    color: #6cc6fd;  /* Change text to neon green to match the background */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);  /* Slightly larger shadow for depth */
+    transform: translateY(-5px);  /* Smooth lift on hover */
+    animation: pulse 1.5s infinite;  /* Subtle pulsing animation for a smooth effect */
 }
+
+/* Optional: Add a smooth pulse effect to make it more dynamic */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        transform: scale(1.05);  /* Slightly enlarge the button for a pulse effect */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+}
+
 
 /* Animations */
 @keyframes fadeIn {
