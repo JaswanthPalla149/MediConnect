@@ -150,6 +150,16 @@ const App = () => {
               }
             />
             <Route
+              path="/AdminHome/create-post"
+              element={
+                isAuthenticated && role === "admin" ? (
+                  <PostForm username={username} domain={domain} id={id} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
               path="/AdminHome/sections"
               element={isAuthenticated && role === "admin" ? <Sections /> : <Navigate to="/" />}
             />
