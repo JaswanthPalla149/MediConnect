@@ -127,7 +127,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
             const loginUrl = selectedRole === 'admin'
                 ? `${url}/api/admins/login`
                 : `${url}/api/users/login`;
-                console.log(loginUrl);
+            console.log(loginUrl);
             const response = await fetch(loginUrl, {
                 method: 'POST',
                 headers: {
@@ -164,17 +164,17 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
     return (
         <div className={`role-selection-container ${showForms ? 'hide-background' : ''}`}>
             <canvas id="particle-canvas"></canvas> {/* Particle Canvas Element */}
-            <h2 style = {{fontSize: '4rem', fontWeight:'bold', fontFamily: 'lora', color:'white'}}>Manaswini</h2>
+            <h2 style={{ fontSize: '4rem', fontWeight: 'bold', fontFamily: 'lora', color: 'white' }}>Manaswini</h2>
             {!showForms && (
-                
+
                 <div className="role-selection-wrapper">
-                   
-                    
+
+
                     {/* <h2>Select Your Role</h2> */}
                     <div className="role-buttons">
-                        
+
                         <Button
-                            style = {{
+                            style={{
                                 backgroundColor: 'white',
                                 boxShadow: 'rgba(157, 79, 255, 0.325) 0px 0.36131px 0.65036px -0.5px, rgba(157, 79, 255, 0.392) 0px 1.37312px 2.47162px -1px, rgba(157, 79, 255, 0.7) 0px 6px 10.8px -1.5px, rgba(157, 79, 255, 0.41) 0px -0.72262px 0.72262px -0.66667px inset, rgba(157, 79, 255, 0.447) 0px -2.74624px 2.74624px -1.33333px inset, rgba(157, 79, 255, 0.6) 0px -12px 12px -2px inset',
                                 padding: '1rem 2rem',
@@ -188,7 +188,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                                 alignItems: 'center',
                                 borderRadius: '12px'
 
-                                
+
                             }}
                             // variant="primary"
                             className="role-button"
@@ -197,7 +197,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                             Admin
                         </Button>
                         <Button
-                            style = {{
+                            style={{
                                 backgroundColor: 'white',
                                 boxShadow: 'rgba(157, 79, 255, 0.325) 0px 0.36131px 0.65036px -0.5px, rgba(157, 79, 255, 0.392) 0px 1.37312px 2.47162px -1px, rgba(157, 79, 255, 0.7) 0px 6px 10.8px -1.5px, rgba(157, 79, 255, 0.41) 0px -0.72262px 0.72262px -0.66667px inset, rgba(157, 79, 255, 0.447) 0px -2.74624px 2.74624px -1.33333px inset, rgba(157, 79, 255, 0.6) 0px -12px 12px -2px inset',
                                 padding: '1rem 2rem',
@@ -225,13 +225,19 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                 <div className="form-section">
                     {selectedRole === 'user' ? (
                         <>
-                            <h2 style ={{color:'#1ABC9C',fontSize:'1.5rem',fontFamily:'roboto'}}>Please Sign In or Sign Up</h2>
+                            <h2 style={{ color: '#1ABC9C', fontSize: '1.5rem', fontFamily: 'roboto' }}>Please Sign In or Sign Up</h2>
                             <div className="d-flex justify-content-around mb-4">
                                 <Button
                                     variant="outline-primary"
                                     onClick={() => toggleForm('signup')}
                                 >
                                     Sign Up
+                                </Button>
+                                <Button
+                                    variant="outline-primary"
+                                    onClick={() => onLogin('guest', '905979')}
+                                >
+                                    Continue for Free
                                 </Button>
                                 <Button
                                     variant="outline-secondary"
@@ -242,7 +248,7 @@ const RoleSelection = ({ onSelectRole, onLoginSuccess }) => {
                             </div>
                         </>
                     ) : (
-                        <h2 style ={{color:'#1ABC9C',fontSize:'2rem',fontFamily:'roboto'}}>Admin Sign In</h2>
+                        <h2 style={{ color: '#1ABC9C', fontSize: '2rem', fontFamily: 'roboto' }}>Admin Sign In</h2>
                     )}
 
                     <Card className="p-4" style={{ maxWidth: '400px', margin: '0 auto' }}>

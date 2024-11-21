@@ -74,11 +74,13 @@ const QuizList = ({ username }) => {
         try {
             console.log('Submitting quiz!!');
             console.log(`quizId: ${quiz._id}`);
-            await axios.post(`${url}/api/users/${username}/quiz`, {
-                quizId: quiz._id, // Use the _id for backend calls
-                score: totalPoints,
-                domain,
-            });
+            if (username !== 'guest') {
+                await axios.post(`${url}/api/users/${username}/quiz`, {
+                    quizId: quiz._id, // Use the _id for backend calls
+                    score: totalPoints,
+                    domain,
+                });
+            }
 
             console.log('Quiz score submitted successfully');
         } catch (error) {

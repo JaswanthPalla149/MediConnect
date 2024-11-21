@@ -15,6 +15,7 @@ import AdminPostList from './components/AdminPostList';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import QuizDetails from './components/QuizDetails';
+import GuestAccessMessage from './components/GuestAccessMessage';
 import QuizList from './components/QuizList';
 import QuizUpload from './components/QuizUpload';
 import Chatbot from './components/Chatbot';
@@ -97,10 +98,28 @@ const App = () => {
               }
             />
             <Route
-              path="/AdminHome/create-post"
+              path="/Home/create-post"
               element={
-                isAuthenticated && role === "admin" ? (
-                  <PostForm username={username} domain={domain} id={id} />
+                isAuthenticated ? (
+                  username === "guest" ? (
+                    <GuestAccessMessage resetAuth={resetAuth} />
+                  ) : (
+                    <UserCreatePost username={username} id={id} />
+                  )
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/Home/ChatPage"
+              element={
+                isAuthenticated ? (
+                  username === "guest" ? (
+                    <GuestAccessMessage resetAuth={resetAuth} />
+                  ) : (
+                    <UserCreatePost username={username} id={id} />
+                  )
                 ) : (
                   <Navigate to="/" />
                 )
@@ -111,6 +130,20 @@ const App = () => {
               element={
                 isAuthenticated && role === "admin" ? (
                   <AdminPostList username={username} domain={domain} id={id} />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/Home/Dboard"
+              element={
+                isAuthenticated ? (
+                  username === "guest" ? (
+                    <GuestAccessMessage resetAuth={resetAuth} />
+                  ) : (
+                    <UserCreatePost username={username} id={id} />
+                  )
                 ) : (
                   <Navigate to="/" />
                 )
