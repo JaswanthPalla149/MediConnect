@@ -12,7 +12,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/AdminHome/manage-posts">Manage Posts</Nav.Link>
       <Nav.Link as={Link} to="/AdminHome/sections">Manage Sections</Nav.Link>
       <Nav.Link as={Link} to="/AdminHome/upload-quiz">Upload Quiz</Nav.Link>
-      <Nav.Link as={Link} to="AdminHome/view-users">Manage Users</Nav.Link>
+      <Nav.Link as={Link} to="/AdminHome/view-users">Manage Users</Nav.Link>
     </>
   );
 
@@ -26,7 +26,6 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/create-post">Create Post</Nav.Link>
       <Nav.Link as={Link} to="/Home/ChatPage">ChatUs</Nav.Link>
       <Nav.Link as={Link} to="/Home/Dboard">Dashboard</Nav.Link>
-      <Nav.Link as={Link} to="/Home/exercise-videos">Exercise Videos</Nav.Link>
     </>
   );
 
@@ -58,6 +57,22 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
             {role === "admin" ? renderAdminLinks() : renderUserLinks()}
           </Nav>
           <Nav className="ml-auto">
+            {username && (
+              <Nav.Item className="username-item">
+                <span
+                  className="navbar-username"
+                  style={{
+                    color: "white",
+                    marginRight: "15px",
+                    fontFamily: "'Poppins', sans-serif",  // Apply custom font here
+                    fontWeight: "bold",
+                    fontSize: "16px"
+                  }}
+                >
+                  {username}
+                </span>
+              </Nav.Item>
+            )}
             {username && (
               <Nav.Link as={Link} to="#" onClick={handleLogout} className="logout-link">
                 Logout

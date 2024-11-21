@@ -98,7 +98,29 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Error fetching users', error });
     }
 });
+router.get('/admin/users', async (req, res) => {
+    const adminDomain = req.query.domain; // Admin's domain, passed as a query parameter
+    const adminLocation = req.query.location; // Admin's location, passed as a query parameter
 
+    try {
+        // Fetch users based on the admin's domain or location
+        const users = await User.find({
+            $or: [
+                { location: adminDomain },  // Match users in the same domain as the admin
+                { location: adminLocation }  // Match users in the same location as the admin
+            ]
+        }).sort({ wellnessStatus: -1 });  // Sort by wellness status in descending order
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'No users found for this domain/location' });
+        }
+
+        return res.status(200).json(users);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        return res.status(500).json({ message: 'Server error while fetching users' });
+    }
+});
 // GET: Fetch User by ID
 router.get('/:id', async (req, res) => {
     try {

@@ -64,7 +64,7 @@ const AdminHome = () => {
                                     className="adminHome admin-radio"
                                     onChange={() => handleNavigation("/AdminHome/view-users")}
                                 />
-                                <label htmlFor="manageUsers" className="adminHome admin-label">Manage Users</label>
+                                <label htmlFor="viewUsers" className="adminHome admin-label">Manage Users</label>  {/* Correct htmlFor to match the input id */}
                             </div>
                         </div>
                     </section>

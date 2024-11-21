@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { Container, Grid, Card, Typography, Paper } from '@mui/material';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 const url = process.env.REACT_APP_BACKURL;
+
+// Register chart elements
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const AdminUsers = ({ adminDomain }) => {
     const [users, setUsers] = useState([]);
@@ -16,29 +22,27 @@ const AdminUsers = ({ adminDomain }) => {
             console.log('API Response:', result);  // Log the full API response to check its structure
 
             if (response.ok) {
-                // Filter users based on matching domain or location, case-insensitive comparison
-                console.log('Fetching users for domain or location:', adminDomain);
-                const filteredUsers = result.filter(user =>
-                    (user.domain && user.domain.toLowerCase() === adminDomain.toLowerCase()) ||
-                    (user.location && user.location.toLowerCase() === adminDomain.toLowerCase())
-                );
+                let filteredUsers = [];
+
+                if (['engagement', 'happiness', 'mindfulness'].includes(adminDomain.toLowerCase())) {
+                    // Show all users if adminDomain is one of the special domains
+                    filteredUsers = result;
+                } else {
+                    // Filter users based on matching domain or location
+                    console.log('Fetching users for domain or location:', adminDomain);
+                    filteredUsers = result.filter(user =>
+                        (user.domain && user.domain.toLowerCase() === adminDomain.toLowerCase()) ||
+                        (user.location && user.location.toLowerCase() === adminDomain.toLowerCase())
+                    );
+                }
 
                 console.log('Filtered Users:', filteredUsers);  // Log filtered users to check the results
 
                 const sortedUsers = filteredUsers.sort((a, b) => {
-                    // Ensure levels are numbers, default to 0 if undefined or null
+                    // Sorting by wellness level
                     const levelA = a[`${adminDomain}Level`] || 0;
                     const levelB = b[`${adminDomain}Level`] || 0;
-
-                    // Sort by domain-specific level if both users have the same domain
-                    if (a.domain === adminDomain && b.domain === adminDomain) {
-                        return levelA - levelB; // Ascending order of domain level
-                    } else {
-                        // If domains do not match, sort by total wellness level
-                        const totalWellnessA = (a.happinessLevel || 0) + (a.mindfulnessLevel || 0) + (a.engagementLevel || 0);
-                        const totalWellnessB = (b.happinessLevel || 0) + (b.mindfulnessLevel || 0) + (b.engagementLevel || 0);
-                        return totalWellnessA - totalWellnessB; // Ascending order of total wellness level
-                    }
+                    return levelA - levelB;
                 });
 
                 setUsers(sortedUsers);  // Store the sorted users in state
@@ -57,7 +61,7 @@ const AdminUsers = ({ adminDomain }) => {
         if (adminDomain) {
             fetchUsers(adminDomain);
         }
-    }, [adminDomain]);  // Corrected dependency array
+    }, [adminDomain]);
 
     if (loading) {
         return <div>Loading users...</div>;
@@ -67,20 +71,68 @@ const AdminUsers = ({ adminDomain }) => {
         return <div>Error: {error}</div>;
     }
 
+    const getLevelData = (user, adminDomain) => {
+        const level = user[`${adminDomain}Level`] || 0;
+        return (level + 1) * 50;  // Scale the level for visualization (0–100)
+    };
+
     return (
         <div>
-            <h2>Users in {adminDomain}</h2>
+            <h2 style={{ color: 'limegreen' }}>Users in {adminDomain}</h2>
+
             {users.length > 0 ? (
-                <ul>
+                <div>
                     {users.map(user => (
-                        <li key={user._id} style={{ color: '#66b3b7' }}>  {/* Light teal color */}
-                            <p className="light-text">Name: {user.name}</p>
-                            <p className="light-text">Location: {user.location}</p>
-                            <p className="light-text">Phone Number: {user.phoneNumber}</p> {/* Display phone number */}
-                            <p style={{ color: '#66b3b7' }}>Wellness Status: {user.wellnessStatus}</p>
-                        </li>
+                        <Grid container spacing={3} key={user._id}>
+                            <Grid item xs={12} md={6}>
+                                <Card className="dashboard-card">
+                                    <Paper elevation={3} sx={{ padding: 2, textAlign: 'center' }}>
+                                        <Typography variant="h6">{user.name}</Typography>
+
+                                        {/* Bar chart for specific domain level */}
+                                        <Bar
+                                            data={{
+                                                labels: [adminDomain.charAt(0).toUpperCase() + adminDomain.slice(1)],
+                                                datasets: [
+                                                    {
+                                                        label: `${adminDomain.charAt(0).toUpperCase() + adminDomain.slice(1)} Level`,
+                                                        data: [getLevelData(user, adminDomain)],
+                                                        backgroundColor: ['#4caf50'],
+                                                        borderColor: ['#388e3c'],
+                                                        borderWidth: 1,
+                                                    },
+                                                ],
+                                            }}
+                                            options={{
+                                                responsive: true,
+                                                plugins: {
+                                                    title: { display: true, text: `${adminDomain.charAt(0).toUpperCase() + adminDomain.slice(1)} Level` },
+                                                },
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true,
+                                                        max: 100,
+                                                    },
+                                                },
+                                            }}
+                                        />
+                                    </Paper>
+                                </Card>
+                            </Grid>
+
+                            <Grid item xs={12} md={6}>
+                                <Card className="dashboard-card">
+                                    <Paper elevation={3} sx={{ padding: 2, textAlign: 'center' }}>
+                                        <Typography variant="h6">Details</Typography>
+                                        <p className="light-text">Location: {user.location}</p>
+                                        <p className="light-text">Phone Number: {user.phoneNumber}</p>
+                                        <p className="light-text">Wellness Status: {user.wellnessStatus}</p>
+                                    </Paper>
+                                </Card>
+                            </Grid>
+                        </Grid>
                     ))}
-                </ul>
+                </div>
             ) : (
                 <p>No users found for this domain/location.</p>
             )}
