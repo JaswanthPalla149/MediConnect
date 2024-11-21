@@ -51,16 +51,16 @@ const userSchema = new mongoose.Schema({
     ],
 
     happinessLevel: { type: Number, default: 0.0 },
-    mindfulnessLevel: { type: Number, default: 0.0 },
+    mindfullnessLevel: { type: Number, default: 0.0 },
     engagementLevel: { type: Number, default: 0.0 },
-    wellnessStatus: { 
-        type: String, 
-        enum: ['Excellent', 'Good', 'Moderate', 'Needs Attention'], 
-        default: 'Moderate' 
+    wellnessStatus: {
+        type: String,
+        enum: ['Excellent', 'Good', 'Moderate', 'Needs Attention'],
+        default: 'Moderate'
     }
 
 }, { timestamps: true });
 
 const Userm = mongoose.model('User', userSchema);
 
-export { Userm as User}
+export { Userm as User }

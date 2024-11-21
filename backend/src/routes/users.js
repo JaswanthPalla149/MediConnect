@@ -71,7 +71,24 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Error creating User', error });
     }
 });
+// DELETE: Delete a user by ID
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
 
+        // Find the user by ID and delete it
+        const deletedUser = await User.findByIdAndDelete(id);
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Error deleting user', error });
+    }
+});
 // GET: Fetch all users
 router.get('/', async (req, res) => {
     try {
@@ -110,7 +127,7 @@ router.get('/:id', async (req, res) => {
 router.post('/interactions/like', async (req, res) => {
     const { userId, postId } = req.body;
     try {
-        const user = await User.findById(userId);  // Fixed call to `User.findById`
+        const user = await User.findById(userId); // Fixed call to `User.findById`
         const isLiked = user.interactions.likedPosts.some(like => like.postId.toString() === postId);
 
         if (isLiked) {
@@ -142,21 +159,24 @@ router.post('/:username/quiz', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
+        // Check if quizId is a valid ObjectId
+        if (!Types.ObjectId.isValid(quizId)) {
+            return res.status(400).json({ message: 'Invalid quizId' });
+        }
+        const objectId = Types.ObjectId.createFromHexString(quizId);
         // Initialize the `quizScores` array if not already set
         if (!user.quizScores) {
             user.quizScores = [];
         }
 
         // Add the new quiz result to the user's `quizScores` array
-        user.quizScores.push({ quizId, score, timestamp: new Date() });
+        user.quizScores.push({ quizId: objectId, score, timestamp: new Date() });
+        console.log(`user${domain} level : ${domain}level`);
 
         // Update the domain level directly here
         const currentLevel = user[`${domain}Level`] || 0;
-
-        // Define a smoothing factor (alpha) to control how much weight we give to the new quiz score
         const alpha = 0.3;  // Adjust alpha between 0 and 1 for responsiveness
-
+        const sc = score % 1000;
         // Calculate the new level using a weighted moving average
         const newLevel = (1 - alpha) * currentLevel + alpha * score;
 
@@ -172,6 +192,70 @@ router.post('/:username/quiz', async (req, res) => {
     } catch (error) {
         console.error('Error adding quiz result to user:', error);
         res.status(500).json({ message: 'Error adding quiz result to user profile', error });
+    }
+});
+router.post('/:username/set-liked-posts', async (req, res) => {
+    const { username } = req.params;
+    console.log('taking postId');
+    const { postId } = req.body;
+    console.log(`postId : ${postId}`); // Single post ID to like
+
+    try {
+        console.log('after try');
+        // Find the user by username
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        if (!user.interactions) {
+            user.interactions = { likedPosts: [] };
+        }
+
+
+        // Ensure postId is a valid ObjectId
+        if (!Types.ObjectId.isValid(postId)) {
+            return res.status(400).json({ message: 'Invalid postId' });
+        }
+
+        const objectId = Types.ObjectId.createFromHexString(postId);
+        const postExists = user.interactions.likedPosts.some(like => like.postId.toString() === postId);
+
+        if (postExists) {
+            user.interactions.likedPosts = user.interactions.likedPosts.filter(like => like.postId.toString() !== postId);
+        } else {
+            user.interactions.likedPosts.push({ postId: objectId });
+        }
+
+        // Save the user with updated liked posts
+        await user.save();
+
+
+        // Return a success message
+        res.status(200).json({ message: 'Liked post updated successfully' });
+    } catch (error) {
+        console.error('Error updating liked post:', error);
+        res.status(500).json({ message: 'Error updating liked post' });
+    }
+});
+
+// Route to get liked posts for a specific user
+router.get('/:username/liked-posts', async (req, res) => {
+    const { username } = req.params;
+
+    try {
+        // Find the user by username and populate likedPosts references
+        const user = await User.findOne({ username }).populate('interactions.likedPosts.postId');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Return the liked posts (full post details)
+        res.status(200).json({ likedPosts: user.interactions.likedPosts.map(like => like.postId) });
+    } catch (error) {
+        console.error('Error fetching liked posts:', error);
+        res.status(500).json({ message: 'Error fetching liked posts' });
     }
 });
 

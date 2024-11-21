@@ -13,31 +13,42 @@ const PostList = ({ username }) => {
   const [likedPosts, setLikedPosts] = useState([]);
   const [comments, setComments] = useState({});
 
+  const fetchPosts = async () => {
+    console.log('setting posts');
+    try {
+      const res = await axios.get(`${url}/api/posts`);
+      const filteredPosts = res.data.filter((post) => post.domain === domain);
+      setPosts(filteredPosts);
+
+      // Fetch liked posts for the user (assuming backend provides it)
+      const likedRes = await axios.get(`${url}/api/users/${username}/liked-posts`);
+      console.log('likedRes.data.likedPosts:', likedRes.data.likedPosts);
+      setLikedPosts(likedRes.data.likedPosts);
+    } catch (error) {
+      console.error('Error fetching posts or liked posts:', error);
+    }
+  };
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await axios.get(`${url}/api/posts`);
-        const filteredPosts = res.data.filter((post) => post.domain === domain);
-        setPosts(filteredPosts);
-
-        // Fetch liked posts for the user (assuming backend provides it)
-        const likedRes = await axios.get(`${url}/api/users/${username}/liked-posts`);
-        setLikedPosts(likedRes.data.likedPosts || []);
-      } catch (error) {
-        console.error('Error fetching posts or liked posts:', error);
-      }
-    };
-
     fetchPosts();
-  }, [domain, username]);
+  }, [username, domain]);  // Dependencies: When `username` or `domain` changes, this effect runs.
+
+
+  useEffect(() => {
+    console.log('Liked posts after state update:', likedPosts);
+  }, [likedPosts]);  // This will run every time `likedPosts` is updated
+
 
   const handleLikePost = async (postId) => {
     try {
+      console.log(`postId : ${postId}`);
+      console.log(`liked-posts: ${likedPosts}`);
       const isLiked = likedPosts.includes(postId);
+      console.log(`The post liked by you : ${isLiked}`);
 
       if (isLiked) {
         // If already liked, send an unlike request
-        const res = await axios.post(`${url}/api/posts/${postId}/unlike`, { userId: username });
+        const res = await axios.post(`${url}/api/posts/${postId}/unlike`);
+        await axios.post(`${url}/api/users/${username}/set-liked-posts`, { postId: postId });
         setLikedPosts((prevLikedPosts) => prevLikedPosts.filter((id) => id !== postId));
         setPosts((prevPosts) =>
           prevPosts.map((post) =>
@@ -46,7 +57,8 @@ const PostList = ({ username }) => {
         );
       } else {
         // Otherwise, send a like request
-        const res = await axios.post(`${url}/api/posts/${postId}/like`, { userId: username });
+        const res = await axios.post(`${url}/api/posts/${postId}/like`);
+        await axios.post(`${url}/api/users/${username}/set-liked-posts`, { postId: postId });
         setLikedPosts((prevLikedPosts) => [...prevLikedPosts, postId]);
         setPosts((prevPosts) =>
           prevPosts.map((post) =>

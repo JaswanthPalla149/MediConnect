@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import DynamicNavbar from './components/DynamicNavbar'; // Import DynamicNavbar
 import Footer from './components/Footer'; // Import Footer
 import ChatPage from './components/ChatPage';
+import ExerciseVideos from './components/ExerciseVideos';
 import RoleSelection from './components/RoleSelection';
 import LoginForm from './components/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
@@ -136,8 +137,9 @@ const App = () => {
               element={isAuthenticated ? <PostList username={username} id={id} /> : <Navigate to="/" />}
             />
             <Route path="/Home/sections" element={isAuthenticated ? <Sections /> : <Navigate to="/" />} />
-            <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList /> : <Navigate to="/" />} />
+            <Route path="/Home/quizzes" element={isAuthenticated ? <QuizList username={username} /> : <Navigate to="/" />} />
             <Route path="/Home/YogaPage" element={isAuthenticated ? <YogaPage /> : <Navigate to="/" />} />
+            <Route path="/Home/exercise-videos" element={isAuthenticated ? <ExerciseVideos /> : <Navigate to="/" />} />
             <Route path="/Home/chatbot" element={isAuthenticated ? <Chatbot /> : <Navigate to="/" />} />
             <Route
               path="/Home/create-post"

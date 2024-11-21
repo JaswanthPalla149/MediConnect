@@ -25,6 +25,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/Home/create-post">Create Post</Nav.Link>
       <Nav.Link as={Link} to="/Home/ChatPage">ChatUs</Nav.Link>
       <Nav.Link as={Link} to="/Home/Dboard">Dashboard</Nav.Link>
+      <Nav.Link as={Link} to="/Home/exercise-videos">Exercise Videos</Nav.Link>
     </>
   );
 

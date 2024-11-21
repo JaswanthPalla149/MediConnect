@@ -14,11 +14,11 @@ const Dboard = ({ username, id }) => {
   const [wellnessStatus, setWellnessStatus] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const calculateWellnessStatus = (mindfulness, engagement, happiness) => {
-    const mindfulnessScaled = (mindfulness + 1) * 50;
+  const calculateWellnessStatus = (mindfullness, engagement, happiness) => {
+    const mindfullnessScaled = (mindfullness + 1) * 50;
     const engagementScaled = (engagement + 1) * 50;
     const happinessScaled = (happiness + 1) * 50;
-    const average = (mindfulnessScaled + engagementScaled + happinessScaled) / 3;
+    const average = (mindfullnessScaled + engagementScaled + happinessScaled) / 3;
 
     if (average >= 80) return 'Excellent';
     if (average >= 60) return 'Good';
@@ -33,8 +33,8 @@ const Dboard = ({ username, id }) => {
         const data = response.data;
 
         setUserData(data);
-        const { mindfulnessLevel, engagementLevel, happinessLevel } = data;
-        setWellnessStatus(calculateWellnessStatus(mindfulnessLevel, engagementLevel, happinessLevel));
+        const { mindfullnessLevel, engagementLevel, happinessLevel } = data;
+        setWellnessStatus(calculateWellnessStatus(mindfullnessLevel, engagementLevel, happinessLevel));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -48,21 +48,21 @@ const Dboard = ({ username, id }) => {
   if (loading) return <div>Loading...</div>;
   if (!userData) return <div>No user data found</div>;
 
-  const { mindfulnessLevel, engagementLevel, happinessLevel, interactions } = userData;
+  const { mindfullnessLevel, engagementLevel, happinessLevel, interactions } = userData;
   const { comments, likedPosts } = interactions;
 
   // Scale domain levels for display
-  const mindfulnessScaled = (mindfulnessLevel + 1) * 50;
+  const mindfullnessScaled = (mindfullnessLevel + 1) * 50;
   const engagementScaled = (engagementLevel + 1) * 50;
   const happinessScaled = (happinessLevel + 1) * 50;
 
   // Bar chart data with scaled levels
   const barData = {
-    labels: ['Mindfulness', 'Engagement', 'Happiness'],
+    labels: ['mindfullness', 'Engagement', 'Happiness'],
     datasets: [
       {
         label: 'Levels (0–100)',
-        data: [mindfulnessScaled, engagementScaled, happinessScaled],
+        data: [mindfullnessScaled, engagementScaled, happinessScaled],
         backgroundColor: ['#4caf50', '#2196f3', '#ff9800'],
         borderColor: ['#388e3c', '#1976d2', '#f57c00'],
         borderWidth: 1,
@@ -104,7 +104,7 @@ const Dboard = ({ username, id }) => {
                 options={{
                   responsive: true,
                   plugins: {
-                    title: { display: true, text: 'Mindfulness, Engagement & Happiness Levels' },
+                    title: { display: true, text: 'mindfullness, Engagement & Happiness Levels' },
                   },
                   scales: {
                     y: {

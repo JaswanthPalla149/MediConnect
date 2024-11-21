@@ -1,10 +1,14 @@
+import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './QuizList.css';
 
 const url = process.env.REACT_APP_BACKURL;
 
-const QuizList = () => {
+const QuizList = ({ username }) => {
+    console.log('Props received in QuizList:', { username });
+
     const [quizzes, setQuizzes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,6 +24,10 @@ const QuizList = () => {
             const response = await fetch(`${url}/api/quizzes`);
             if (!response.ok) throw new Error('Failed to fetch quizzes');
             const data = await response.json();
+            // Print the domain of each quiz
+            data.forEach((quiz) => {
+                console.log(`Quiz ID: ${quiz._id}, Domain: ${quiz.domain}`);
+            });
             setQuizzes(data);
         } catch (err) {
             setError(err.message);
@@ -47,12 +55,12 @@ const QuizList = () => {
 
         let totalPoints = 0;
 
-
-        const quiz = quizzes.find((q) => q.quizId === quizId);
+        // Find the quiz by quizId
+        const quiz = quizzes.find((q) => q.quizId === quizId || q._id === quizId);
         const domain = quiz.domain;
         quiz.questions.forEach((question, questionIndex) => {
             const questionKey = `${quizId}-${questionIndex}`;
-            const selectedOption = selectedOptions[questionKey]; // Get the selected option for the question
+            const selectedOption = selectedOptions[questionKey];
 
             if (selectedOption) {
                 const optionDetails = question.options.find((opt) => opt.text === selectedOption);
@@ -61,12 +69,15 @@ const QuizList = () => {
                 }
             }
         });
-        // Make a POST request to submit the quiz score to the server
+
+        // Use _id for backend calls
         try {
+            console.log('Submitting quiz!!');
+            console.log(`quizId: ${quiz._id}`);
             await axios.post(`${url}/api/users/${username}/quiz`, {
-                quizId,
+                quizId: quiz._id, // Use the _id for backend calls
                 score: totalPoints,
-                domain
+                domain,
             });
 
             console.log('Quiz score submitted successfully');
@@ -77,7 +88,6 @@ const QuizList = () => {
         setPoints((prev) => ({ ...prev, [quizId]: totalPoints })); // Set total points for the quiz
         setIsSubmitted((prev) => ({ ...prev, [quizId]: true })); // Mark the quiz as submitted
         setQuizSubmitted((prev) => ({ ...prev, [quizId]: true })); // Mark quiz as closed
-
     };
 
     // Function to move to the next question
@@ -90,13 +100,12 @@ const QuizList = () => {
 
     // Check if all questions are answered for a given quiz
     const isQuizCompleted = (quizId) => {
-        const quiz = quizzes.find((q) => q.quizId === quizId);
+        const quiz = quizzes.find((q) => q.quizId === quizId || q._id === quizId);
         return quiz.questions.every((question, index) => {
             const questionKey = `${quizId}-${index}`;
             return selectedOptions[questionKey] !== undefined;
         });
     };
-
     // If data is loading, show loading message
     if (loading) return <p>Loading quizzes...</p>;
 

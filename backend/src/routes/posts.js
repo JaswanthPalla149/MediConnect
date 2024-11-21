@@ -82,6 +82,7 @@ router.post('/:id/like', async (req, res) => {
 
         // Check if the ID is valid
         if (!Types.ObjectId.isValid(id)) {
+            console.log('Invaild PostId format');
             return res.status(400).json({ message: 'Invalid post ID format' });
         }
 
@@ -107,6 +108,7 @@ router.post('/:id/unlike', async (req, res) => {
         const { id } = req.params;
 
         if (!Types.ObjectId.isValid(id)) {
+            console.log('Invaild PostId format');
             return res.status(400).json({ message: 'Invalid post ID format' });
         }
 

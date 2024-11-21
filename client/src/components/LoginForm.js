@@ -10,13 +10,13 @@ const LoginForm = ({ role, onLogin }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         const loginData = role === 'admin'
             ? { adminId: username, password }
             : { username, password };
 
         console.log('Login Data:', loginData);
-        
+
         // Call the onLogin function and handle the error
         onLogin(username, password).catch((err) => {
             setError(err.message || 'Login failed. Please try again.'); // Update the error state
@@ -25,11 +25,11 @@ const LoginForm = ({ role, onLogin }) => {
 
     return (
         <Form onSubmit={handleSubmit} className="login-form">
-            <h3>{role === 'admin' ? 'Admin Login' : 'User Login'}</h3>
+            <h3>{'Login'}</h3>
             {error && <Alert variant="danger">{error}</Alert>} {/* Display error message */}
 
             <Form.Group controlId="loginUsername" className="mb-3">
-                <Form.Label>{role === 'admin' ? 'Admin ID' : 'Username'}</Form.Label>
+                <Form.Label>{role === 'user' ? 'Username' : 'Admin Id'}</Form.Label>
                 <InputGroup>
                     <InputGroup.Text>
                         <FaUser />
@@ -51,15 +51,15 @@ const LoginForm = ({ role, onLogin }) => {
                     <InputGroup.Text>
                         <FaLock />
                     </InputGroup.Text>
-                    <Form.Control 
-                        type={showPassword ? "text" : "password"} 
-                        placeholder="Password" 
+                    <Form.Control
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required 
+                        required
                         aria-label="Password" // Accessibility improvement
                     />
-                    <Button 
+                    <Button
                         variant="outline-secondary"
                         onClick={() => setShowPassword(!showPassword)}
                         aria-label={showPassword ? "Hide password" : "Show password"} // Accessibility improvement
