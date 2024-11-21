@@ -12,6 +12,7 @@ import Home from './components/Home';
 import DomainSelection from './components/DomainSelection';
 import Sections from './components/Sections';
 import AdminPostList from './components/AdminPostList';
+import AdminUsers from './components/AdminUsers';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import QuizDetails from './components/QuizDetails';
@@ -98,6 +99,20 @@ const App = () => {
               }
             />
             <Route
+              path="/AdminHome/view-users"
+              element={
+                isAuthenticated ? (
+                  <AdminUsers
+                    adminDomain={domain}
+                    resetAuth={resetAuth}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
+
+            <Route
               path="/Home/create-post"
               element={
                 isAuthenticated ? (
@@ -118,7 +133,7 @@ const App = () => {
                   username === "guest" ? (
                     <GuestAccessMessage resetAuth={resetAuth} />
                   ) : (
-                    <UserCreatePost username={username} id={id} />
+                    <ChatPage username={username} id={id} />
                   )
                 ) : (
                   <Navigate to="/" />
@@ -142,7 +157,7 @@ const App = () => {
                   username === "guest" ? (
                     <GuestAccessMessage resetAuth={resetAuth} />
                   ) : (
-                    <UserCreatePost username={username} id={id} />
+                    <Dboard username={username} id={id} />
                   )
                 ) : (
                   <Navigate to="/" />

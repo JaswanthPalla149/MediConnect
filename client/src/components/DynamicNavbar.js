@@ -12,6 +12,7 @@ const DynamicNavbar = ({ role, username, resetAuth }) => {
       <Nav.Link as={Link} to="/AdminHome/manage-posts">Manage Posts</Nav.Link>
       <Nav.Link as={Link} to="/AdminHome/sections">Manage Sections</Nav.Link>
       <Nav.Link as={Link} to="/AdminHome/upload-quiz">Upload Quiz</Nav.Link>
+      <Nav.Link as={Link} to="AdminHome/view-users">Manage Users</Nav.Link>
     </>
   );
 

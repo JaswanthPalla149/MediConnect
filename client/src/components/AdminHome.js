@@ -57,6 +57,14 @@ const AdminHome = () => {
                                     onChange={() => handleNavigation("/AdminHome/upload-quiz")}
                                 />
                                 <label htmlFor="uploadQuiz" className="adminHome admin-label">Upload Quiz</label>
+                                <input
+                                    type="radio"
+                                    name="adminOption"
+                                    id="viewUsers"
+                                    className="adminHome admin-radio"
+                                    onChange={() => handleNavigation("/AdminHome/view-users")}
+                                />
+                                <label htmlFor="manageUsers" className="adminHome admin-label">Manage Users</label>
                             </div>
                         </div>
                     </section>

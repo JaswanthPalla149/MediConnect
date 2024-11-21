@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button, InputGroup, Row, Col, Alert } from 'react-bootstrap';
-import { FaUser, FaEnvelope, FaPhone, FaLock, FaMapMarkerAlt, FaUserCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPhone, FaLock, FaUserCircle, FaEye, FaEyeSlash, FaMapMarkerAlt } from 'react-icons/fa';
 import './RegistrationForm.css';
+
 const url = process.env.REACT_APP_BACKURL;
+
 const RegistrationForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -16,6 +18,8 @@ const RegistrationForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    const locations = ["nlr", "Tirupati", "Vizianagaram", "hyderabad", "Guntur"];
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -28,7 +32,7 @@ const RegistrationForm = () => {
         try {
             const response = await fetch(`${url}/api/users/register`, {
                 method: 'POST',
-                headers: { 
+                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
@@ -158,7 +162,7 @@ const RegistrationForm = () => {
                         onChange={handleChange}
                         required
                     />
-                    <Button 
+                    <Button
                         variant="outline-secondary"
                         onClick={() => setShowPassword(!showPassword)}
                     >
@@ -172,14 +176,19 @@ const RegistrationForm = () => {
                     <InputGroup.Text>
                         <FaMapMarkerAlt />
                     </InputGroup.Text>
-                    <Form.Control
-                        type="text"
+                    <Form.Select
                         name="location"
-                        placeholder="Location"
                         value={formData.location}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        <option value="">Select Location</option>
+                        {locations.map((loc) => (
+                            <option key={loc} value={loc}>
+                                {loc}
+                            </option>
+                        ))}
+                    </Form.Select>
                 </InputGroup>
             </Form.Group>
 
